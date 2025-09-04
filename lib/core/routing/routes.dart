@@ -5,4 +5,5 @@ class Routes {
   static const String heightAndWeightScreen = '/heightAndWeight';
   static const String workoutFrequencyScreen = '/workoutFrequency';
   static const String goalPlanScreen = '/goalPlan';
+  static const String weightPickerScreen = '/weightPicker';
 }

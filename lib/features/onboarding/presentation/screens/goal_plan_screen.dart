@@ -81,5 +81,6 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
     if (selectedGoal == null) return;
 
     HapticFeedback.lightImpact();
+    context.pushNamed(Routes.weightPickerScreen);
   }
 }
