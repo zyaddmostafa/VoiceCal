@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'features/onboarding/presentation/screens/welcome_screen.dart';
 
 class VoiceCalApp extends StatelessWidget {
   const VoiceCalApp({super.key});
@@ -11,10 +12,13 @@ class VoiceCalApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(title: const Text('VoiceCal')),
-          body: const Center(child: Text('Welcome to VoiceCal!')),
+        title: 'VoiceCal',
+        theme: ThemeData(
+          fontFamily: 'SF Pro Text', // iOS font family
+          useMaterial3: true,
         ),
+        home: const WelcomeScreen(),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
