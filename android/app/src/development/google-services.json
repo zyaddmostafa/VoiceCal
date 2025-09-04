@@ -1,0 +1,29 @@
+{
+    "project_info": {
+        "project_number": "411466399036",
+        "project_id": "voice-cal-a63f4",
+        "storage_bucket": "voice-cal-a63f4.firebasestorage.app"
+    },
+    "client": [
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:411466399036:android:29839acbf9fd8799ba3239",
+                "android_client_info": {
+                    "package_name": "com.example.voicecal.dev"
+                }
+            },
+            "oauth_client": [],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyD6E3YEWsClhlyTaPxUrTqfqzbLtudA4aI"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": []
+                }
+            }
+        }
+    ],
+    "configuration_version": "1"
+}
