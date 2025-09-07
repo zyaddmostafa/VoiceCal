@@ -118,6 +118,6 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
 
   void _handleContinue() {
     HapticFeedback.lightImpact();
-    context.pushNamed(Routes.workoutFrequencyScreen);
+    context.pushNamed(Routes.ageSelectionScreen);
   }
 }

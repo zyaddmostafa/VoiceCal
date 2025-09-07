@@ -82,7 +82,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
 
   void _handleContinue() {
     if (selectedGender == null) return;
-    context.pushNamed(Routes.heightAndWeightScreen);
     HapticFeedback.lightImpact();
+    context.pushNamed(Routes.heightAndWeightScreen);
   }
 }
