@@ -12,7 +12,7 @@ class GoalIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Goal: $goalType',
+      goalType,
       style: TextStyle(
         fontSize: 17.sp,
         color: AppColors.textSecondary,

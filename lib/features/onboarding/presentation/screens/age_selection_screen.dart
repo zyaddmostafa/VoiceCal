@@ -72,7 +72,7 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
 
   void _handleContinue() {
     HapticFeedback.lightImpact();
-    context.pushNamed(Routes.goalSpeedScreen);
+    context.pushNamed(Routes.weightPickerScreen);
     // final age = DateTime.now().year - selectedDate.year;
     // print('Selected birth date: $selectedDate (Age: $age)');
   }

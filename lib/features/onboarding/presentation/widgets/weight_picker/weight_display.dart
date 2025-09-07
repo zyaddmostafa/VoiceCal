@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Display widget for selected weight with unit
 class WeightDisplay extends StatelessWidget {
-  final int weight;
+  final double weight;
   final String unit;
 
   const WeightDisplay({super.key, required this.weight, required this.unit});
@@ -17,13 +17,13 @@ class WeightDisplay extends StatelessWidget {
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             child: Text(
-              '$weight',
+              '${weight.toStringAsFixed(1)}',
               key: ValueKey(weight),
               style: TextStyle(
-                fontSize: 48.sp,
+                fontSize: 44.sp,
                 fontWeight: FontWeight.w700,
-                color: const Color(0xFF007AFF),
-                letterSpacing: -1.0,
+                color: const Color(0xFF1D1D1F),
+                letterSpacing: -0.5,
               ),
             ),
           ),
@@ -33,7 +33,7 @@ class WeightDisplay extends StatelessWidget {
             style: TextStyle(
               fontSize: 20.sp,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF86868B),
+              color: const Color(0xFF1D1D1F),
             ),
           ),
         ],

@@ -4,6 +4,8 @@ import '../../features/onboarding/presentation/screens/gender_selection_screen.d
 import '../../features/onboarding/presentation/screens/goal_plan_screen.dart';
 import '../../features/onboarding/presentation/screens/goal_speed_screen.dart';
 import '../../features/onboarding/presentation/screens/height_and_weight_screen.dart';
+import '../../features/onboarding/presentation/screens/recommended_daily_cal_and_macros_screen.dart';
+import '../../features/onboarding/presentation/screens/edit_goal_screen.dart';
 import '../../features/onboarding/presentation/screens/rollover_extra_cal_screen.dart';
 import '../../features/onboarding/presentation/screens/weight_picker_screen.dart';
 import '../../features/onboarding/presentation/screens/welcome_screen.dart';
@@ -44,6 +46,12 @@ class AppRouter {
         return CupertinoPageRoute(
           builder: (_) => const RolloverExtraCalScreen(),
         );
+      case Routes.recommendedDailyCalAndMacrosScreen:
+        return CupertinoPageRoute(
+          builder: (_) => const RecommendedDailyCalAndMacrosScreen(),
+        );
+      case Routes.editGoalScreen:
+        return CupertinoPageRoute(builder: (_) => const EditGoalScreen());
       default:
         return null;
     }

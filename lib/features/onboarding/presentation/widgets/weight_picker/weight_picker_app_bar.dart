@@ -7,7 +7,8 @@ import '../../../../../core/theme/app_colors.dart';
 /// Custom app bar for weight picker screen
 class WeightPickerAppBar extends StatelessWidget
     implements PreferredSizeWidget {
-  const WeightPickerAppBar({super.key});
+  final double progress; // 0..1
+  const WeightPickerAppBar({super.key, this.progress = 0.25});
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +26,26 @@ class WeightPickerAppBar extends StatelessWidget
           Navigator.pop(context);
         },
       ),
-      title: Container(
-        width: 100.w,
-        height: 4.h,
-        decoration: BoxDecoration(
-          color: AppColors.divider,
-          borderRadius: BorderRadius.circular(2.r),
-        ),
+      title: LayoutBuilder(
+        builder: (context, constraints) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(2.r),
+            child: Stack(
+              children: [
+                Container(
+                  width: 120.w,
+                  height: 4.h,
+                  color: AppColors.divider.withValues(alpha: 0.5),
+                ),
+                Container(
+                  width: (120.w * progress.clamp(0.0, 1.0)),
+                  height: 4.h,
+                  color: AppColors.textPrimary,
+                ),
+              ],
+            ),
+          );
+        },
       ),
       centerTitle: true,
       systemOverlayStyle: SystemUiOverlayStyle.dark,

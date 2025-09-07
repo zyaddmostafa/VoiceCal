@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/helpers/extention.dart';
+import '../../../../core/routing/routes.dart';
 import '../../../../core/widgets/continue_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
 import '../widgets/weight_picker/goal_indicator.dart';
@@ -18,10 +20,10 @@ class WeightPickerScreen extends StatefulWidget {
 }
 
 class _WeightPickerScreenState extends State<WeightPickerScreen> {
-  int selectedWeight = 70; // Default goal weight
-  final int minWeight = 40;
-  final int maxWeight = 150;
-  final String unit = 'kg';
+  double selectedWeight = 105.0; // Default goal weight
+  final double minWeight = 60.0;
+  final double maxWeight = 350.0;
+  final String unit = 'lbs';
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class _WeightPickerScreenState extends State<WeightPickerScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const WeightPickerAppBar(),
+      appBar: const WeightPickerAppBar(progress: 0.3),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -38,8 +40,8 @@ class _WeightPickerScreenState extends State<WeightPickerScreen> {
             children: [
               spacing20,
               const OnboardingHeader(
-                title: 'What\'s your goal weight?',
-                subtitle: 'Set a realistic target that works for you.',
+                title: 'What is your desired weight?',
+                subtitle: '',
               ),
               spacing40,
               const GoalIndicator(goalType: 'Lose weight'),
@@ -67,7 +69,7 @@ class _WeightPickerScreenState extends State<WeightPickerScreen> {
 
   void _onWeightChanged(int weight) {
     setState(() {
-      selectedWeight = weight;
+      selectedWeight = weight.toDouble();
     });
   }
 
@@ -77,6 +79,6 @@ class _WeightPickerScreenState extends State<WeightPickerScreen> {
     // print('Selected goal weight: $selectedWeight $unit');
 
     // Navigate to next screen
-    // context.pushNamed(Routes.nextScreen);
+    context.pushNamed(Routes.goalSpeedScreen);
   }
 }

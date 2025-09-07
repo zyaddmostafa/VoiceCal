@@ -6,9 +6,9 @@ import '../../../../../core/theme/app_colors.dart';
 
 /// Horizontal weight picker with ruler-style scrolling
 class HorizontalWeightPicker extends StatefulWidget {
-  final int initialWeight;
-  final int minWeight;
-  final int maxWeight;
+  final double initialWeight;
+  final double minWeight;
+  final double maxWeight;
   final String unit;
   final ValueChanged<int> onWeightChanged;
 
@@ -27,7 +27,7 @@ class HorizontalWeightPicker extends StatefulWidget {
 
 class _HorizontalWeightPickerState extends State<HorizontalWeightPicker> {
   late ScrollController _scrollController;
-  late int _selectedWeight;
+  late double _selectedWeight;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _HorizontalWeightPickerState extends State<HorizontalWeightPicker> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Position scroll to center the initial weight
       final position =
-          (_selectedWeight - widget.minWeight) * 10.0; // 10 pixels per kg
+          (_selectedWeight - widget.minWeight) * 10.0; // 10 px per 1 unit
       _scrollController.jumpTo(position);
     });
 
@@ -54,12 +54,12 @@ class _HorizontalWeightPickerState extends State<HorizontalWeightPicker> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final rulerHeight = 60.h;
+    final rulerHeight = 90.h;
     final markSpacing = 10.w;
 
     return Container(
-      height: 80.h,
-      margin: EdgeInsets.symmetric(horizontal: 24.w),
+      height: 120.h,
+      margin: EdgeInsets.symmetric(horizontal: 0.w),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -79,18 +79,18 @@ class _HorizontalWeightPickerState extends State<HorizontalWeightPicker> {
               onNotification: (ScrollNotification notification) {
                 if (notification is ScrollUpdateNotification) {
                   final offset = _scrollController.offset;
-                  final newWeight =
-                      widget.minWeight +
-                      (offset / 10).round(); // 10 pixels per kg
+                  final newWeight = widget.minWeight + (offset / 10);
 
                   if (newWeight != _selectedWeight &&
                       newWeight >= widget.minWeight &&
                       newWeight <= widget.maxWeight) {
                     setState(() {
-                      _selectedWeight = newWeight;
+                      _selectedWeight = double.parse(
+                        newWeight.toStringAsFixed(1),
+                      );
                     });
                     HapticFeedback.lightImpact();
-                    widget.onWeightChanged(newWeight);
+                    widget.onWeightChanged(_selectedWeight.round());
                   }
                 }
                 return true;
@@ -101,33 +101,32 @@ class _HorizontalWeightPickerState extends State<HorizontalWeightPicker> {
                 physics: const ClampingScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: screenWidth / 2 - 1),
                 itemCount:
-                    (widget.maxWeight - widget.minWeight) * 10 +
-                    1, // 0.1 kg increments
+                    ((widget.maxWeight - widget.minWeight) * 10).toInt() + 1,
                 itemBuilder: (context, index) {
                   final weight = widget.minWeight + (index * 0.1);
-                  final isMainMark = weight % 5 == 0; // Every 5 kg
-                  final isSubMark = weight % 1 == 0; // Every 1 kg
+                  final isMainMark = (weight * 10) % 50 == 0; // every 5
+                  final isSubMark = (weight * 10) % 10 == 0; // every 1
 
                   final double markHeight;
                   final double markWidth;
                   final Color markColor;
 
                   if (isMainMark) {
-                    markHeight = 30.h;
+                    markHeight = 36.h;
                     markWidth = 2.w;
-                    markColor = AppColors.textSecondary;
+                    markColor = AppColors.textPrimary;
                   } else if (isSubMark) {
-                    markHeight = 20.h;
+                    markHeight = 24.h;
                     markWidth = 1.5.w;
                     markColor = AppColors.divider;
                   } else {
-                    markHeight = 12.h;
+                    markHeight = 14.h;
                     markWidth = 1.w;
                     markColor = AppColors.divider.withValues(alpha: 0.6);
                   }
 
                   return SizedBox(
-                    width: markSpacing, // 10 pixels spacing
+                    width: markSpacing, // 10 px spacing
                     height: rulerHeight,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -148,12 +147,12 @@ class _HorizontalWeightPickerState extends State<HorizontalWeightPicker> {
             ),
           ),
 
-          // Center red indicator line
+          // Center indicator line
           Container(
             width: 3.w,
-            height: 50.h,
+            height: 70.h,
             decoration: BoxDecoration(
-              color: AppColors.primaryBlue,
+              color: AppColors.textPrimary,
               borderRadius: BorderRadius.circular(1.5.r),
             ),
           ),
