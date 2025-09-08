@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/theme/app_colors.dart';
+
 /// Reusable gender selection card widget with iOS-style animation
 class GenderCard extends StatefulWidget {
   final String gender;
@@ -61,14 +63,14 @@ class _GenderCardState extends State<GenderCard>
           borderRadius: cardBorderRadius,
           border: Border.all(
             color: widget.isSelected
-                ? const Color(0xFF007AFF)
+                ? AppColors.primaryBlack
                 : const Color(0xFFE5E5E7),
             width: widget.isSelected ? 2 : 1,
           ),
           boxShadow: [
             BoxShadow(
               color: widget.isSelected
-                  ? const Color(0xFF007AFF).withOpacity(0.1)
+                  ? AppColors.primaryBlack.withOpacity(0.1)
                   : Colors.black.withOpacity(0.05),
               blurRadius: widget.isSelected ? 15 : 8,
               offset: const Offset(0, 4),
@@ -96,7 +98,7 @@ class _GenderCardState extends State<GenderCard>
                     height: 48.h,
                     decoration: BoxDecoration(
                       color: widget.isSelected
-                          ? const Color(0xFF007AFF)
+                          ? AppColors.primaryBlack
                           : const Color(0xFFF2F2F7),
                       borderRadius: BorderRadius.circular(12.r),
                     ),
@@ -115,7 +117,7 @@ class _GenderCardState extends State<GenderCard>
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       color: widget.isSelected
-                          ? const Color(0xFF007AFF)
+                          ? AppColors.primaryBlack
                           : const Color(0xFF1D1D1F),
                       letterSpacing: -0.3,
                     ),
@@ -124,7 +126,7 @@ class _GenderCardState extends State<GenderCard>
                   if (widget.isSelected)
                     Icon(
                       Icons.check_circle_rounded,
-                      color: const Color(0xFF007AFF),
+                      color: AppColors.primaryBlack,
                       size: iconSize,
                     ),
                 ],

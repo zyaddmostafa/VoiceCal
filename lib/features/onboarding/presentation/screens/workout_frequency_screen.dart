@@ -5,9 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
-import '../../../../core/widgets/continue_button.dart';
+import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
+import '../widgets/onboarding_progress_header.dart';
 import '../widgets/workout_frequency/activity_level_card.dart';
 import '../widgets/workout_frequency/activity_level_data.dart';
 
@@ -30,7 +32,8 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
           padding: EdgeInsets.symmetric(horizontal: 32.w),
           child: Column(
             children: [
-              SizedBox(height: 60.h),
+              const OnboardingProgressHeader(progress: 5 / 10),
+              verticalSpace(40),
 
               // Title and subtitle
               const OnboardingHeader(
@@ -59,7 +62,7 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
               ),
 
               // Continue button
-              ContinueButton(
+              CustomAppButton(
                 isEnabled: selectedActivityLevel != null,
                 onPressed: _handleContinue,
               ),

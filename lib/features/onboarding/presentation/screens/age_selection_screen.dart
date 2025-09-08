@@ -3,12 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widgets/continue_button.dart';
+import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
 import '../widgets/age_selection/age_selection_app_bar.dart';
 import '../widgets/age_selection/birth_date_picker.dart';
+import '../widgets/onboarding_progress_header.dart';
 
 /// Screen for selecting birth date and age
 class AgeSelectionScreen extends StatefulWidget {
@@ -36,13 +38,13 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundPrimary,
-      appBar: const AgeSelectionAppBar(),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             children: [
-              SizedBox(height: 20.h),
+              const OnboardingProgressHeader(progress: 3 / 10),
+              verticalSpace(40),
               const OnboardingHeader(
                 title: 'When were you born?',
                 subtitle: 'This will be used to calibrate your custom plan.',
@@ -61,7 +63,7 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
                 ),
               ),
               spacing40,
-              ContinueButton(onPressed: _handleContinue),
+              CustomAppButton(onPressed: _handleContinue),
               spacing32,
             ],
           ),
@@ -72,7 +74,7 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
 
   void _handleContinue() {
     HapticFeedback.lightImpact();
-    context.pushNamed(Routes.weightPickerScreen);
+    context.pushNamed(Routes.workoutFrequencyScreen);
     // final age = DateTime.now().year - selectedDate.year;
     // print('Selected birth date: $selectedDate (Age: $age)');
   }

@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/routing/routes.dart';
-import '../../../../core/widgets/continue_button.dart';
+import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
 import '../widgets/goal_plan/goal_card.dart';
 import '../widgets/goal_plan/goal_plan_data.dart';
+import '../widgets/onboarding_progress_header.dart';
 
 class GoalPlanScreen extends StatefulWidget {
   const GoalPlanScreen({super.key});
@@ -30,8 +31,8 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
           padding: EdgeInsets.symmetric(horizontal: 32.w),
           child: Column(
             children: [
-              spacing60,
-
+              const OnboardingProgressHeader(progress: 6 / 10),
+              SizedBox(height: 40.h),
               // Title and subtitle
               const OnboardingHeader(
                 title: 'What\'s your goal?',
@@ -57,7 +58,7 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
               ),
 
               // Continue button
-              ContinueButton(
+              CustomAppButton(
                 isEnabled: selectedGoal != null,
                 onPressed: _handleContinue,
               ),
@@ -81,6 +82,6 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
     if (selectedGoal == null) return;
 
     HapticFeedback.lightImpact();
-    context.pushNamed(Routes.weightPickerScreen);
+    context.pushNamed(Routes.desiredWeightScreen, arguments: selectedGoal);
   }
 }

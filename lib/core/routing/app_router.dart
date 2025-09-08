@@ -7,9 +7,10 @@ import '../../features/onboarding/presentation/screens/height_and_weight_screen.
 import '../../features/onboarding/presentation/screens/recommended_daily_cal_and_macros_screen.dart';
 import '../../features/onboarding/presentation/screens/edit_goal_screen.dart';
 import '../../features/onboarding/presentation/screens/rollover_extra_cal_screen.dart';
-import '../../features/onboarding/presentation/screens/weight_picker_screen.dart';
+import '../../features/onboarding/presentation/screens/desired_weight_screen.dart';
 import '../../features/onboarding/presentation/screens/welcome_screen.dart';
 import '../../features/onboarding/presentation/screens/workout_frequency_screen.dart';
+import '../../features/onboarding/presentation/widgets/edit_goal/edit_goal_args.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -36,8 +37,12 @@ class AppRouter {
       case Routes.goalPlanScreen:
         return CupertinoPageRoute(builder: (_) => const GoalPlanScreen());
 
-      case Routes.weightPickerScreen:
-        return CupertinoPageRoute(builder: (_) => const WeightPickerScreen());
+      case Routes.desiredWeightScreen:
+        final goal = arguments as String?;
+
+        return CupertinoPageRoute(
+          builder: (_) => DesiredWeightScreen(goal: goal!),
+        );
       case Routes.ageSelectionScreen:
         return CupertinoPageRoute(builder: (_) => const AgeSelectionScreen());
       case Routes.goalSpeedScreen:
@@ -51,7 +56,12 @@ class AppRouter {
           builder: (_) => const RecommendedDailyCalAndMacrosScreen(),
         );
       case Routes.editGoalScreen:
-        return CupertinoPageRoute(builder: (_) => const EditGoalScreen());
+        final editRecommendedPlan = arguments as EditGoalArgs?;
+
+        return CupertinoPageRoute(
+          builder: (_) =>
+              EditGoalScreen(editRecommendedPlan: editRecommendedPlan),
+        );
       default:
         return null;
     }

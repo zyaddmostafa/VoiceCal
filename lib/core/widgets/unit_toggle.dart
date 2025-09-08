@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../theme/app_colors.dart';
+
 /// Reusable unit toggle widget for switching between metric and imperial units
 class UnitToggle extends StatelessWidget {
   final bool isMetric;
@@ -72,7 +74,7 @@ class _ToggleOption extends StatelessWidget {
             fontSize: 15.sp,
             fontWeight: FontWeight.w500,
             color: isSelected
-                ? const Color(0xFF007AFF)
+                ? AppColors.primaryBlack
                 : const Color(0xFF8E8E93),
           ),
         ),

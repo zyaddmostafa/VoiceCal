@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 class GoalPlanData {
   static const List<Map<String, dynamic>> goals = [
     {
-      'id': 'lose_weight',
+      'id': 'Lose Weight',
       'icon': Icons.local_fire_department_outlined,
       'title': 'Lose Weight',
       'description': 'Burn fat and slim down.',
     },
     {
-      'id': 'maintain_weight',
+      'id': 'Maintain Weight',
       'icon': Icons.favorite_outline,
       'title': 'Maintain Weight',
       'description': 'Stay fit and healthy.',
     },
     {
-      'id': 'gain_weight',
+      'id': 'Gain Weight',
       'icon': Icons.fitness_center_outlined,
       'title': 'Gain Weight',
       'description': 'Build muscle and strength.',

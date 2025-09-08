@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
-import '../../../../core/widgets/continue_button.dart';
+import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
 import '../widgets/gender_selection/gender_card.dart';
+import '../widgets/onboarding_progress_header.dart';
 
 class GenderSelectionScreen extends StatefulWidget {
   const GenderSelectionScreen({super.key});
@@ -24,12 +26,12 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             children: [
-              SizedBox(height: 60.h),
+              const OnboardingProgressHeader(progress: 1 / 10),
+              verticalSpace(60),
 
-              // Title and subtitle
               const OnboardingHeader(
                 title: 'Tell us about you',
                 subtitle:
@@ -60,7 +62,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
               const Spacer(),
 
               // Continue button
-              ContinueButton(
+              CustomAppButton(
                 isEnabled: selectedGender != null,
                 onPressed: _handleContinue,
               ),

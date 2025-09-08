@@ -12,38 +12,28 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFE3F2FD), Colors.white],
-            stops: [0.0, 0.6],
-          ),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Column(
-              children: [
-                const Spacer(flex: 2),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          child: Column(
+            children: [
+              const Spacer(flex: 2),
 
-                // App Logo
-                const AppLogo(),
-                const SizedBox(height: 48),
+              // App Logo
+              const AppLogo(),
+              const SizedBox(height: 48),
 
-                // Welcome Content
-                const WelcomeContent(),
-                const Spacer(flex: 3),
+              // Welcome Content
+              const WelcomeContent(),
+              const Spacer(flex: 3),
 
-                // Action Buttons
-                WelcomeActions(
-                  onGetStarted: () => _handleGetStarted(context),
-                  onSignIn: _handleSignIn,
-                ),
-                const SizedBox(height: 32),
-              ],
-            ),
+              // Action Buttons
+              WelcomeActions(
+                onGetStarted: () => _handleGetStarted(context),
+                onSignIn: _handleSignIn,
+              ),
+              const SizedBox(height: 32),
+            ],
           ),
         ),
       ),
@@ -51,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
   }
 
   void _handleGetStarted(BuildContext context) {
-    context.pushReplacementNamed(Routes.genderSelectionScreen);
+    context.pushNamed(Routes.genderSelectionScreen);
   }
 
   void _handleSignIn() {

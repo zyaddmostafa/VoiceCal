@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/theme/app_colors.dart';
+
 /// Activity level selection card with icon, title and description
 class ActivityLevelCard extends StatefulWidget {
   final String emoji;
@@ -61,14 +63,14 @@ class _ActivityLevelCardState extends State<ActivityLevelCard>
           borderRadius: borderRadius,
           border: Border.all(
             color: widget.isSelected
-                ? const Color(0xFF007AFF)
+                ? AppColors.primaryBlack
                 : const Color(0xFFE5E5E7),
             width: widget.isSelected ? 2 : 1,
           ),
           boxShadow: [
             BoxShadow(
               color: widget.isSelected
-                  ? const Color(0xFF007AFF).withOpacity(0.15)
+                  ? AppColors.primaryBlack.withOpacity(0.15)
                   : Colors.black.withOpacity(0.05),
               blurRadius: widget.isSelected ? 12 : 8,
               offset: const Offset(0, 4),
@@ -87,7 +89,7 @@ class _ActivityLevelCardState extends State<ActivityLevelCard>
             onTapUp: (_) => _scaleController.reverse(),
             onTapCancel: () => _scaleController.reverse(),
             child: Padding(
-              padding: EdgeInsets.all(20.w),
+              padding: const EdgeInsets.all(12),
               child: Row(
                 children: [
                   Text(widget.emoji, style: TextStyle(fontSize: iconSize)),
@@ -102,7 +104,7 @@ class _ActivityLevelCardState extends State<ActivityLevelCard>
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w600,
                             color: widget.isSelected
-                                ? const Color(0xFF007AFF)
+                                ? AppColors.primaryBlack
                                 : const Color(0xFF1D1D1F),
                           ),
                         ),
@@ -121,7 +123,7 @@ class _ActivityLevelCardState extends State<ActivityLevelCard>
                   if (widget.isSelected)
                     Icon(
                       Icons.check_circle_rounded,
-                      color: const Color(0xFF007AFF),
+                      color: AppColors.primaryBlack,
                       size: iconSize,
                     ),
                 ],

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/widgets/app_back_button.dart';
 import '../widgets/edit_goal/edit_goal_args.dart';
-import '../widgets/edit_goal/edit_goal_app_bar.dart';
 import '../widgets/edit_goal/edit_goal_header.dart';
 import '../widgets/edit_goal/goal_preview_card.dart';
 import '../widgets/edit_goal/goal_input_field.dart';
 import '../widgets/edit_goal/edit_goal_action_buttons.dart';
 import '../widgets/edit_goal/number_formatter.dart';
+import '../widgets/edit_goal/keyboard_aware_spacer.dart';
 
 class EditGoalScreen extends StatefulWidget {
-  final EditGoalArgs? args;
-  const EditGoalScreen({super.key, this.args});
+  final EditGoalArgs? editRecommendedPlan;
+  const EditGoalScreen({super.key, this.editRecommendedPlan});
 
   @override
   State<EditGoalScreen> createState() => _EditGoalScreenState();
@@ -24,7 +25,7 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
   @override
   void initState() {
     super.initState();
-    _args = widget.args ?? _getDefaultArgs();
+    _args = widget.editRecommendedPlan ?? _getDefaultArgs();
     _initialValue = _args.value;
     _controller = TextEditingController(
       text: NumberFormatter.format(_args.value),
@@ -66,29 +67,30 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const EditGoalAppBar(),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: spacing16.h),
-              EditGoalHeader(label: _args.label),
-              SizedBox(height: spacing24.h),
-              GoalPreviewCard(args: _args, inputValue: _controller.text),
-              SizedBox(height: spacing24.h),
-              GoalInputField(
-                controller: _controller,
-                label: _args.label,
-                onChanged: () => setState(() {
-                  // Trigger rebuild to update preview card with new input
-                }),
-              ),
-              const Spacer(),
-              EditGoalActionButtons(onRevert: _onRevert, onDone: _onDone),
-              SizedBox(height: spacing16.h),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const AppBackButton(),
+                SizedBox(height: spacing16.h),
+                EditGoalHeader(label: _args.label),
+                SizedBox(height: spacing24.h),
+                GoalPreviewCard(args: _args, inputValue: _controller.text),
+                SizedBox(height: spacing24.h),
+                GoalInputField(
+                  controller: _controller,
+                  label: _args.label,
+                  onChanged: () => setState(() {
+                    // Trigger rebuild to update preview card with new input
+                  }),
+                ),
+                EditGoalActionButtons(onRevert: _onRevert, onDone: _onDone),
+                const KeyboardAwareSpacer(),
+              ],
+            ),
           ),
         ),
       ),

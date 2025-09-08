@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/theme/app_colors.dart';
 
 /// Reusable continue button widget with iOS-style gradient design
-class ContinueButton extends StatelessWidget {
+class CustomAppButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool isEnabled;
   final String text;
 
-  const ContinueButton({
+  const CustomAppButton({
     super.key,
     required this.onPressed,
     this.isEnabled = true,
@@ -27,14 +27,7 @@ class ContinueButton extends StatelessWidget {
         width: double.infinity,
         height: 56.h,
         decoration: BoxDecoration(
-          gradient: isEnabled
-              ? const LinearGradient(
-                  colors: [Color(0xFF007AFF), Color(0xFF5AC8FA)],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                )
-              : null,
-          color: isEnabled ? null : const Color(0xFFE5E5E7),
+          color: isEnabled ? Colors.black : const Color(0xFFE5E5E7),
           borderRadius: buttonBorderRadius,
           boxShadow: isEnabled
               ? [

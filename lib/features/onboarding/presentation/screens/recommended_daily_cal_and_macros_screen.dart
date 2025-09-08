@@ -3,10 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../widgets/daily_recommendation/goal_bubble.dart';
 import '../widgets/daily_recommendation/macro_card.dart';
-import '../widgets/rollover/rollover_progress_bar.dart';
+import '../widgets/onboarding_progress_header.dart';
 
 class RecommendedDailyCalAndMacrosScreen extends StatefulWidget {
   const RecommendedDailyCalAndMacrosScreen({super.key});
@@ -22,36 +23,23 @@ class _RecommendedDailyCalAndMacrosScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF1D1D1F)),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
+
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
-              SizedBox(height: 20.h),
-
-              // Progress bar
-              const RolloverProgressBar(progress: 0.9),
-
-              SizedBox(height: 16.h),
-
+              const OnboardingProgressHeader(progress: 1),
+              verticalSpace(12),
               // Goal bubble
               const GoalBubble(goal: '15 lbs by March 27, 2026'),
 
-              SizedBox(height: 40.h),
-
+              verticalSpace(24),
               // Main title
               Text(
-                'Daily recommendation',
+                'Your Custom Daily\nCalories & Macros Plan',
                 style: TextStyle(
-                  fontSize: 32.sp,
+                  fontSize: 28.sp,
                   fontWeight: FontWeight.w700,
                   color: const Color(0xFF1D1D1F),
                   letterSpacing: -0.5,

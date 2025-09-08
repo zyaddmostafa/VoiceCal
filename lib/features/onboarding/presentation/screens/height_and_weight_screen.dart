@@ -3,13 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
-import '../../../../core/widgets/continue_button.dart';
+import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
 import '../widgets/height_and_weight/height_picker.dart';
 import '../widgets/height_and_weight/picker_section.dart';
-import '../widgets/height_and_weight/unit_toggle.dart';
+import '../../../../core/widgets/unit_toggle.dart';
 import '../widgets/height_and_weight/weight_picker.dart';
+import '../widgets/onboarding_progress_header.dart';
 
 class HeightAndWeightScreen extends StatefulWidget {
   const HeightAndWeightScreen({super.key});
@@ -41,7 +43,8 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
           padding: EdgeInsets.symmetric(horizontal: 32.w),
           child: Column(
             children: [
-              SizedBox(height: 60.h),
+              const OnboardingProgressHeader(progress: 2 / 10),
+              verticalSpace(40),
 
               // Title and subtitle
               const OnboardingHeader(
@@ -101,7 +104,7 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
               spacing40,
 
               // Continue button
-              ContinueButton(onPressed: _handleContinue),
+              CustomAppButton(onPressed: _handleContinue),
 
               SizedBox(height: 32.h),
             ],
