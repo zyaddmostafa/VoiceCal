@@ -33,9 +33,6 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final spacing40 = SizedBox(height: 40.h);
-    final spacing32 = SizedBox(height: 32.h);
-
     return Scaffold(
       backgroundColor: AppColors.backgroundPrimary,
       body: SafeArea(
@@ -49,7 +46,7 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
                 title: 'When were you born?',
                 subtitle: 'This will be used to calibrate your custom plan.',
               ),
-              spacing40,
+              verticalSpace(40),
               Expanded(
                 child: Center(
                   child: BirthDatePicker(
@@ -62,9 +59,9 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
                   ),
                 ),
               ),
-              spacing40,
+              verticalSpace(40),
               CustomAppButton(onPressed: _handleContinue),
-              spacing32,
+              verticalSpace(32),
             ],
           ),
         ),

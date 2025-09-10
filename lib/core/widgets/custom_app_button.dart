@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_text_styles.dart';
 
 /// Reusable continue button widget with iOS-style gradient design
 class CustomAppButton extends StatelessWidget {
@@ -47,11 +48,8 @@ class CustomAppButton extends StatelessWidget {
             child: Center(
               child: Text(
                 text,
-                style: TextStyle(
-                  fontSize: 17.sp,
-                  fontWeight: FontWeight.w600,
-                  color: isEnabled ? Colors.white : const Color(0xFF8E8E93),
-                  letterSpacing: -0.2,
+                style: AppTextStyles.font17SemiBoldConditional(
+                  isEnabled: isEnabled,
                 ),
               ),
             ),

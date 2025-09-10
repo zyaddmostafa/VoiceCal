@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/widgets/custom_app_button.dart';
+import '../../../../../core/helpers/spacing.dart';
+import '../../../../../core/theme/app_text_styles.dart';
 
 /// Welcome screen action buttons (Get Started and Sign In)
 class WelcomeActions extends StatelessWidget {
@@ -21,7 +23,7 @@ class WelcomeActions extends StatelessWidget {
       children: [
         // Get Started Button
         CustomAppButton(onPressed: onGetStarted, text: 'Get Started'),
-        const SizedBox(height: 16),
+        verticalSpace(16),
         // Already have account button
         TextButton(
           onPressed: () {
@@ -32,14 +34,9 @@ class WelcomeActions extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             minimumSize: const Size(0, 44),
           ),
-          child: const Text(
+          child: Text(
             'I already have an account',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: AppColors.primaryBlack,
-              letterSpacing: -0.2,
-            ),
+            style: AppTextStyles.font16MediumBlack,
           ),
         ),
       ],

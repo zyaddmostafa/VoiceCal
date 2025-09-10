@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
@@ -22,8 +23,6 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final spacing60 = SizedBox(height: 60.h);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -32,7 +31,7 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
           child: Column(
             children: [
               const OnboardingProgressHeader(progress: 6 / 10),
-              SizedBox(height: 40.h),
+              verticalSpace(40),
               // Title and subtitle
               const OnboardingHeader(
                 title: 'What\'s your goal?',
@@ -40,7 +39,7 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
                     'Choose the result you want to achieve so we can personalize your plan.',
               ),
 
-              spacing60,
+              verticalSpace(60),
 
               // Goal cards
               Expanded(
@@ -63,7 +62,7 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
                 onPressed: _handleContinue,
               ),
 
-              SizedBox(height: 32.h),
+              verticalSpace(32),
             ],
           ),
         ),

@@ -42,7 +42,7 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
                     'Select your typical activity level so we can adjust your plan.',
               ),
 
-              SizedBox(height: 40.h),
+              verticalSpace(40),
 
               // Activity level cards
               Expanded(
@@ -67,7 +67,7 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
                 onPressed: _handleContinue,
               ),
 
-              SizedBox(height: 32.h),
+              verticalSpace(32),
             ],
           ),
         ),

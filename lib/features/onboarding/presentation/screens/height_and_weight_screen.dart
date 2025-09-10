@@ -34,8 +34,6 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final spacing40 = SizedBox(height: 40.h);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -52,12 +50,12 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
                 subtitle: 'This will be used to calibrate\nyour custom plan.',
               ),
 
-              spacing40,
+              verticalSpace(40),
 
               // Unit toggle
               UnitToggle(isMetric: isMetric, onToggle: _toggleUnit),
 
-              spacing40,
+              verticalSpace(40),
 
               // Pickers
               Expanded(
@@ -81,7 +79,7 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20.w),
+                    horizontalSpace(20),
                     // Weight picker
                     Expanded(
                       child: PickerSection(
@@ -101,12 +99,12 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
                 ),
               ),
 
-              spacing40,
+              verticalSpace(40),
 
               // Continue button
               CustomAppButton(onPressed: _handleContinue),
 
-              SizedBox(height: 32.h),
+              verticalSpace(32),
             ],
           ),
         ),

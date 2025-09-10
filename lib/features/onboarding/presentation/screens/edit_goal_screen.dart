@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/widgets/app_back_button.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../widgets/edit_goal/edit_goal_args.dart';
 import '../widgets/edit_goal/edit_goal_header.dart';
 import '../widgets/edit_goal/goal_preview_card.dart';
@@ -62,9 +63,6 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const spacing16 = 16.0;
-    const spacing24 = 24.0;
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -75,11 +73,11 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const AppBackButton(),
-                SizedBox(height: spacing16.h),
+                verticalSpace(16),
                 EditGoalHeader(label: _args.label),
-                SizedBox(height: spacing24.h),
+                verticalSpace(24),
                 GoalPreviewCard(args: _args, inputValue: _controller.text),
-                SizedBox(height: spacing24.h),
+                verticalSpace(24),
                 GoalInputField(
                   controller: _controller,
                   label: _args.label,

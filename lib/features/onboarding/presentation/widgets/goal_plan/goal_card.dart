@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/helpers/spacing.dart';
 
 /// Goal selection card with icon, title and description
 class GoalCard extends StatefulWidget {
@@ -110,7 +111,7 @@ class _GoalCardState extends State<GoalCard>
                           : const Color(0xFF8E8E93),
                     ),
                   ),
-                  SizedBox(width: 20.w),
+                  horizontalSpace(20),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +126,7 @@ class _GoalCardState extends State<GoalCard>
                                 : const Color(0xFF1D1D1F),
                           ),
                         ),
-                        SizedBox(height: 6.h),
+                        verticalSpace(6),
                         Text(
                           widget.description,
                           style: TextStyle(
