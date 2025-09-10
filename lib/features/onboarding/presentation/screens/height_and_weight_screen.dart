@@ -22,12 +22,9 @@ class HeightAndWeightScreen extends StatefulWidget {
 
 class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
   bool isMetric = true;
-
-  // Metric values
   int selectedHeightCm = 170;
   int selectedWeightKg = 70;
 
-  // Imperial values
   int selectedHeightFt = 5;
   int selectedHeightIn = 7;
   int selectedWeightLb = 154;
@@ -44,7 +41,6 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
               const OnboardingProgressHeader(progress: 2 / 10),
               verticalSpace(40),
 
-              // Title and subtitle
               const OnboardingHeader(
                 title: 'Height & Weight',
                 subtitle: 'This will be used to calibrate\nyour custom plan.',
@@ -52,16 +48,13 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
 
               verticalSpace(40),
 
-              // Unit toggle
               UnitToggle(isMetric: isMetric, onToggle: _toggleUnit),
 
               verticalSpace(40),
 
-              // Pickers
               Expanded(
                 child: Row(
                   children: [
-                    // Height picker
                     Expanded(
                       child: PickerSection(
                         title: 'Height',
@@ -80,7 +73,6 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
                       ),
                     ),
                     horizontalSpace(20),
-                    // Weight picker
                     Expanded(
                       child: PickerSection(
                         title: 'Weight',
@@ -101,7 +93,6 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
 
               verticalSpace(40),
 
-              // Continue button
               CustomAppButton(onPressed: _handleContinue),
 
               verticalSpace(32),

@@ -35,7 +35,6 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
               const OnboardingProgressHeader(progress: 5 / 10),
               verticalSpace(40),
 
-              // Title and subtitle
               const OnboardingHeader(
                 title: 'What\'s your Workout frequency?',
                 subtitle:
@@ -50,12 +49,13 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
                   itemCount: ActivityLevelData.levels.length,
                   itemBuilder: (context, index) {
                     final level = ActivityLevelData.levels[index];
+
                     return ActivityLevelCard(
-                      emoji: level['emoji']!,
-                      title: level['title']!,
-                      description: level['description']!,
-                      isSelected: selectedActivityLevel == level['id'],
-                      onTap: () => _selectActivityLevel(level['id']!),
+                      emoji: level.emoji,
+                      title: level.title,
+                      description: level.description,
+                      isSelected: selectedActivityLevel == level.id,
+                      onTap: () => _selectActivityLevel(level.id),
                     );
                   },
                 ),
@@ -86,7 +86,15 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
     if (selectedActivityLevel == null) return;
 
     HapticFeedback.lightImpact();
-    log('Selected activity level: $selectedActivityLevel');
+
+    // Find the selected activity level for better logging
+    final selectedLevel = ActivityLevelData.levels.firstWhere(
+      (level) => level.id == selectedActivityLevel,
+    );
+    log(
+      'Selected activity level: ${selectedLevel.title} ($selectedActivityLevel)',
+    );
+
     context.pushNamed(Routes.goalPlanScreen);
   }
 }

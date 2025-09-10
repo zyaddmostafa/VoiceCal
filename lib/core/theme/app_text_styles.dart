@@ -31,6 +31,11 @@ class AppTextStyles {
   );
 
   // Medium Headings
+  static TextStyle get font20RegularPrimary => TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.textPrimary,
+  );
   static TextStyle get font18SemiBoldPrimary => TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeight.w600,
@@ -68,6 +73,12 @@ class AppTextStyles {
 
   static TextStyle get font16MediumBlack => TextStyle(
     fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.primaryBlack,
+    letterSpacing: -0.2,
+  );
+  static TextStyle get font18MediumBlack => TextStyle(
+    fontSize: 18.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.primaryBlack,
     letterSpacing: -0.2,
@@ -156,7 +167,7 @@ class AppTextStyles {
       TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
-        color: isSelected ? Colors.white : AppColors.primaryBlack,
+        color: isSelected ? AppColors.primaryBlack : AppColors.textSecondary,
         letterSpacing: -0.2,
       );
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Reusable height picker widget supporting both metric and imperial units
+import '../../../../../core/theme/app_text_styles.dart';
+
 class HeightPicker extends StatelessWidget {
   final bool isMetric;
   final int selectedHeightCm;
@@ -28,21 +28,19 @@ class HeightPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     const itemExtent = 40.0;
 
-    if (isMetric) {
-      return _MetricHeightPicker(
-        selectedHeightCm: selectedHeightCm,
-        onHeightChanged: onHeightCmChanged,
-        itemExtent: itemExtent,
-      );
-    } else {
-      return _ImperialHeightPicker(
-        selectedHeightFt: selectedHeightFt,
-        selectedHeightIn: selectedHeightIn,
-        onHeightFtChanged: onHeightFtChanged,
-        onHeightInChanged: onHeightInChanged,
-        itemExtent: itemExtent,
-      );
-    }
+    return isMetric
+        ? _MetricHeightPicker(
+            selectedHeightCm: selectedHeightCm,
+            onHeightChanged: onHeightCmChanged,
+            itemExtent: itemExtent,
+          )
+        : _ImperialHeightPicker(
+            selectedHeightFt: selectedHeightFt,
+            selectedHeightIn: selectedHeightIn,
+            onHeightFtChanged: onHeightFtChanged,
+            onHeightInChanged: onHeightInChanged,
+            itemExtent: itemExtent,
+          );
   }
 }
 
@@ -70,15 +68,9 @@ class _MetricHeightPicker extends StatelessWidget {
       },
       children: List.generate(151, (index) {
         final height = 100 + index;
+
         return Center(
-          child: Text(
-            '$height cm',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D1D1F),
-            ),
-          ),
+          child: Text('$height cm', style: AppTextStyles.font18MediumBlack),
         );
       }),
     );
@@ -104,7 +96,6 @@ class _ImperialHeightPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Feet picker
         Expanded(
           child: CupertinoPicker(
             scrollController: FixedExtentScrollController(
@@ -117,15 +108,9 @@ class _ImperialHeightPicker extends StatelessWidget {
             },
             children: List.generate(6, (index) {
               final feet = 3 + index;
+
               return Center(
-                child: Text(
-                  '$feet ft',
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xFF1D1D1F),
-                  ),
-                ),
+                child: Text('$feet ft', style: AppTextStyles.font18MediumBlack),
               );
             }),
           ),
@@ -145,11 +130,7 @@ class _ImperialHeightPicker extends StatelessWidget {
               return Center(
                 child: Text(
                   '$index in',
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xFF1D1D1F),
-                  ),
+                  style: AppTextStyles.font18MediumBlack,
                 ),
               );
             }),

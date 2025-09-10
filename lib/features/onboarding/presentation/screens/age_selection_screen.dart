@@ -8,11 +8,9 @@ import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
-import '../widgets/age_selection/age_selection_app_bar.dart';
 import '../widgets/age_selection/birth_date_picker.dart';
 import '../widgets/onboarding_progress_header.dart';
 
-/// Screen for selecting birth date and age
 class AgeSelectionScreen extends StatefulWidget {
   const AgeSelectionScreen({super.key});
 
@@ -26,7 +24,6 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
   @override
   void initState() {
     super.initState();
-    // Default to current year - 20 (e.g., 2025 -> 2005)
     final currentYear = DateTime.now().year;
     selectedDate = DateTime(currentYear - 20, 1, 1);
   }
@@ -72,7 +69,5 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
   void _handleContinue() {
     HapticFeedback.lightImpact();
     context.pushNamed(Routes.workoutFrequencyScreen);
-    // final age = DateTime.now().year - selectedDate.year;
-    // print('Selected birth date: $selectedDate (Age: $age)');
   }
 }

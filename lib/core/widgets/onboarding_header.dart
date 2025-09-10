@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../helpers/spacing.dart';
 import '../theme/app_text_styles.dart';
 
 /// Reusable onboarding header widget with title and subtitle
@@ -18,14 +17,14 @@ class OnboardingHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = Column(
+    return Column(
       children: [
         Text(
           title,
           style: AppTextStyles.font32BoldPrimary,
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 16.h),
+        verticalSpace(16),
         Text(
           subtitle,
           style: AppTextStyles.font17RegularSecondary,
@@ -33,9 +32,5 @@ class OnboardingHeader extends StatelessWidget {
         ),
       ],
     );
-
-    return fadeAnimation != null
-        ? FadeTransition(opacity: fadeAnimation!, child: content)
-        : content;
   }
 }

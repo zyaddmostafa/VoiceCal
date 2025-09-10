@@ -38,9 +38,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                     'Choose your gender so we can\npersonalize your plan.',
               ),
 
-              SizedBox(height: 80.h),
-
-              // Gender selection cards
+              verticalSpace(80),
               Column(
                 children: [
                   GenderCard(
@@ -49,7 +47,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                     isSelected: selectedGender == 'Male',
                     onTap: () => _selectGender('Male'),
                   ),
-                  SizedBox(height: 20.h),
+                  verticalSpace(20),
                   GenderCard(
                     gender: 'Female',
                     icon: Icons.female_outlined,
@@ -61,13 +59,12 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
 
               const Spacer(),
 
-              // Continue button
               CustomAppButton(
                 isEnabled: selectedGender != null,
                 onPressed: _handleContinue,
               ),
 
-              SizedBox(height: 32.h),
+              verticalSpace(32),
             ],
           ),
         ),

@@ -19,17 +19,20 @@ class WelcomeScreen extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(flex: 2),
+
               const AppLogo(),
+
               verticalSpace(48),
 
               const WelcomeContent(),
+
               const Spacer(flex: 3),
 
-              // Action Buttons
               WelcomeActions(
                 onGetStarted: () => _handleGetStarted(context),
                 onSignIn: _handleSignIn,
               ),
+
               verticalSpace(32),
             ],
           ),
