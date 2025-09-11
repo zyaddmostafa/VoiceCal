@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 
@@ -99,7 +100,7 @@ class _GenderCardState extends State<GenderCard>
                         : const Color(0xFF8E8E93),
                   ),
                 ),
-                SizedBox(width: 16.w),
+                horizontalSpace(16),
                 Text(
                   widget.gender,
                   style: AppTextStyles.font18SemiBoldConditional(

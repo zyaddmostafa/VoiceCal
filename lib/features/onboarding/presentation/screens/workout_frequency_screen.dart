@@ -29,7 +29,7 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
               const OnboardingProgressHeader(progress: 5 / 10),
@@ -43,7 +43,6 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
 
               verticalSpace(40),
 
-              // Activity level cards
               Expanded(
                 child: ListView.builder(
                   itemCount: ActivityLevelData.levels.length,
@@ -51,9 +50,7 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
                     final level = ActivityLevelData.levels[index];
 
                     return ActivityLevelCard(
-                      emoji: level.emoji,
-                      title: level.title,
-                      description: level.description,
+                      activityLevel: level,
                       isSelected: selectedActivityLevel == level.id,
                       onTap: () => _selectActivityLevel(level.id),
                     );
@@ -61,7 +58,6 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
                 ),
               ),
 
-              // Continue button
               CustomAppButton(
                 isEnabled: selectedActivityLevel != null,
                 onPressed: _handleContinue,
@@ -84,17 +80,7 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
 
   void _handleContinue() {
     if (selectedActivityLevel == null) return;
-
     HapticFeedback.lightImpact();
-
-    // Find the selected activity level for better logging
-    final selectedLevel = ActivityLevelData.levels.firstWhere(
-      (level) => level.id == selectedActivityLevel,
-    );
-    log(
-      'Selected activity level: ${selectedLevel.title} ($selectedActivityLevel)',
-    );
-
     context.pushNamed(Routes.goalPlanScreen);
   }
 }

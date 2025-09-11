@@ -26,7 +26,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
               const OnboardingProgressHeader(progress: 1 / 10),

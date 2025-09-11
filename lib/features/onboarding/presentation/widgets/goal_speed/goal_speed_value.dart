@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GoalSpeedValue extends StatelessWidget {
-  final double value; // value in current unit
-  final String unit; // 'lbs' or 'kg'
+  final double value;
+  final String unit;
   const GoalSpeedValue({super.key, required this.value, this.unit = 'lbs'});
 
   @override

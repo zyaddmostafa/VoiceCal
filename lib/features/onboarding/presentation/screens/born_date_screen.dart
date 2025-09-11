@@ -11,14 +11,14 @@ import '../../../../core/widgets/onboarding_header.dart';
 import '../widgets/age_selection/birth_date_picker.dart';
 import '../widgets/onboarding_progress_header.dart';
 
-class AgeSelectionScreen extends StatefulWidget {
-  const AgeSelectionScreen({super.key});
+class BornDateScreen extends StatefulWidget {
+  const BornDateScreen({super.key});
 
   @override
-  State<AgeSelectionScreen> createState() => _AgeSelectionScreenState();
+  State<BornDateScreen> createState() => _BornDateScreenState();
 }
 
-class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
+class _BornDateScreenState extends State<BornDateScreen> {
   late DateTime selectedDate;
 
   @override
@@ -34,7 +34,7 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
       backgroundColor: AppColors.backgroundPrimary,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
               const OnboardingProgressHeader(progress: 3 / 10),

@@ -16,6 +16,7 @@ class RecommendedChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String label = _computeLabel(value, min, max);
+
     return Container(
       width: double.infinity,
       alignment: Alignment.center,
@@ -29,7 +30,7 @@ class RecommendedChip extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: .04),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -58,6 +59,7 @@ class RecommendedChip extends StatelessWidget {
     if (value >= highThreshold) {
       return 'Not recommended for long term, may lead to loose skin';
     }
+
     return 'Recommended';
   }
 }

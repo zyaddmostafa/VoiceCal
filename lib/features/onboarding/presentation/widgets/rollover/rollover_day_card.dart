@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_colors.dart';
+import 'rollover_calories_example.dart';
+import 'rollover_card_calories_ring.dart';
 
 class RolloverDayCard extends StatelessWidget {
   final String dayLabel;
@@ -91,7 +93,6 @@ class RolloverDayCard extends StatelessWidget {
           ),
           Stack(
             children: [
-              // Cals left tag
               const RolloverCardCaloriesRing(),
               Positioned(
                 left: 8,
@@ -101,79 +102,9 @@ class RolloverDayCard extends StatelessWidget {
                   calsLeft: calsLeft,
                 ),
               ),
-
-              // Minimal ring visual (static placeholder)
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class RolloverCaloriesExample extends StatelessWidget {
-  const RolloverCaloriesExample({
-    super.key,
-    required this.extraFromRollover,
-    required this.calsLeft,
-  });
-
-  final int? extraFromRollover;
-  final int calsLeft;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Text(
-        extraFromRollover == null
-            ? 'Cals left \n $calsLeft'
-            : 'Cals left \n $calsLeft + $extraFromRollover',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w600,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-}
-
-class RolloverCardCaloriesRing extends StatelessWidget {
-  const RolloverCardCaloriesRing({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: SizedBox(
-        height: 72.w,
-        width: 72.w,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.fromBorderSide(
-                  BorderSide(color: Colors.black, width: 4.w),
-                ),
-              ),
-            ),
-            const Center(
-              child: Icon(
-                Icons.local_fire_department,
-                size: 20,
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -35,7 +35,7 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
               const OnboardingProgressHeader(progress: 2 / 10),

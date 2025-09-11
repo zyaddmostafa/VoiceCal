@@ -24,7 +24,7 @@ class OnboardingHeader extends StatelessWidget {
           style: AppTextStyles.font32BoldPrimary,
           textAlign: TextAlign.center,
         ),
-        verticalSpace(16),
+        verticalSpace(12),
         Text(
           subtitle,
           style: AppTextStyles.font17RegularSecondary,

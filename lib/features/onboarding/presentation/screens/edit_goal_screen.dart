@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/widgets/app_back_button.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/widgets/onboarding_header.dart';
 import '../widgets/edit_goal/edit_goal_args.dart';
-import '../widgets/edit_goal/edit_goal_header.dart';
 import '../widgets/edit_goal/goal_preview_card.dart';
 import '../widgets/edit_goal/goal_input_field.dart';
 import '../widgets/edit_goal/edit_goal_action_buttons.dart';
@@ -47,7 +46,7 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
   void _onRevert() {
     _controller.text = NumberFormatter.format(_initialValue);
     setState(() {
-      // Trigger rebuild to update preview card with reverted value
+      // Trigger rebuild to update preview card with reverted input
     });
   }
 
@@ -67,28 +66,33 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const AppBackButton(),
-                verticalSpace(16),
-                EditGoalHeader(label: _args.label),
-                verticalSpace(24),
-                GoalPreviewCard(args: _args, inputValue: _controller.text),
-                verticalSpace(24),
-                GoalInputField(
-                  controller: _controller,
-                  label: _args.label,
-                  onChanged: () => setState(() {
-                    // Trigger rebuild to update preview card with new input
-                  }),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const AppBackButton(),
+              verticalSpace(16),
+              Center(
+                child: OnboardingHeader(
+                  title: 'Edit Goal ${widget.editRecommendedPlan?.label}',
+                  subtitle:
+                      'Adjust your daily ${widget.editRecommendedPlan?.label} goal',
                 ),
-                EditGoalActionButtons(onRevert: _onRevert, onDone: _onDone),
-                const KeyboardAwareSpacer(),
-              ],
-            ),
+              ),
+              verticalSpace(24),
+              GoalPreviewCard(args: _args, inputValue: _controller.text),
+              verticalSpace(24),
+              GoalInputField(
+                controller: _controller,
+                label: _args.label,
+                onChanged: () => setState(() {
+                  // Trigger rebuild to update preview card with new input
+                }),
+              ),
+              const Spacer(),
+              EditGoalActionButtons(onRevert: _onRevert, onDone: _onDone),
+              const KeyboardAwareSpacer(),
+            ],
           ),
         ),
       ),

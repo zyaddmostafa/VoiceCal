@@ -7,8 +7,8 @@ import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
+import '../../data/models/goal_plan_model.dart';
 import '../widgets/goal_plan/goal_card.dart';
-import '../widgets/goal_plan/goal_plan_data.dart';
 import '../widgets/onboarding_progress_header.dart';
 
 class GoalPlanScreen extends StatefulWidget {
@@ -27,12 +27,12 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
               const OnboardingProgressHeader(progress: 6 / 10),
               verticalSpace(40),
-              // Title and subtitle
+
               const OnboardingHeader(
                 title: 'What\'s your goal?',
                 subtitle:
@@ -41,22 +41,29 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
 
               verticalSpace(60),
 
-              // Goal cards
               Expanded(
                 child: Column(
-                  children: GoalPlanData.goals.map((goal) {
-                    return GoalCard(
-                      icon: goal['icon'] as IconData,
-                      title: goal['title'] as String,
-                      description: goal['description'] as String,
-                      isSelected: selectedGoal == goal['id'],
-                      onTap: () => _selectGoal(goal['id'] as String),
+                  children: List.generate(GoalPlanModel.goals.length, (index) {
+                    final goal = GoalPlanModel.goals[index];
+
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: index == GoalPlanModel.goals.length - 1
+                            ? 0
+                            : 16.h,
+                      ),
+                      child: GoalCard(
+                        title: goal.title,
+                        description: goal.description,
+                        icon: goal.icon,
+                        isSelected: selectedGoal == goal.id,
+                        onTap: () => _selectGoal(goal.id),
+                      ),
                     );
-                  }).toList(),
+                  }),
                 ),
               ),
 
-              // Continue button
               CustomAppButton(
                 isEnabled: selectedGoal != null,
                 onPressed: _handleContinue,
@@ -78,8 +85,6 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
   }
 
   void _handleContinue() {
-    if (selectedGoal == null) return;
-
     HapticFeedback.lightImpact();
     context.pushNamed(Routes.desiredWeightScreen, arguments: selectedGoal);
   }

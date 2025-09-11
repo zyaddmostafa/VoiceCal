@@ -5,20 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_text_styles.dart';
+import '../../../data/models/activity_level_model.dart';
 
-/// Activity level selection card with icon, title and description
 class ActivityLevelCard extends StatefulWidget {
-  final String emoji;
-  final String title;
-  final String description;
+  final ActivityLevelModel activityLevel;
   final bool isSelected;
   final VoidCallback onTap;
 
   const ActivityLevelCard({
     super.key,
-    required this.emoji,
-    required this.title,
-    required this.description,
+    required this.activityLevel,
     required this.isSelected,
     required this.onTap,
   });
@@ -79,49 +75,49 @@ class _ActivityLevelCardState extends State<ActivityLevelCard>
             ),
           ],
         ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            borderRadius: borderRadius,
-            onTap: () {
-              HapticFeedback.lightImpact();
-              widget.onTap();
-            },
-            onTapDown: (_) => _scaleController.forward(),
-            onTapUp: (_) => _scaleController.reverse(),
-            onTapCancel: () => _scaleController.reverse(),
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Row(
-                children: [
-                  Text(widget.emoji, style: TextStyle(fontSize: iconSize)),
-                  horizontalSpace(16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.title,
-                          style: AppTextStyles.font18SemiBoldConditional(
-                            isSelected: widget.isSelected,
-                          ),
+        child: InkWell(
+          borderRadius: borderRadius,
+          onTap: () {
+            HapticFeedback.lightImpact();
+            widget.onTap();
+          },
+          onTapDown: (_) => _scaleController.forward(),
+          onTapUp: (_) => _scaleController.reverse(),
+          onTapCancel: () => _scaleController.reverse(),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Text(
+                  widget.activityLevel.emoji,
+                  style: TextStyle(fontSize: iconSize),
+                ),
+                horizontalSpace(16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.activityLevel.title,
+                        style: AppTextStyles.font18SemiBoldConditional(
+                          isSelected: widget.isSelected,
                         ),
-                        verticalSpace(4),
-                        Text(
-                          widget.description,
-                          style: AppTextStyles.font14RegularSecondary,
-                        ),
-                      ],
-                    ),
+                      ),
+                      verticalSpace(4),
+                      Text(
+                        widget.activityLevel.description,
+                        style: AppTextStyles.font14RegularSecondary,
+                      ),
+                    ],
                   ),
-                  if (widget.isSelected)
-                    Icon(
-                      Icons.check_circle_rounded,
-                      color: AppColors.primaryBlack,
-                      size: iconSize,
-                    ),
-                ],
-              ),
+                ),
+                if (widget.isSelected)
+                  Icon(
+                    Icons.check_circle_rounded,
+                    color: AppColors.primaryBlack,
+                    size: iconSize,
+                  ),
+              ],
             ),
           ),
         ),

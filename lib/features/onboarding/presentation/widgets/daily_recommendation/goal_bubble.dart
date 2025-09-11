@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Goal bubble widget displaying the user's target goal with date
 class GoalBubble extends StatelessWidget {
   final String goal;
 
@@ -10,7 +9,7 @@ class GoalBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       decoration: BoxDecoration(
         color: const Color(0xFFF2F2F7),
         borderRadius: BorderRadius.circular(20.r),

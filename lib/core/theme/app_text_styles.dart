@@ -98,6 +98,12 @@ class AppTextStyles {
     letterSpacing: -0.2,
   );
 
+  static TextStyle get font18SemiBoldWhite => TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
+
   // Small Text
   static TextStyle get font14RegularSecondary => TextStyle(
     fontSize: 14.sp,
@@ -116,7 +122,11 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
     color: Colors.white,
   );
-
+  static TextStyle get font12SemiBoldWhite => TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
   static TextStyle get font12RegularSecondary => TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeight.w400,
@@ -130,7 +140,12 @@ class AppTextStyles {
     color: AppColors.textPrimary,
     letterSpacing: -0.1,
   );
-
+  static TextStyle get font12MediumWhite => TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+    letterSpacing: -0.1,
+  );
   // Special Purpose
   static TextStyle get fontBlueLink =>
       const TextStyle(color: Color(0xFF007AFF));

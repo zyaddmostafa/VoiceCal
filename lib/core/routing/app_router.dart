@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../../features/onboarding/presentation/screens/age_selection_screen.dart';
+import '../../features/onboarding/presentation/screens/born_date_screen.dart';
 import '../../features/onboarding/presentation/screens/gender_selection_screen.dart';
 import '../../features/onboarding/presentation/screens/goal_plan_screen.dart';
 import '../../features/onboarding/presentation/screens/goal_speed_screen.dart';
@@ -44,7 +44,7 @@ class AppRouter {
           builder: (_) => DesiredWeightScreen(goal: goal!),
         );
       case Routes.ageSelectionScreen:
-        return CupertinoPageRoute(builder: (_) => const AgeSelectionScreen());
+        return CupertinoPageRoute(builder: (_) => const BornDateScreen());
       case Routes.goalSpeedScreen:
         return CupertinoPageRoute(builder: (_) => const GoalSpeedScreen());
       case Routes.rolloverExtraCalScreen:

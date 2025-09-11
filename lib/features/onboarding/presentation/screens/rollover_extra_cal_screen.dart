@@ -5,6 +5,7 @@ import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/onboarding_header.dart';
 import '../widgets/onboarding_progress_header.dart';
 import '../widgets/rollover/rollover_info_badge.dart';
 import '../widgets/rollover/rollover_day_card.dart';
@@ -26,14 +27,10 @@ class RolloverExtraCalScreen extends StatelessWidget {
               const OnboardingProgressHeader(progress: 9 / 10),
               verticalSpace(24),
 
-              Text(
-                'Rollover extra\ncalories to the next\nday?',
-                style: TextStyle(
-                  fontSize: 34.sp,
-                  height: 1.12,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -0.5,
-                ),
+              const OnboardingHeader(
+                title: 'Rollover Extra Calories',
+                subtitle:
+                    'Would you like to rollover your extra calories to the next day?',
               ),
 
               verticalSpace(12),
@@ -41,7 +38,6 @@ class RolloverExtraCalScreen extends StatelessWidget {
 
               const Spacer(),
 
-              // Cards row
               Row(
                 children: [
                   const Expanded(
@@ -71,11 +67,9 @@ class RolloverExtraCalScreen extends StatelessWidget {
 
               RolloverActionButtons(
                 onNoPressed: () {
-                  // Handle "No" - don't rollover calories
                   context.pushNamed(Routes.recommendedDailyCalAndMacrosScreen);
                 },
                 onYesPressed: () {
-                  // Handle "Yes" - rollover calories
                   context.pushNamed(Routes.recommendedDailyCalAndMacrosScreen);
                 },
               ),
