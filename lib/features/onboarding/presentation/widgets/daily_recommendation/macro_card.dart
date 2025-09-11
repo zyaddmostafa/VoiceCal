@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/routing/routes.dart';
+import '../../../../../core/theme/app_text_styles.dart';
 import '../../screens/edit_goal_screen.dart';
 import '../edit_goal/edit_goal_args.dart';
 
@@ -44,24 +45,15 @@ class MacroCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header with icon and label
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, size: 20.sp, color: const Color(0xFF1D1D1F)),
-              SizedBox(width: 8.w),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w500,
-                  color: const Color(0xFF1D1D1F),
-                ),
-              ),
+              horizontalSpace(8),
+              Text(label, style: AppTextStyles.font16MediumBlack),
             ],
           ),
           verticalSpace(12),
-          // Circular progress indicator with value
           Center(
             child: SizedBox(
               width: 65.w,
@@ -93,12 +85,7 @@ class MacroCard extends StatelessWidget {
                   Center(
                     child: Text(
                       value,
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xFF1D1D1F),
-                        letterSpacing: -0.5,
-                      ),
+                      style: AppTextStyles.font18SemiBoldBlack,
                     ),
                   ),
                 ],

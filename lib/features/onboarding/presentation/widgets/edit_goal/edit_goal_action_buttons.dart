@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../core/helpers/spacing.dart';
 import 'custom_outlined_button.dart';
 import 'custom_filled_button.dart';
 
@@ -27,7 +29,7 @@ class EditGoalActionButtons extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(width: 16.w),
+        horizontalSpace(16),
         Expanded(
           child: CustomFilledButton(
             text: 'Done',

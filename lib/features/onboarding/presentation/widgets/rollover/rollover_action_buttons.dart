@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_text_styles.dart';
 import '../../../../../core/widgets/custom_app_button.dart';
 
 class RolloverActionButtons extends StatelessWidget {
@@ -22,7 +25,7 @@ class RolloverActionButtons extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(width: 16.w),
+        horizontalSpace(16),
         Expanded(
           child: CustomAppButton(
             text: 'Yes',

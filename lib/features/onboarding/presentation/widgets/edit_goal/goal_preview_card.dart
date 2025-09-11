@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../core/helpers/spacing.dart';
 import 'edit_goal_args.dart';
 import 'progress_ring.dart';
 import 'value_display.dart';
@@ -39,7 +41,7 @@ class GoalPreviewCard extends StatelessWidget {
             color: args.ringColor,
             icon: args.icon,
           ),
-          SizedBox(width: 16.w),
+          horizontalSpace(16),
           ValueDisplay(inputValue: inputValue, unit: args.unit),
         ],
       ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../core/helpers/spacing.dart';
+import '../../../../../core/theme/app_text_styles.dart';
 import 'number_formatter.dart';
 
 class ValueDisplay extends StatelessWidget {
@@ -14,22 +17,11 @@ class ValueDisplay extends StatelessWidget {
       children: [
         Text(
           NumberFormatter.format(NumberFormatter.parse(inputValue)),
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-            color: const Color(0xFF1D1D1F),
-          ),
+          style: AppTextStyles.font20RegularPrimary,
         ),
         if (unit.isNotEmpty) ...[
-          SizedBox(width: 4.w),
-          Text(
-            unit,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xFF86868B),
-            ),
-          ),
+          horizontalSpace(4),
+          Text(unit, style: AppTextStyles.font16RegularSecondary),
         ],
       ],
     );

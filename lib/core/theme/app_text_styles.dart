@@ -150,6 +150,18 @@ class AppTextStyles {
   static TextStyle get fontBlueLink =>
       const TextStyle(color: Color(0xFF007AFF));
 
+  static TextStyle get font15MediumBlack => TextStyle(
+    fontSize: 15.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.primaryBlack,
+  );
+
+  static TextStyle get font20SemiBoldPrimary => TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  );
+
   static TextStyle get fontPicker => TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeight.w400,
