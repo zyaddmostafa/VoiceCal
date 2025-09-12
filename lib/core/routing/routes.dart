@@ -5,7 +5,10 @@ class Routes {
   static const String heightAndWeightScreen = '/heightAndWeight';
   static const String workoutFrequencyScreen = '/workoutFrequency';
   static const String goalPlanScreen = '/goalPlan';
-  static const String weightPickerScreen = '/weightPicker';
+  static const String desiredWeightScreen = '/weightPicker';
   static const String goalSpeedScreen = '/goalSpeed';
   static const String rolloverExtraCalScreen = '/rolloverExtraCal';
+  static const String recommendedDailyCalAndMacrosScreen =
+      '/recommendedDailyCalAndMacros';
+  static const String editGoalScreen = '/editGoal';
 }

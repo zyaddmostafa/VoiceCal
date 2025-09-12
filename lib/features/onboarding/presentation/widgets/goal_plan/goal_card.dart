@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/helpers/spacing.dart';
+
 /// Goal selection card with icon, title and description
 class GoalCard extends StatefulWidget {
   final IconData icon;
@@ -61,15 +64,15 @@ class _GoalCardState extends State<GoalCard>
           borderRadius: borderRadius,
           border: Border.all(
             color: widget.isSelected
-                ? const Color(0xFF007AFF)
+                ? AppColors.primaryBlack
                 : const Color(0xFFE5E5E7),
             width: widget.isSelected ? 2 : 1,
           ),
           boxShadow: [
             BoxShadow(
               color: widget.isSelected
-                  ? const Color(0xFF007AFF).withOpacity(0.15)
-                  : Colors.black.withOpacity(0.08),
+                  ? AppColors.primaryBlack.withValues(alpha: 0.15)
+                  : Colors.black.withValues(alpha: 0.08),
               blurRadius: widget.isSelected ? 15 : 10,
               offset: const Offset(0, 6),
             ),
@@ -87,16 +90,16 @@ class _GoalCardState extends State<GoalCard>
             onTapUp: (_) => _scaleController.reverse(),
             onTapCancel: () => _scaleController.reverse(),
             child: Padding(
-              padding: EdgeInsets.all(24.w),
+              padding: EdgeInsets.all(16.w),
               child: Row(
                 children: [
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
-                    width: 56.w,
-                    height: 56.h,
+                    width: 40.w,
+                    height: 40.h,
                     decoration: BoxDecoration(
                       color: widget.isSelected
-                          ? const Color(0xFF007AFF)
+                          ? AppColors.primaryBlack
                           : const Color(0xFFF2F2F7),
                       borderRadius: BorderRadius.circular(16.r),
                     ),
@@ -108,7 +111,7 @@ class _GoalCardState extends State<GoalCard>
                           : const Color(0xFF8E8E93),
                     ),
                   ),
-                  SizedBox(width: 20.w),
+                  horizontalSpace(20),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,18 +119,18 @@ class _GoalCardState extends State<GoalCard>
                         Text(
                           widget.title,
                           style: TextStyle(
-                            fontSize: 20.sp,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w600,
                             color: widget.isSelected
-                                ? const Color(0xFF007AFF)
+                                ? AppColors.primaryBlack
                                 : const Color(0xFF1D1D1F),
                           ),
                         ),
-                        SizedBox(height: 6.h),
+                        verticalSpace(6),
                         Text(
                           widget.description,
                           style: TextStyle(
-                            fontSize: 15.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
                             color: const Color(0xFF86868B),
                           ),
@@ -138,7 +141,7 @@ class _GoalCardState extends State<GoalCard>
                   if (widget.isSelected)
                     Icon(
                       Icons.check_circle_rounded,
-                      color: const Color(0xFF007AFF),
+                      color: AppColors.primaryBlack,
                       size: iconSize,
                     ),
                 ],

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/helpers/spacing.dart';
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_text_styles.dart';
+
 /// Reusable gender selection card widget with iOS-style animation
 class GenderCard extends StatefulWidget {
   final String gender;
@@ -46,8 +50,8 @@ class _GenderCardState extends State<GenderCard>
 
   @override
   Widget build(BuildContext context) {
-    final cardBorderRadius = BorderRadius.circular(20.r);
-    final iconSize = 24.sp;
+    final cardBorderRadius = const BorderRadius.all(Radius.circular(20));
+    final iconSize = 24.0;
 
     return ScaleTransition(
       scale: _scaleAnimation,
@@ -55,80 +59,62 @@ class _GenderCardState extends State<GenderCard>
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
         width: double.infinity,
-        height: 80.h,
+        padding: const EdgeInsets.symmetric(vertical: 4),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: cardBorderRadius,
           border: Border.all(
             color: widget.isSelected
-                ? const Color(0xFF007AFF)
+                ? AppColors.primaryBlack
                 : const Color(0xFFE5E5E7),
             width: widget.isSelected ? 2 : 1,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: widget.isSelected
-                  ? const Color(0xFF007AFF).withOpacity(0.1)
-                  : Colors.black.withOpacity(0.05),
-              blurRadius: widget.isSelected ? 15 : 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
         ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            borderRadius: cardBorderRadius,
-            onTap: () {
-              HapticFeedback.lightImpact();
-              widget.onTap();
-            },
-            onTapDown: (_) => _scaleController.forward(),
-            onTapUp: (_) => _scaleController.reverse(),
-            onTapCancel: () => _scaleController.reverse(),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
-              child: Row(
-                children: [
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    width: 48.w,
-                    height: 48.h,
-                    decoration: BoxDecoration(
-                      color: widget.isSelected
-                          ? const Color(0xFF007AFF)
-                          : const Color(0xFFF2F2F7),
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: Icon(
-                      widget.icon,
-                      size: iconSize,
-                      color: widget.isSelected
-                          ? Colors.white
-                          : const Color(0xFF8E8E93),
-                    ),
+        child: InkWell(
+          borderRadius: cardBorderRadius,
+          onTap: () {
+            HapticFeedback.lightImpact();
+            widget.onTap();
+          },
+          onTapDown: (_) => _scaleController.forward(),
+          onTapUp: (_) => _scaleController.reverse(),
+          onTapCancel: () => _scaleController.reverse(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Row(
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: widget.isSelected
+                        ? AppColors.primaryBlack
+                        : const Color(0xFFF2F2F7),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
-                  SizedBox(width: 16.w),
-                  Text(
-                    widget.gender,
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: widget.isSelected
-                          ? const Color(0xFF007AFF)
-                          : const Color(0xFF1D1D1F),
-                      letterSpacing: -0.3,
-                    ),
+                  child: Icon(
+                    widget.icon,
+                    size: iconSize,
+                    color: widget.isSelected
+                        ? Colors.white
+                        : const Color(0xFF8E8E93),
                   ),
-                  const Spacer(),
-                  if (widget.isSelected)
-                    Icon(
-                      Icons.check_circle_rounded,
-                      color: const Color(0xFF007AFF),
-                      size: iconSize,
-                    ),
-                ],
-              ),
+                ),
+                horizontalSpace(16),
+                Text(
+                  widget.gender,
+                  style: AppTextStyles.font18SemiBoldConditional(
+                    isSelected: widget.isSelected,
+                  ),
+                ),
+                const Spacer(),
+                if (widget.isSelected)
+                  Icon(
+                    Icons.check_circle_rounded,
+                    color: AppColors.primaryBlack,
+                    size: iconSize,
+                  ),
+              ],
             ),
           ),
         ),

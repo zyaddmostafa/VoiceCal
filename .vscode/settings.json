@@ -3,6 +3,5 @@
         "**/*.freezed.dart": true,
         "**/*.g.dart": true,
         "**/*.mocks.dart": true,
-        "**/.github/copilot-instructions.md": true
     },
 }

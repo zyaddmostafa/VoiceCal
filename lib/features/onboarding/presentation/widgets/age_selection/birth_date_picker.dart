@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_text_styles.dart';
 
-/// Cupertino-style date picker for age selection
 class BirthDatePicker extends StatefulWidget {
   final DateTime initialDate;
   final ValueChanged<DateTime> onDateChanged;
@@ -34,7 +34,6 @@ class _BirthDatePickerState extends State<BirthDatePicker> {
       _selectedDate = newDate;
     });
 
-    // Only trigger haptic feedback if the date actually changed
     if (_lastNotifiedDate != newDate) {
       HapticFeedback.selectionClick();
       _lastNotifiedDate = newDate;
@@ -48,30 +47,19 @@ class _BirthDatePickerState extends State<BirthDatePicker> {
     final minimumYear = currentYear - 100; // Max age 100
     final maximumYear = currentYear - 13; // Min age 13
 
-    return Container(
-      height: 200.h,
-      decoration: BoxDecoration(
-        color: AppColors.backgroundPrimary,
-        borderRadius: BorderRadius.circular(12.r),
+    return CupertinoTheme(
+      data: CupertinoThemeData(
+        textTheme: CupertinoTextThemeData(
+          dateTimePickerTextStyle: AppTextStyles.font20RegularPrimary,
+        ),
       ),
-      child: CupertinoTheme(
-        data: CupertinoThemeData(
-          textTheme: CupertinoTextThemeData(
-            dateTimePickerTextStyle: TextStyle(
-              fontSize: 20.sp,
-              color: AppColors.textPrimary,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
-        child: CupertinoDatePicker(
-          mode: CupertinoDatePickerMode.date,
-          initialDateTime: _selectedDate,
-          minimumYear: minimumYear,
-          maximumYear: maximumYear,
-          onDateTimeChanged: _onDateTimeChanged,
-          backgroundColor: AppColors.backgroundPrimary,
-        ),
+      child: CupertinoDatePicker(
+        mode: CupertinoDatePickerMode.date,
+        initialDateTime: _selectedDate,
+        minimumYear: minimumYear,
+        maximumYear: maximumYear,
+        onDateTimeChanged: _onDateTimeChanged,
+        backgroundColor: AppColors.backgroundPrimary,
       ),
     );
   }

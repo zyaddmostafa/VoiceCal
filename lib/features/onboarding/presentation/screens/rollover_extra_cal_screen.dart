@@ -1,77 +1,102 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
+import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../widgets/rollover_calories/rollover_content.dart';
+import '../../../../core/widgets/onboarding_header.dart';
+import '../widgets/onboarding_progress_header.dart';
+import '../widgets/rollover/rollover_info_badge.dart';
+import '../widgets/rollover/rollover_day_card.dart';
+import '../widgets/rollover/rollover_action_buttons.dart';
+import '../../data/models/user_informations_model.dart';
 
-class RolloverExtraCalScreen extends StatefulWidget {
-  const RolloverExtraCalScreen({super.key});
+class RolloverExtraCalScreen extends StatelessWidget {
+  const RolloverExtraCalScreen({super.key, this.userInfo});
 
-  @override
-  State<RolloverExtraCalScreen> createState() => _RolloverExtraCalScreenState();
-}
-
-class _RolloverExtraCalScreenState extends State<RolloverExtraCalScreen>
-    with TickerProviderStateMixin {
-  late AnimationController _slideController;
-  late Animation<Offset> _slideAnimation;
-  late Animation<double> _fadeAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _slideController = AnimationController(
-      duration: Duration(milliseconds: 800),
-      vsync: this,
-    );
-
-    _slideAnimation = Tween<Offset>(begin: Offset(0, 0.3), end: Offset.zero)
-        .animate(
-          CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
-        );
-
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
-
-    _slideController.forward();
-  }
-
-  @override
-  void dispose() {
-    _slideController.dispose();
-    super.dispose();
-  }
+  final UserInformationsModel? userInfo;
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return Scaffold(
       backgroundColor: AppColors.backgroundPrimary,
-      child: SafeArea(
+      body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(24.w),
-          child: SlideTransition(
-            position: _slideAnimation,
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: RolloverContent(
-                onNoPressed: _handleNoPressed,
-                onYesPressed: _handleYesPressed,
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const OnboardingProgressHeader(progress: 9 / 10),
+              verticalSpace(24),
+
+              const OnboardingHeader(
+                title: 'Rollover Extra Calories',
+                subtitle:
+                    'Would you like to rollover your extra calories to the next day?',
               ),
-            ),
+
+              verticalSpace(12),
+              const RolloverInfoBadge(limitCals: 200),
+
+              const Spacer(),
+
+              Row(
+                children: [
+                  const Expanded(
+                    child: RolloverDayCard(
+                      dayLabel: 'Yesterday',
+                      headerColor: Color(0xFFFFE9E9),
+                      consumed: 350,
+                      goal: 500,
+                      calsLeft: 150,
+                    ),
+                  ),
+                  horizontalSpace(16),
+                  const Expanded(
+                    child: RolloverDayCard(
+                      dayLabel: 'Today',
+                      headerColor: Color(0xFFEDEDEF),
+                      consumed: 350,
+                      goal: 650,
+                      calsLeft: 300,
+                      extraFromRollover: 150,
+                    ),
+                  ),
+                ],
+              ),
+
+              const Spacer(flex: 2),
+
+              RolloverActionButtons(
+                onNoPressed: () {
+                  final userInfo = this.userInfo?.copyWith(
+                    rolloverCalories: false,
+                  );
+                  log('Rollover Calories: ${userInfo?.rolloverCalories}');
+                  context.pushNamed(
+                    Routes.recommendedDailyCalAndMacrosScreen,
+                    arguments: userInfo,
+                  );
+                },
+                onYesPressed: () {
+                  final userInfo = this.userInfo?.copyWith(
+                    rolloverCalories: true,
+                  );
+                  log('Rollover Calories: ${userInfo?.rolloverCalories}');
+                  context.pushNamed(
+                    Routes.recommendedDailyCalAndMacrosScreen,
+                    arguments: userInfo,
+                  );
+                },
+              ),
+              verticalSpace(16),
+            ],
           ),
         ),
       ),
     );
-  }
-
-  void _handleNoPressed() {
-    // Handle no rollover selection
-    Navigator.of(context).pop();
-  }
-
-  void _handleYesPressed() {
-    // Handle yes rollover selection
-    Navigator.of(context).pop();
   }
 }
