@@ -9,9 +9,9 @@ import 'recommended_chip.dart';
 import 'speed_markers_row.dart';
 import 'speed_icons_row.dart';
 
-/// Body widget for goal speed screen containing all interactive elements
 class GoalSpeedScreenBody extends StatefulWidget {
-  const GoalSpeedScreenBody({super.key});
+  final void Function(double) onWeightChanged;
+  const GoalSpeedScreenBody({super.key, required this.onWeightChanged});
 
   @override
   State<GoalSpeedScreenBody> createState() => _GoalSpeedScreenBodyState();
@@ -60,8 +60,10 @@ class _GoalSpeedScreenBodyState extends State<GoalSpeedScreenBody> {
           min: isMetric ? 0.1 : 0.2, // roughly converted bounds
           max: isMetric ? 1.4 : 3.0,
           value: isMetric ? _lbsToKg(speedLbsPerWeek) : speedLbsPerWeek,
-          onChanged: (v) =>
-              setState(() => speedLbsPerWeek = isMetric ? _kgToLbs(v) : v),
+          onChanged: (v) {
+            setState(() => speedLbsPerWeek = isMetric ? _kgToLbs(v) : v);
+            widget.onWeightChanged(_lbsToKg(speedLbsPerWeek));
+          },
         ),
 
         verticalSpace(4),

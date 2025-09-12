@@ -1,12 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
+import '../../data/models/user_informations_model.dart';
 import '../widgets/height_and_weight/height_picker.dart';
 import '../widgets/height_and_weight/picker_section.dart';
 import '../../../../core/widgets/unit_toggle.dart';
@@ -14,7 +15,8 @@ import '../widgets/height_and_weight/weight_picker.dart';
 import '../widgets/onboarding_progress_header.dart';
 
 class HeightAndWeightScreen extends StatefulWidget {
-  const HeightAndWeightScreen({super.key});
+  final UserInformationsModel? userInfo;
+  const HeightAndWeightScreen({super.key, this.userInfo});
 
   @override
   State<HeightAndWeightScreen> createState() => _HeightAndWeightScreenState();
@@ -110,6 +112,21 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
 
   void _handleContinue() {
     HapticFeedback.lightImpact();
-    context.pushNamed(Routes.ageSelectionScreen);
+    final userInfo = widget.userInfo!.copyWith(
+      heightCm: isMetric
+          ? selectedHeightCm
+          : (selectedHeightFt * 30.48 + selectedHeightIn * 2.54).round(),
+      weightKg: isMetric
+          ? selectedWeightKg
+          : (selectedWeightLb * 0.453592).round(),
+    );
+    log(
+      userInfo.heightCm.toString() +
+          ' cm, ' +
+          userInfo.weightKg.toString() +
+          ' kg ' +
+          userInfo.isMale.toString(),
+    );
+    context.pushNamed(Routes.ageSelectionScreen, arguments: userInfo);
   }
 }

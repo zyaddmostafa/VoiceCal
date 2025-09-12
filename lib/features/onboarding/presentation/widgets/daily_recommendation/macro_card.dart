@@ -5,10 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/routing/routes.dart';
 import '../../../../../core/theme/app_text_styles.dart';
-import '../../screens/edit_goal_screen.dart';
 import '../edit_goal/edit_goal_args.dart';
 
-/// Macro card widget displaying nutrition information with circular progress
 class MacroCard extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -32,7 +30,9 @@ class MacroCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18.r),
-        border: Border.all(color: const Color(0xFFE5E5E7), width: 1),
+        border: const Border.fromBorderSide(
+          BorderSide(color: const Color(0xFFE5E5E7), width: 1),
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.08),

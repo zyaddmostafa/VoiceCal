@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/helpers/extention.dart';
@@ -8,9 +10,12 @@ import '../../../../core/widgets/onboarding_header.dart';
 import '../widgets/daily_recommendation/goal_bubble.dart';
 import '../widgets/daily_recommendation/recommended_daily_calories_screen_body.dart';
 import '../widgets/onboarding_progress_header.dart';
+import '../../data/models/user_informations_model.dart';
 
 class RecommendedDailyCalAndMacrosScreen extends StatelessWidget {
-  const RecommendedDailyCalAndMacrosScreen({super.key});
+  const RecommendedDailyCalAndMacrosScreen({super.key, this.userInfo});
+
+  final UserInformationsModel? userInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,10 @@ class RecommendedDailyCalAndMacrosScreen extends StatelessWidget {
               const OnboardingProgressHeader(progress: 1),
               verticalSpace(12),
 
-              const GoalBubble(goal: '15 lbs by March 27, 2026'),
+              GoalBubble(
+                goal:
+                    'Your Goal: ${userInfo?.goal}  ${userInfo?.weeklyGoalInKg}  kg Per Week',
+              ),
 
               verticalSpace(24),
               const OnboardingHeader(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,7 @@ import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
+import '../../data/models/user_informations_model.dart';
 import '../widgets/gender_selection/gender_card.dart';
 import '../widgets/onboarding_progress_header.dart';
 
@@ -81,7 +84,9 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
 
   void _handleContinue() {
     if (selectedGender == null) return;
+    final userInfo = UserInformationsModel(isMale: selectedGender == 'Male');
+    log(userInfo.isMale.toString());
     HapticFeedback.lightImpact();
-    context.pushNamed(Routes.heightAndWeightScreen);
+    context.pushNamed(Routes.heightAndWeightScreen, arguments: userInfo);
   }
 }

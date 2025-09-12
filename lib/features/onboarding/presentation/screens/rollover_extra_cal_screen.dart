@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,9 +12,12 @@ import '../widgets/onboarding_progress_header.dart';
 import '../widgets/rollover/rollover_info_badge.dart';
 import '../widgets/rollover/rollover_day_card.dart';
 import '../widgets/rollover/rollover_action_buttons.dart';
+import '../../data/models/user_informations_model.dart';
 
 class RolloverExtraCalScreen extends StatelessWidget {
-  const RolloverExtraCalScreen({super.key});
+  const RolloverExtraCalScreen({super.key, this.userInfo});
+
+  final UserInformationsModel? userInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +72,24 @@ class RolloverExtraCalScreen extends StatelessWidget {
 
               RolloverActionButtons(
                 onNoPressed: () {
-                  context.pushNamed(Routes.recommendedDailyCalAndMacrosScreen);
+                  final userInfo = this.userInfo?.copyWith(
+                    rolloverCalories: false,
+                  );
+                  log('Rollover Calories: ${userInfo?.rolloverCalories}');
+                  context.pushNamed(
+                    Routes.recommendedDailyCalAndMacrosScreen,
+                    arguments: userInfo,
+                  );
                 },
                 onYesPressed: () {
-                  context.pushNamed(Routes.recommendedDailyCalAndMacrosScreen);
+                  final userInfo = this.userInfo?.copyWith(
+                    rolloverCalories: true,
+                  );
+                  log('Rollover Calories: ${userInfo?.rolloverCalories}');
+                  context.pushNamed(
+                    Routes.recommendedDailyCalAndMacrosScreen,
+                    arguments: userInfo,
+                  );
                 },
               ),
               verticalSpace(16),

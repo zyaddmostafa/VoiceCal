@@ -7,9 +7,14 @@ import '../weight_picker/weight_ruler.dart';
 import 'weight_value_display.dart';
 
 class DesiredWeightScreenBody extends StatefulWidget {
-  const DesiredWeightScreenBody({super.key, required this.goal});
+  const DesiredWeightScreenBody({
+    super.key,
+    required this.goal,
+    required this.onWeightChanged,
+  });
 
   final String goal;
+  final void Function(double) onWeightChanged;
 
   @override
   State<DesiredWeightScreenBody> createState() =>
@@ -49,8 +54,10 @@ class _DesiredWeightScreenBodyState extends State<DesiredWeightScreenBody> {
           min: isMetric ? 30 : 60,
           max: isMetric ? 200 : 300,
           initial: isMetric ? _lbsToKg(selectedWeightLbs) : selectedWeightLbs,
-          onChanged: (v) =>
-              setState(() => selectedWeightLbs = isMetric ? _kgToLbs(v) : v),
+          onChanged: (v) {
+            setState(() => selectedWeightLbs = isMetric ? _kgToLbs(v) : v);
+            widget.onWeightChanged(_lbsToKg(selectedWeightLbs));
+          },
         ),
       ],
     );

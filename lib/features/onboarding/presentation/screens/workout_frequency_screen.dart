@@ -2,19 +2,20 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
+import '../../data/models/user_informations_model.dart';
 import '../widgets/onboarding_progress_header.dart';
 import '../widgets/workout_frequency/activity_level_card.dart';
 import '../widgets/workout_frequency/activity_level_data.dart';
 
 class WorkoutFrequencyScreen extends StatefulWidget {
-  const WorkoutFrequencyScreen({super.key});
+  final UserInformationsModel? userInfo;
+  const WorkoutFrequencyScreen({super.key, this.userInfo});
 
   @override
   State<WorkoutFrequencyScreen> createState() => _WorkoutFrequencyScreenState();
@@ -75,12 +76,19 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
     HapticFeedback.lightImpact();
     setState(() {
       selectedActivityLevel = levelId;
+      log('Selected activity level: $selectedActivityLevel');
     });
   }
 
   void _handleContinue() {
     if (selectedActivityLevel == null) return;
+    final userInfo = widget.userInfo?.copyWith(
+      activityLevel: selectedActivityLevel,
+    );
+    log(
+      'User Info: ${userInfo!.activityLevel} - ${userInfo.isMale! ? 'Male' : 'Female'}',
+    );
     HapticFeedback.lightImpact();
-    context.pushNamed(Routes.goalPlanScreen);
+    context.pushNamed(Routes.goalPlanScreen, arguments: userInfo);
   }
 }

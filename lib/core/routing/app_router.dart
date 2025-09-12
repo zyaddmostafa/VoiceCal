@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../../features/onboarding/data/models/user_informations_model.dart';
 import '../../features/onboarding/presentation/screens/born_date_screen.dart';
 import '../../features/onboarding/presentation/screens/gender_selection_screen.dart';
 import '../../features/onboarding/presentation/screens/goal_plan_screen.dart';
@@ -25,36 +26,60 @@ class AppRouter {
         );
 
       case Routes.heightAndWeightScreen:
+        final userInfo = arguments as UserInformationsModel?;
+
         return CupertinoPageRoute(
-          builder: (_) => const HeightAndWeightScreen(),
+          builder: (_) => HeightAndWeightScreen(userInfo: userInfo),
         );
 
       case Routes.workoutFrequencyScreen:
+        final userInfo = arguments as UserInformationsModel?;
+
         return CupertinoPageRoute(
-          builder: (_) => const WorkoutFrequencyScreen(),
+          builder: (_) => WorkoutFrequencyScreen(userInfo: userInfo),
         );
 
       case Routes.goalPlanScreen:
-        return CupertinoPageRoute(builder: (_) => const GoalPlanScreen());
+        final userInfo = arguments as UserInformationsModel?;
+
+        return CupertinoPageRoute(
+          builder: (_) => GoalPlanScreen(userInfo: userInfo),
+        );
 
       case Routes.desiredWeightScreen:
-        final goal = arguments as String?;
+        final userInfo = arguments as UserInformationsModel?;
 
         return CupertinoPageRoute(
-          builder: (_) => DesiredWeightScreen(goal: goal!),
+          builder: (_) => DesiredWeightScreen(userInfo: userInfo),
         );
       case Routes.ageSelectionScreen:
-        return CupertinoPageRoute(builder: (_) => const BornDateScreen());
-      case Routes.goalSpeedScreen:
-        return CupertinoPageRoute(builder: (_) => const GoalSpeedScreen());
-      case Routes.rolloverExtraCalScreen:
+        final userInfo = arguments as UserInformationsModel?;
+
         return CupertinoPageRoute(
-          builder: (_) => const RolloverExtraCalScreen(),
+          builder: (_) => BornDateScreen(userInfo: userInfo),
+        );
+
+      case Routes.goalSpeedScreen:
+        final userInfo = arguments as UserInformationsModel?;
+
+        return CupertinoPageRoute(
+          builder: (_) => GoalSpeedScreen(userInfo: userInfo),
+        );
+
+      case Routes.rolloverExtraCalScreen:
+        final userInfo = arguments as UserInformationsModel?;
+
+        return CupertinoPageRoute(
+          builder: (_) => RolloverExtraCalScreen(userInfo: userInfo),
         );
       case Routes.recommendedDailyCalAndMacrosScreen:
+        final userInfo = arguments as UserInformationsModel?;
+
         return CupertinoPageRoute(
-          builder: (_) => const RecommendedDailyCalAndMacrosScreen(),
+          builder: (_) =>
+              RecommendedDailyCalAndMacrosScreen(userInfo: userInfo),
         );
+
       case Routes.editGoalScreen:
         final editRecommendedPlan = arguments as EditGoalArgs?;
 

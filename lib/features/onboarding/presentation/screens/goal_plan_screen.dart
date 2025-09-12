@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,11 +10,13 @@ import '../../../../core/routing/routes.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
 import '../../data/models/goal_plan_model.dart';
+import '../../data/models/user_informations_model.dart';
 import '../widgets/goal_plan/goal_card.dart';
 import '../widgets/onboarding_progress_header.dart';
 
 class GoalPlanScreen extends StatefulWidget {
-  const GoalPlanScreen({super.key});
+  final UserInformationsModel? userInfo;
+  const GoalPlanScreen({super.key, this.userInfo});
 
   @override
   State<GoalPlanScreen> createState() => _GoalPlanScreenState();
@@ -81,11 +85,17 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
     HapticFeedback.lightImpact();
     setState(() {
       selectedGoal = goalId;
+      log('Selected goal: $selectedGoal');
     });
   }
 
   void _handleContinue() {
+    final userInfo = widget.userInfo?.copyWith(goal: selectedGoal);
+
+    log(
+      'User Info: ${userInfo!.goal} - ${userInfo.isMale! ? 'Male' : 'Female'}',
+    );
     HapticFeedback.lightImpact();
-    context.pushNamed(Routes.desiredWeightScreen, arguments: selectedGoal);
+    context.pushNamed(Routes.desiredWeightScreen, arguments: userInfo);
   }
 }
