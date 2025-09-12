@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../widgets/welcome/app_logo.dart';
 import '../widgets/welcome/welcome_actions.dart';
@@ -12,38 +13,28 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFE3F2FD), Colors.white],
-            stops: [0.0, 0.6],
-          ),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Column(
-              children: [
-                const Spacer(flex: 2),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          child: Column(
+            children: [
+              const Spacer(flex: 2),
 
-                // App Logo
-                const AppLogo(),
-                const SizedBox(height: 48),
+              const AppLogo(),
 
-                // Welcome Content
-                const WelcomeContent(),
-                const Spacer(flex: 3),
+              verticalSpace(48),
 
-                // Action Buttons
-                WelcomeActions(
-                  onGetStarted: () => _handleGetStarted(context),
-                  onSignIn: _handleSignIn,
-                ),
-                const SizedBox(height: 32),
-              ],
-            ),
+              const WelcomeContent(),
+
+              const Spacer(flex: 3),
+
+              WelcomeActions(
+                onGetStarted: () => _handleGetStarted(context),
+                onSignIn: _handleSignIn,
+              ),
+
+              verticalSpace(32),
+            ],
           ),
         ),
       ),
@@ -51,10 +42,11 @@ class WelcomeScreen extends StatelessWidget {
   }
 
   void _handleGetStarted(BuildContext context) {
-    context.pushReplacementNamed(Routes.genderSelectionScreen);
+    context.pushNamed(Routes.genderSelectionScreen);
   }
 
   void _handleSignIn() {
+    // TODO: Implement sign-in navigation
     print('Sign in tapped');
   }
 }

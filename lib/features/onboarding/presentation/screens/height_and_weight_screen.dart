@@ -1,18 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
-import '../../../../core/widgets/continue_button.dart';
+import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
+import '../../data/models/user_informations_model.dart';
 import '../widgets/height_and_weight/height_picker.dart';
 import '../widgets/height_and_weight/picker_section.dart';
-import '../widgets/height_and_weight/unit_toggle.dart';
+import '../../../../core/widgets/unit_toggle.dart';
 import '../widgets/height_and_weight/weight_picker.dart';
+import '../widgets/onboarding_progress_header.dart';
 
 class HeightAndWeightScreen extends StatefulWidget {
-  const HeightAndWeightScreen({super.key});
+  final UserInformationsModel? userInfo;
+  const HeightAndWeightScreen({super.key, this.userInfo});
 
   @override
   State<HeightAndWeightScreen> createState() => _HeightAndWeightScreenState();
@@ -20,47 +24,39 @@ class HeightAndWeightScreen extends StatefulWidget {
 
 class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
   bool isMetric = true;
-
-  // Metric values
   int selectedHeightCm = 170;
   int selectedWeightKg = 70;
 
-  // Imperial values
   int selectedHeightFt = 5;
   int selectedHeightIn = 7;
   int selectedWeightLb = 154;
 
   @override
   Widget build(BuildContext context) {
-    final spacing40 = SizedBox(height: 40.h);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
-              SizedBox(height: 60.h),
+              const OnboardingProgressHeader(progress: 2 / 10),
+              verticalSpace(40),
 
-              // Title and subtitle
               const OnboardingHeader(
                 title: 'Height & Weight',
                 subtitle: 'This will be used to calibrate\nyour custom plan.',
               ),
 
-              spacing40,
+              verticalSpace(40),
 
-              // Unit toggle
               UnitToggle(isMetric: isMetric, onToggle: _toggleUnit),
 
-              spacing40,
+              verticalSpace(40),
 
-              // Pickers
               Expanded(
                 child: Row(
                   children: [
-                    // Height picker
                     Expanded(
                       child: PickerSection(
                         title: 'Height',
@@ -78,8 +74,7 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20.w),
-                    // Weight picker
+                    horizontalSpace(20),
                     Expanded(
                       child: PickerSection(
                         title: 'Weight',
@@ -98,12 +93,11 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
                 ),
               ),
 
-              spacing40,
+              verticalSpace(40),
 
-              // Continue button
-              ContinueButton(onPressed: _handleContinue),
+              CustomAppButton(onPressed: _handleContinue),
 
-              SizedBox(height: 32.h),
+              verticalSpace(32),
             ],
           ),
         ),
@@ -118,6 +112,21 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
 
   void _handleContinue() {
     HapticFeedback.lightImpact();
-    context.pushNamed(Routes.workoutFrequencyScreen);
+    final userInfo = widget.userInfo!.copyWith(
+      heightCm: isMetric
+          ? selectedHeightCm
+          : (selectedHeightFt * 30.48 + selectedHeightIn * 2.54).round(),
+      weightKg: isMetric
+          ? selectedWeightKg
+          : (selectedWeightLb * 0.453592).round(),
+    );
+    log(
+      userInfo.heightCm.toString() +
+          ' cm, ' +
+          userInfo.weightKg.toString() +
+          ' kg ' +
+          userInfo.isMale.toString(),
+    );
+    context.pushNamed(Routes.ageSelectionScreen, arguments: userInfo);
   }
 }

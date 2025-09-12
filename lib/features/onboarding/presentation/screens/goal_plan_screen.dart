@@ -1,16 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
-import '../../../../core/widgets/continue_button.dart';
+import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
+import '../../data/models/goal_plan_model.dart';
+import '../../data/models/user_informations_model.dart';
 import '../widgets/goal_plan/goal_card.dart';
-import '../widgets/goal_plan/goal_plan_data.dart';
+import '../widgets/onboarding_progress_header.dart';
 
 class GoalPlanScreen extends StatefulWidget {
-  const GoalPlanScreen({super.key});
+  final UserInformationsModel? userInfo;
+  const GoalPlanScreen({super.key, this.userInfo});
 
   @override
   State<GoalPlanScreen> createState() => _GoalPlanScreenState();
@@ -21,48 +27,53 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final spacing60 = SizedBox(height: 60.h);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
-              spacing60,
+              const OnboardingProgressHeader(progress: 6 / 10),
+              verticalSpace(40),
 
-              // Title and subtitle
               const OnboardingHeader(
                 title: 'What\'s your goal?',
                 subtitle:
                     'Choose the result you want to achieve so we can personalize your plan.',
               ),
 
-              spacing60,
+              verticalSpace(60),
 
-              // Goal cards
               Expanded(
                 child: Column(
-                  children: GoalPlanData.goals.map((goal) {
-                    return GoalCard(
-                      icon: goal['icon'] as IconData,
-                      title: goal['title'] as String,
-                      description: goal['description'] as String,
-                      isSelected: selectedGoal == goal['id'],
-                      onTap: () => _selectGoal(goal['id'] as String),
+                  children: List.generate(GoalPlanModel.goals.length, (index) {
+                    final goal = GoalPlanModel.goals[index];
+
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: index == GoalPlanModel.goals.length - 1
+                            ? 0
+                            : 16.h,
+                      ),
+                      child: GoalCard(
+                        title: goal.title,
+                        description: goal.description,
+                        icon: goal.icon,
+                        isSelected: selectedGoal == goal.id,
+                        onTap: () => _selectGoal(goal.id),
+                      ),
                     );
-                  }).toList(),
+                  }),
                 ),
               ),
 
-              // Continue button
-              ContinueButton(
+              CustomAppButton(
                 isEnabled: selectedGoal != null,
                 onPressed: _handleContinue,
               ),
 
-              SizedBox(height: 32.h),
+              verticalSpace(32),
             ],
           ),
         ),
@@ -74,13 +85,17 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
     HapticFeedback.lightImpact();
     setState(() {
       selectedGoal = goalId;
+      log('Selected goal: $selectedGoal');
     });
   }
 
   void _handleContinue() {
-    if (selectedGoal == null) return;
+    final userInfo = widget.userInfo?.copyWith(goal: selectedGoal);
 
+    log(
+      'User Info: ${userInfo!.goal} - ${userInfo.isMale! ? 'Male' : 'Female'}',
+    );
     HapticFeedback.lightImpact();
-    context.pushNamed(Routes.weightPickerScreen);
+    context.pushNamed(Routes.desiredWeightScreen, arguments: userInfo);
   }
 }

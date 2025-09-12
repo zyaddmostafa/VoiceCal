@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/theme/app_colors.dart';
 
@@ -9,11 +10,10 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 120,
-      height: 120,
+      padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF007AFF), Color(0xFF5AC8FA)],
+          colors: [AppColors.primaryBlack, Colors.black54],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

@@ -1,12 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/extention.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
-import '../../../../core/widgets/continue_button.dart';
+import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
+import '../../data/models/user_informations_model.dart';
 import '../widgets/gender_selection/gender_card.dart';
+import '../widgets/onboarding_progress_header.dart';
 
 class GenderSelectionScreen extends StatefulWidget {
   const GenderSelectionScreen({super.key});
@@ -24,21 +29,19 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
-              SizedBox(height: 60.h),
+              const OnboardingProgressHeader(progress: 1 / 10),
+              verticalSpace(60),
 
-              // Title and subtitle
               const OnboardingHeader(
                 title: 'Tell us about you',
                 subtitle:
                     'Choose your gender so we can\npersonalize your plan.',
               ),
 
-              SizedBox(height: 80.h),
-
-              // Gender selection cards
+              verticalSpace(80),
               Column(
                 children: [
                   GenderCard(
@@ -47,7 +50,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                     isSelected: selectedGender == 'Male',
                     onTap: () => _selectGender('Male'),
                   ),
-                  SizedBox(height: 20.h),
+                  verticalSpace(20),
                   GenderCard(
                     gender: 'Female',
                     icon: Icons.female_outlined,
@@ -59,13 +62,12 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
 
               const Spacer(),
 
-              // Continue button
-              ContinueButton(
+              CustomAppButton(
                 isEnabled: selectedGender != null,
                 onPressed: _handleContinue,
               ),
 
-              SizedBox(height: 32.h),
+              verticalSpace(32),
             ],
           ),
         ),
@@ -82,7 +84,9 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
 
   void _handleContinue() {
     if (selectedGender == null) return;
-    context.pushNamed(Routes.heightAndWeightScreen);
+    final userInfo = UserInformationsModel(isMale: selectedGender == 'Male');
+    log(userInfo.isMale.toString());
     HapticFeedback.lightImpact();
+    context.pushNamed(Routes.heightAndWeightScreen, arguments: userInfo);
   }
 }

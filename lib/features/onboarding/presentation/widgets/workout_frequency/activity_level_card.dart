@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Activity level selection card with icon, title and description
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/helpers/spacing.dart';
+import '../../../../../core/theme/app_text_styles.dart';
+import '../../../data/models/activity_level_model.dart';
+
 class ActivityLevelCard extends StatefulWidget {
-  final String emoji;
-  final String title;
-  final String description;
+  final ActivityLevelModel activityLevel;
   final bool isSelected;
   final VoidCallback onTap;
 
   const ActivityLevelCard({
     super.key,
-    required this.emoji,
-    required this.title,
-    required this.description,
+    required this.activityLevel,
     required this.isSelected,
     required this.onTap,
   });
@@ -61,71 +61,63 @@ class _ActivityLevelCardState extends State<ActivityLevelCard>
           borderRadius: borderRadius,
           border: Border.all(
             color: widget.isSelected
-                ? const Color(0xFF007AFF)
+                ? AppColors.primaryBlack
                 : const Color(0xFFE5E5E7),
             width: widget.isSelected ? 2 : 1,
           ),
           boxShadow: [
             BoxShadow(
               color: widget.isSelected
-                  ? const Color(0xFF007AFF).withOpacity(0.15)
+                  ? AppColors.primaryBlack.withOpacity(0.15)
                   : Colors.black.withOpacity(0.05),
               blurRadius: widget.isSelected ? 12 : 8,
               offset: const Offset(0, 4),
             ),
           ],
         ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            borderRadius: borderRadius,
-            onTap: () {
-              HapticFeedback.lightImpact();
-              widget.onTap();
-            },
-            onTapDown: (_) => _scaleController.forward(),
-            onTapUp: (_) => _scaleController.reverse(),
-            onTapCancel: () => _scaleController.reverse(),
-            child: Padding(
-              padding: EdgeInsets.all(20.w),
-              child: Row(
-                children: [
-                  Text(widget.emoji, style: TextStyle(fontSize: iconSize)),
-                  SizedBox(width: 16.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.title,
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                            color: widget.isSelected
-                                ? const Color(0xFF007AFF)
-                                : const Color(0xFF1D1D1F),
-                          ),
+        child: InkWell(
+          borderRadius: borderRadius,
+          onTap: () {
+            HapticFeedback.lightImpact();
+            widget.onTap();
+          },
+          onTapDown: (_) => _scaleController.forward(),
+          onTapUp: (_) => _scaleController.reverse(),
+          onTapCancel: () => _scaleController.reverse(),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Text(
+                  widget.activityLevel.emoji,
+                  style: TextStyle(fontSize: iconSize),
+                ),
+                horizontalSpace(16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.activityLevel.title,
+                        style: AppTextStyles.font18SemiBoldConditional(
+                          isSelected: widget.isSelected,
                         ),
-                        SizedBox(height: 4.h),
-                        Text(
-                          widget.description,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: const Color(0xFF86868B),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      verticalSpace(4),
+                      Text(
+                        widget.activityLevel.description,
+                        style: AppTextStyles.font14RegularSecondary,
+                      ),
+                    ],
                   ),
-                  if (widget.isSelected)
-                    Icon(
-                      Icons.check_circle_rounded,
-                      color: const Color(0xFF007AFF),
-                      size: iconSize,
-                    ),
-                ],
-              ),
+                ),
+                if (widget.isSelected)
+                  Icon(
+                    Icons.check_circle_rounded,
+                    color: AppColors.primaryBlack,
+                    size: iconSize,
+                  ),
+              ],
             ),
           ),
         ),

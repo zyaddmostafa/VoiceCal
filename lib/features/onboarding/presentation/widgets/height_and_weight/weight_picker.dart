@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Reusable weight picker widget supporting both metric and imperial units
+import '../../../../../core/theme/app_text_styles.dart';
+
 class WeightPicker extends StatelessWidget {
   final bool isMetric;
   final int selectedWeightKg;
@@ -24,19 +23,17 @@ class WeightPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     const itemExtent = 40.0;
 
-    if (isMetric) {
-      return _MetricWeightPicker(
-        selectedWeightKg: selectedWeightKg,
-        onWeightChanged: onWeightKgChanged,
-        itemExtent: itemExtent,
-      );
-    } else {
-      return _ImperialWeightPicker(
-        selectedWeightLb: selectedWeightLb,
-        onWeightChanged: onWeightLbChanged,
-        itemExtent: itemExtent,
-      );
-    }
+    return isMetric
+        ? _MetricWeightPicker(
+            selectedWeightKg: selectedWeightKg,
+            onWeightChanged: onWeightKgChanged,
+            itemExtent: itemExtent,
+          )
+        : _ImperialWeightPicker(
+            selectedWeightLb: selectedWeightLb,
+            onWeightChanged: onWeightLbChanged,
+            itemExtent: itemExtent,
+          );
   }
 }
 
@@ -64,15 +61,9 @@ class _MetricWeightPicker extends StatelessWidget {
       },
       children: List.generate(171, (index) {
         final weight = 30 + index;
+
         return Center(
-          child: Text(
-            '$weight kg',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D1D1F),
-            ),
-          ),
+          child: Text('$weight kg', style: AppTextStyles.font18MediumBlack),
         );
       }),
     );
@@ -103,15 +94,9 @@ class _ImperialWeightPicker extends StatelessWidget {
       },
       children: List.generate(331, (index) {
         final weight = 70 + index;
+
         return Center(
-          child: Text(
-            '$weight lb',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D1D1F),
-            ),
-          ),
+          child: Text('$weight lb', style: AppTextStyles.font18MediumBlack),
         );
       }),
     );
