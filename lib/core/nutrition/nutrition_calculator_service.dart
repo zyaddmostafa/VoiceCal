@@ -221,8 +221,7 @@ class NutritionCalculatorService {
     final birthDate = DateTime(bornDate.year, bornDate.month, bornDate.day);
 
     int age = now.year - birthDate.year;
-    if (now.month < birthDate.month ||
-        (now.month == birthDate.month && now.day < birthDate.day)) {
+    if (now.month < birthDate.month) {
       age--;
     }
 

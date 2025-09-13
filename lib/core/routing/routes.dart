@@ -11,4 +11,5 @@ class Routes {
   static const String resultPlan = '/recommendedDailyCalAndMacros';
   static const String editGoalScreen = '/editGoal';
   static const String resultLoadingScreen = '/resultLoading';
+  static const String thankYouScreen = '/thankyouscreen';
 }

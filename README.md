@@ -81,21 +81,28 @@ Advanced feature for managing unused calories with clear explanations and visual
 
 ---
 
-#### 10. Results Loading
+#### 10. Thank You Screen
+<img src="assets/screenshots/thank_you_screen.png" width="250" alt="Thank You Screen">
+
+Congratulatory screen with privacy assurance and motivation before final plan generation.
+
+---
+
+#### 11. Results Loading
 <img src="assets/screenshots/result_plan_loading.png" width="250" alt="Results Loading">
 
 Animated loading screen with progress tracking and real-time calculation updates for nutrition plan generation.
 
 ---
 
-#### 11. Personalized Results
+#### 12. Personalized Results
 <img src="assets/screenshots/daily recommended.png" width="250" alt="Daily Recommendations">
 
 Custom calorie and macro recommendations based on user profile with beautiful data visualization.
 
 ---
 
-#### 12. Edit Goals
+#### 13. Edit Goals
 <img src="assets/screenshots/edit_goal.png" width="250" alt="Edit Goals">
 
 Flexible goal editing interface allowing users to adjust their targets anytime.
@@ -122,7 +129,7 @@ lib/
         ├── data/           # Models & repositories
         │   └── models/     # UserInformationsModel, GoalPlan, etc.
         └── presentation/   # Screens & widgets
-            ├── screens/    # 12 onboarding screens + loading states
+            ├── screens/    # 13 onboarding screens + loading states
             └── widgets/    # Feature-specific components
 ```
 
@@ -197,7 +204,7 @@ flutter build apk --release --flavor production --target lib/main_production.dar
 ### ✅ Completed Features
 - [x] **Multi-flavor build system** - Development & Production environments
 - [x] **Firebase integration** - Cloud backend setup
-- [x] **Complete onboarding flow** - 12 comprehensive screens with loading states
+- [x] **Complete onboarding flow** - 13 comprehensive screens with loading states
 - [x] **Nutrition calculation engine** - Scientific BMR/TDEE calculations with macro distribution
 - [x] **User data model** - Robust UserInformationsModel with data persistence
 - [x] **Responsive design system** - ScreenUtil-based layouts

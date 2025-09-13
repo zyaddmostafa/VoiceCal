@@ -75,9 +75,14 @@ class _DesiredWeightScreenState extends State<DesiredWeightScreen> {
     BuildContext context,
     UserInformationsModel userInformation,
   ) {
-    final userInfo = userInformation.copyWith(desiredWeightKg: selectedWeight);
+    final userInfo = userInformation.copyWith(
+      desiredWeightKg: selectedWeight,
+      desiredWeightLb: (selectedWeight * 2.20462).floor().toDouble(),
+    );
 
-    log('user desired weight: ${userInfo.desiredWeightKg} - ${userInfo.goal}');
+    log(
+      'user desired weight: ${userInfo.desiredWeightKg} - ${userInfo.desiredWeightLb}',
+    );
     HapticFeedback.lightImpact();
 
     context.pushNamed(Routes.goalSpeedScreen, arguments: userInfo);

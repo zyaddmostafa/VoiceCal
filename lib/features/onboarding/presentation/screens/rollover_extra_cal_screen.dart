@@ -86,10 +86,7 @@ class RolloverExtraCalScreen extends StatelessWidget {
                     rolloverCalories: true,
                   );
                   log('Rollover Calories: ${userInfo?.rolloverCalories}');
-                  context.pushNamed(
-                    Routes.resultLoadingScreen,
-                    arguments: userInfo,
-                  );
+                  context.pushNamed(Routes.thankYouScreen, arguments: userInfo);
                 },
               ),
               verticalSpace(16),

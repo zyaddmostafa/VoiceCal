@@ -65,8 +65,13 @@ class _GoalSpeedScreenState extends State<GoalSpeedScreen> {
 
   void _handleContinue(BuildContext context) {
     HapticFeedback.lightImpact();
-    final userInfo = widget.userInfo!.copyWith(weeklyGoalInKg: weeklyGoal);
-    log('Weekly goal set to: $weeklyGoal - ${userInfo.isMale}');
+    final userInfo = widget.userInfo!.copyWith(
+      weeklyGoalInKg: weeklyGoal,
+      weeklyGoalInLb: (weeklyGoal * 2.20462).floor().toDouble(),
+    );
+    log(
+      'Weekly goal set to: ${userInfo.weeklyGoalInLb} - ${userInfo.weeklyGoalInKg}',
+    );
     context.pushNamed(Routes.rolloverExtraCalScreen, arguments: userInfo);
   }
 }

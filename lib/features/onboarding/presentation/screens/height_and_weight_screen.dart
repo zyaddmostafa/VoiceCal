@@ -119,14 +119,14 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
       weightKg: isMetric
           ? selectedWeightKg
           : (selectedWeightLb * 0.453592).round(),
+      weightLb: isMetric
+          ? (selectedWeightKg * 2.20462).round()
+          : selectedWeightLb,
+      heightFt: isMetric
+          ? (selectedHeightCm / 30.48).floor().toDouble()
+          : (selectedHeightFt + (selectedHeightIn / 12)).floor().toDouble(),
     );
-    log(
-      userInfo.heightCm.toString() +
-          ' cm, ' +
-          userInfo.weightKg.toString() +
-          ' kg ' +
-          userInfo.isMale.toString(),
-    );
+    log('Height: ${userInfo.heightCm} cm, height: ${userInfo.heightFt} ft');
     context.pushNamed(Routes.ageSelectionScreen, arguments: userInfo);
   }
 }

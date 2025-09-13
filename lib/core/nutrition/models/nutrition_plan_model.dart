@@ -123,13 +123,7 @@ enum ActivityLevel {
   moderate(multiplier: 1.55, description: 'Moderate exercise 3-5 days/week'),
 
   /// Very active - hard exercise 6-7 days per week
-  veryActive(multiplier: 1.725, description: 'Hard exercise 6-7 days/week'),
-
-  /// Extremely active - very hard exercise, physical job
-  extremelyActive(
-    multiplier: 1.9,
-    description: 'Very hard exercise + physical job',
-  );
+  veryActive(multiplier: 1.725, description: 'Hard exercise 6-7 days/week');
 
   const ActivityLevel({required this.multiplier, required this.description});
 

@@ -9,8 +9,8 @@ import '../widgets/daily_recommendation/recommended_daily_calories_screen_body.d
 import '../widgets/onboarding_progress_header.dart';
 import '../../data/models/user_informations_model.dart';
 
-class ResultPlan extends StatelessWidget {
-  const ResultPlan({super.key, this.userInfo});
+class ResultPlanScreen extends StatelessWidget {
+  const ResultPlanScreen({super.key, this.userInfo});
 
   final UserInformationsModel? userInfo;
 
@@ -24,7 +24,13 @@ class ResultPlan extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
-              const OnboardingProgressHeader(progress: 1),
+              OnboardingProgressHeader(
+                progress: 1,
+                onBackPressed: () {
+                  // Go back to previous screen (result loading screen is removed)
+                  Navigator.pop(context);
+                },
+              ),
               verticalSpace(12),
 
               GoalBubble(

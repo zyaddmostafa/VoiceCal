@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppBackButton extends StatelessWidget {
-  const AppBackButton({super.key});
+  final VoidCallback? onPressed;
+  const AppBackButton({super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.of(context).pop(),
+      onTap: onPressed ?? () => Navigator.of(context).pop(),
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(

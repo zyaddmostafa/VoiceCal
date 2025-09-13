@@ -5,7 +5,6 @@ import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/routing/routes.dart';
-import '../../../../core/helpers/extention.dart';
 import '../../data/models/user_informations_model.dart';
 import '../widgets/result_loading/loading_progress_bar.dart';
 import '../widgets/result_loading/loading_percentage_display.dart';
@@ -62,7 +61,11 @@ class _ResultLoadingScreenState extends State<ResultLoadingScreen> {
       // Navigate to result plan screen when complete
       Future.delayed(const Duration(milliseconds: 500), () {
         if (context.mounted) {
-          context.pushNamed(Routes.resultPlan, arguments: widget.userInfo);
+          Navigator.pushReplacementNamed(
+            context,
+            Routes.resultPlan,
+            arguments: widget.userInfo,
+          );
         }
       });
       return; // Exit the function to avoid starting another timer
@@ -86,7 +89,7 @@ class _ResultLoadingScreenState extends State<ResultLoadingScreen> {
         });
 
         // Wait a moment then animate to next 25%
-        Future.delayed(const Duration(milliseconds: 800), () {
+        Future.delayed(const Duration(milliseconds: 200), () {
           _animateToProgress(targetProgress + 25, itemIndex + 1);
         });
       }
