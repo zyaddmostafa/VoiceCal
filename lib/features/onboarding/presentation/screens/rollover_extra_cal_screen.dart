@@ -77,7 +77,7 @@ class RolloverExtraCalScreen extends StatelessWidget {
                   );
                   log('Rollover Calories: ${userInfo?.rolloverCalories}');
                   context.pushNamed(
-                    Routes.recommendedDailyCalAndMacrosScreen,
+                    Routes.resultLoadingScreen,
                     arguments: userInfo,
                   );
                 },
@@ -87,7 +87,7 @@ class RolloverExtraCalScreen extends StatelessWidget {
                   );
                   log('Rollover Calories: ${userInfo?.rolloverCalories}');
                   context.pushNamed(
-                    Routes.recommendedDailyCalAndMacrosScreen,
+                    Routes.resultLoadingScreen,
                     arguments: userInfo,
                   );
                 },

@@ -5,8 +5,9 @@ import '../../features/onboarding/presentation/screens/gender_selection_screen.d
 import '../../features/onboarding/presentation/screens/goal_plan_screen.dart';
 import '../../features/onboarding/presentation/screens/goal_speed_screen.dart';
 import '../../features/onboarding/presentation/screens/height_and_weight_screen.dart';
-import '../../features/onboarding/presentation/screens/recommended_daily_cal_and_macros_screen.dart';
+import '../../features/onboarding/presentation/screens/result_plan.dart';
 import '../../features/onboarding/presentation/screens/edit_goal_screen.dart';
+import '../../features/onboarding/presentation/screens/result_loading_screen.dart';
 import '../../features/onboarding/presentation/screens/rollover_extra_cal_screen.dart';
 import '../../features/onboarding/presentation/screens/desired_weight_screen.dart';
 import '../../features/onboarding/presentation/screens/welcome_screen.dart';
@@ -15,7 +16,7 @@ import '../../features/onboarding/presentation/widgets/edit_goal/edit_goal_args.
 import 'routes.dart';
 
 class AppRouter {
-  static Route? generateRoute(RouteSettings settings) {
+  static Route? onGenerateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
     switch (settings.name) {
       case Routes.welcomeScreen:
@@ -72,12 +73,17 @@ class AppRouter {
         return CupertinoPageRoute(
           builder: (_) => RolloverExtraCalScreen(userInfo: userInfo),
         );
-      case Routes.recommendedDailyCalAndMacrosScreen:
+      case Routes.resultLoadingScreen:
         final userInfo = arguments as UserInformationsModel?;
 
         return CupertinoPageRoute(
-          builder: (_) =>
-              RecommendedDailyCalAndMacrosScreen(userInfo: userInfo),
+          builder: (_) => ResultLoadingScreen(userInfo: userInfo),
+        );
+      case Routes.resultPlan:
+        final userInfo = arguments as UserInformationsModel?;
+
+        return CupertinoPageRoute(
+          builder: (_) => ResultPlan(userInfo: userInfo),
         );
 
       case Routes.editGoalScreen:

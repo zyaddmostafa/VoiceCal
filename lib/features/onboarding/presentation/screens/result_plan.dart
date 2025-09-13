@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
@@ -12,8 +9,8 @@ import '../widgets/daily_recommendation/recommended_daily_calories_screen_body.d
 import '../widgets/onboarding_progress_header.dart';
 import '../../data/models/user_informations_model.dart';
 
-class RecommendedDailyCalAndMacrosScreen extends StatelessWidget {
-  const RecommendedDailyCalAndMacrosScreen({super.key, this.userInfo});
+class ResultPlan extends StatelessWidget {
+  const ResultPlan({super.key, this.userInfo});
 
   final UserInformationsModel? userInfo;
 

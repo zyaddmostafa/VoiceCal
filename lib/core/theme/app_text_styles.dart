@@ -197,4 +197,30 @@ class AppTextStyles {
         color: isSelected ? AppColors.primaryBlack : AppColors.textSecondary,
         letterSpacing: -0.2,
       );
+
+  // Loading screen specific styles
+  static TextStyle get font48ExtraBoldPrimary => TextStyle(
+    fontSize: 48.sp,
+    fontWeight: FontWeight.w800,
+    color: AppColors.textPrimary,
+    letterSpacing: -1.0,
+  );
+
+  static TextStyle get font30SemiBoldPrimary => TextStyle(
+    fontSize: 30.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.primaryBlack,
+  );
+
+  static TextStyle get font18BoldPrimary => TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle font16MediumSuccess({required bool isComplete}) => TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+    color: isComplete ? AppColors.success : AppColors.textSecondary,
+  );
 }
