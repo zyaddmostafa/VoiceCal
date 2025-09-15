@@ -79,7 +79,15 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
   }
 
   void _onDone() {
-    if (!_isValidData()) return;
+    if (!_isValidData()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Unable to update goal: missing or invalid data.'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
 
     final newValue = _getParsedInputValue();
     final originalValues = _getOriginalNutritionValues();

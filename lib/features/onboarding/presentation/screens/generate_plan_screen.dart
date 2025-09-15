@@ -46,8 +46,7 @@ class GeneratePlanScreen extends StatelessWidget {
                 ),
                 child: Center(
                   child: Lottie.asset(
-                    'assets/lottie/Love hands.json',
-
+                    Constants.lottieLoveHands,
                     fit: BoxFit.fill,
                     repeat: true,
                     animate: true,

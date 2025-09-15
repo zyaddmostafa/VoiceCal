@@ -90,7 +90,7 @@ class RolloverExtraCalScreen extends StatelessWidget {
                   );
                   log('Rollover Calories: ${userInfo?.rolloverCalories}');
                   context.pushNamed(
-                    Routes.generatePlanScreen,
+                    Routes.resultLoadingScreen,
                     arguments: userInfo,
                   );
                 },
