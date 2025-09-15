@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
@@ -25,11 +26,13 @@ class RolloverExtraCalScreen extends StatelessWidget {
       backgroundColor: AppColors.backgroundPrimary,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          padding: const EdgeInsets.symmetric(
+            horizontal: Constants.paddingHorizontal,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const OnboardingProgressHeader(progress: 9 / 10),
+              const OnboardingProgressHeader(progress: 9 / 13),
               verticalSpace(24),
 
               const OnboardingHeader(
@@ -86,7 +89,10 @@ class RolloverExtraCalScreen extends StatelessWidget {
                     rolloverCalories: true,
                   );
                   log('Rollover Calories: ${userInfo?.rolloverCalories}');
-                  context.pushNamed(Routes.thankYouScreen, arguments: userInfo);
+                  context.pushNamed(
+                    Routes.generatePlanScreen,
+                    arguments: userInfo,
+                  );
                 },
               ),
               verticalSpace(16),

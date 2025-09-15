@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -59,7 +59,7 @@ class _ResultLoadingScreenState extends State<ResultLoadingScreen> {
   void _animateToProgress(int targetProgress, int itemIndex) {
     if (targetProgress > 100) {
       // Navigate to result plan screen when complete
-      Future.delayed(const Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 300), () {
         if (context.mounted) {
           Navigator.pushReplacementNamed(
             context,
@@ -89,7 +89,7 @@ class _ResultLoadingScreenState extends State<ResultLoadingScreen> {
         });
 
         // Wait a moment then animate to next 25%
-        Future.delayed(const Duration(milliseconds: 200), () {
+        Future.delayed(const Duration(milliseconds: 50), () {
           _animateToProgress(targetProgress + 25, itemIndex + 1);
         });
       }
@@ -102,16 +102,16 @@ class _ResultLoadingScreenState extends State<ResultLoadingScreen> {
       backgroundColor: AppColors.backgroundPrimary,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          padding: const EdgeInsets.symmetric(
+            horizontal: Constants.paddingHorizontal,
+          ),
           child: Column(
             children: [
               const Spacer(),
 
-              // Percentage display
               LoadingPercentageDisplay(percentage: _currentProgress),
               verticalSpace(8),
 
-              // Loading message
               Text(
                 "We're setting everything up for you",
                 style: AppTextStyles.font30SemiBoldPrimary,
@@ -119,17 +119,14 @@ class _ResultLoadingScreenState extends State<ResultLoadingScreen> {
               ),
               verticalSpace(24),
 
-              // Progress bar
               LoadingProgressBar(progress: _currentProgress / 100),
               verticalSpace(16),
 
-              // Current task
               LoadingTaskDisplay(
                 task: _tasks[_currentTaskIndex],
                 isComplete: _currentProgress >= 100,
               ),
               verticalSpace(40),
-              // Recommendations card
               LoadingRecommendationsCard(
                 items: _recommendationItems,
                 completedItems: _completedItems,

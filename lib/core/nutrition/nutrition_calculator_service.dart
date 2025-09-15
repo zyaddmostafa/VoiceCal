@@ -276,4 +276,117 @@ class NutritionCalculatorService {
         return 0.0;
     }
   }
+
+  /// Recalculate macros when calories change
+  /// Maintains the same macro ratios as the original plan
+  static ({double protein, double carbs, double fats})
+  recalculateMacrosFromCalories({
+    required double newCalories,
+    required double originalCalories,
+    required double originalProtein,
+    required double originalCarbs,
+    required double originalFats,
+  }) {
+    // Calculate original percentages
+    final proteinPercent = (originalProtein * 4) / originalCalories;
+    final carbsPercent = (originalCarbs * 4) / originalCalories;
+    final fatPercent = (originalFats * 9) / originalCalories;
+
+    // Apply percentages to new calories
+    final newProteinCalories = newCalories * proteinPercent;
+    final newCarbsCalories = newCalories * carbsPercent;
+    final newFatCalories = newCalories * fatPercent;
+
+    return (
+      protein: newProteinCalories / 4,
+      carbs: newCarbsCalories / 4,
+      fats: newFatCalories / 9,
+    );
+  }
+
+  /// Recalculate calories when one macro changes
+  /// Adjusts other macros proportionally to maintain balance
+  static ({double calories, double protein, double carbs, double fats})
+  recalculateFromMacroChange({
+    required String changedMacro,
+    required double newMacroValue,
+    required double originalCalories,
+    required double originalProtein,
+    required double originalCarbs,
+    required double originalFats,
+  }) {
+    double newProtein = originalProtein;
+    double newCarbs = originalCarbs;
+    double newFats = originalFats;
+
+    // Update the changed macro
+    switch (changedMacro) {
+      case 'Protein':
+        newProtein = newMacroValue;
+        break;
+      case 'Carbs':
+        newCarbs = newMacroValue;
+        break;
+      case 'Fats':
+        newFats = newMacroValue;
+        break;
+    }
+
+    // Calculate new total calories
+    final newCalories = (newProtein * 4) + (newCarbs * 4) + (newFats * 9);
+
+    // Calculate how much calories changed
+    final calorieChange = newCalories - originalCalories;
+
+    // If calories changed significantly, adjust other macros proportionally
+    if (calorieChange.abs() > 50) {
+      // Only adjust if change is > 50 calories
+      final adjustmentCalories =
+          calorieChange / 2; // Split adjustment between other macros
+
+      switch (changedMacro) {
+        case 'Protein':
+          // Adjust carbs and fats
+          final carbsAdjustment = adjustmentCalories * 0.6 / 4; // 60% to carbs
+          final fatsAdjustment = adjustmentCalories * 0.4 / 9; // 40% to fats
+          newCarbs = max(newCarbs - carbsAdjustment, 50.0); // Min 50g carbs
+          newFats = max(newFats - fatsAdjustment, 20.0); // Min 20g fats
+          break;
+
+        case 'Carbs':
+          // Adjust protein and fats
+          final proteinAdjustment =
+              adjustmentCalories * 0.5 / 4; // 50% to protein
+          final fatsAdjustment = adjustmentCalories * 0.5 / 9; // 50% to fats
+          newProtein = max(
+            newProtein - proteinAdjustment,
+            50.0,
+          ); // Min 50g protein
+          newFats = max(newFats - fatsAdjustment, 20.0); // Min 20g fats
+          break;
+
+        case 'Fats':
+          // Adjust protein and carbs
+          final proteinAdjustment =
+              adjustmentCalories * 0.4 / 4; // 40% to protein
+          final carbsAdjustment = adjustmentCalories * 0.6 / 4; // 60% to carbs
+          newProtein = max(
+            newProtein - proteinAdjustment,
+            50.0,
+          ); // Min 50g protein
+          newCarbs = max(newCarbs - carbsAdjustment, 50.0); // Min 50g carbs
+          break;
+      }
+    }
+
+    // Recalculate final calories with adjusted macros
+    final finalCalories = (newProtein * 4) + (newCarbs * 4) + (newFats * 9);
+
+    return (
+      calories: finalCalories,
+      protein: newProtein,
+      carbs: newCarbs,
+      fats: newFats,
+    );
+  }
 }
