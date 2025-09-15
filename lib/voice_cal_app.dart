@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/routing/app_router.dart';
-import 'features/onboarding/presentation/screens/welcome_screen.dart';
+import 'core/routing/routes.dart';
 
 class VoiceCalApp extends StatelessWidget {
   const VoiceCalApp({super.key});
@@ -15,8 +15,8 @@ class VoiceCalApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: WelcomeScreen(),
-        onGenerateRoute: AppRouter.generateRoute,
+        initialRoute: Routes.welcomeScreen,
+        onGenerateRoute: AppRouter.onGenerateRoute,
       ),
     );
   }

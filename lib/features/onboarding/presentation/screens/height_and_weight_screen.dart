@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
@@ -37,10 +38,12 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(
+            horizontal: Constants.paddingHorizontal,
+          ),
           child: Column(
             children: [
-              const OnboardingProgressHeader(progress: 2 / 10),
+              const OnboardingProgressHeader(progress: 2 / 13),
               verticalSpace(40),
 
               const OnboardingHeader(
@@ -119,14 +122,14 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
       weightKg: isMetric
           ? selectedWeightKg
           : (selectedWeightLb * 0.453592).round(),
+      weightLb: isMetric
+          ? (selectedWeightKg * 2.20462).round()
+          : selectedWeightLb,
+      heightFt: isMetric
+          ? (selectedHeightCm / 30.48).floor().toDouble()
+          : (selectedHeightFt + (selectedHeightIn / 12)).floor().toDouble(),
     );
-    log(
-      userInfo.heightCm.toString() +
-          ' cm, ' +
-          userInfo.weightKg.toString() +
-          ' kg ' +
-          userInfo.isMale.toString(),
-    );
+    log('Height: ${userInfo.heightCm} cm, height: ${userInfo.heightFt} ft');
     context.pushNamed(Routes.ageSelectionScreen, arguments: userInfo);
   }
 }

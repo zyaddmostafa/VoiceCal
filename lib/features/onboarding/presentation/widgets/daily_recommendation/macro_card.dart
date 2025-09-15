@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/helpers/extention.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/routing/routes.dart';
 import '../../../../../core/theme/app_text_styles.dart';
+import '../../../data/models/calories_and_Macros_model.dart';
 import '../edit_goal/edit_goal_args.dart';
 
 class MacroCard extends StatelessWidget {
@@ -13,6 +15,8 @@ class MacroCard extends StatelessWidget {
   final String value;
   final double progress;
   final Color progressColor;
+  final CaloriesAndMacrosModel caloriesAndMacros;
+  final Function(CaloriesAndMacrosModel)? onUpdate;
 
   const MacroCard({
     super.key,
@@ -21,6 +25,8 @@ class MacroCard extends StatelessWidget {
     required this.value,
     required this.progress,
     required this.progressColor,
+    required this.caloriesAndMacros,
+    this.onUpdate,
   });
 
   @override
@@ -31,7 +37,7 @@ class MacroCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(18.r),
         border: const Border.fromBorderSide(
-          BorderSide(color: const Color(0xFFE5E5E7), width: 1),
+          BorderSide(color: Color(0xFFE5E5E7), width: 1),
         ),
         boxShadow: [
           BoxShadow(
@@ -67,7 +73,7 @@ class MacroCard extends StatelessWidget {
                     height: 65.h,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: const Color(0xFFF2F2F7),
+                      color: Color(0xFFF2F2F7),
                     ),
                   ),
                   // Progress circle
@@ -121,7 +127,7 @@ class MacroCard extends StatelessWidget {
     );
   }
 
-  void _navigateToEdit(BuildContext context) {
+  void _navigateToEdit(BuildContext context) async {
     final args = EditGoalArgs(
       label: label,
       unit: label == 'Calories' ? '' : 'g',
@@ -130,6 +136,15 @@ class MacroCard extends StatelessWidget {
       ringColor: progressColor,
       icon: icon,
     );
-    Navigator.of(context).pushNamed(Routes.editGoalScreen, arguments: args);
+
+    final result = await context.pushNamed(
+      Routes.editGoalScreen,
+      arguments: {'EditGoalArgs': args, 'caloriesAndMacros': caloriesAndMacros},
+    );
+
+    // Handle the updated calories and macros
+    if (result is CaloriesAndMacrosModel && onUpdate != null) {
+      onUpdate!(result);
+    }
   }
 }
