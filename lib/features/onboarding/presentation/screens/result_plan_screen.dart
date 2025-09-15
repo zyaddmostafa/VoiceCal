@@ -5,7 +5,7 @@ import '../../../../core/nutrition/models/nutrition_plan_model.dart';
 import '../../../../core/nutrition/nutrition_calculator_service.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
-import '../../data/models/calories_and_Macros_model.dart';
+import '../../data/models/calories_and_macros_model.dart';
 import '../widgets/daily_recommendation/goal_bubble.dart';
 import '../widgets/daily_recommendation/recommended_daily_calories_screen_body.dart';
 import '../widgets/onboarding_progress_header.dart';

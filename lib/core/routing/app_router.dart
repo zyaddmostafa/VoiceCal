@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../../features/onboarding/data/models/calories_and_Macros_model.dart';
+import '../../features/onboarding/data/models/calories_and_macros_model.dart';
 import '../../features/onboarding/data/models/user_informations_model.dart';
 import '../../features/onboarding/presentation/screens/born_date_screen.dart';
 import '../../features/onboarding/presentation/screens/gender_selection_screen.dart';

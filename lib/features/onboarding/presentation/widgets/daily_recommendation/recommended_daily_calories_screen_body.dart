@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/calories_and_Macros_model.dart';
+import '../../../data/models/calories_and_macros_model.dart';
 import 'macro_card.dart';
 
 class RecommendedDailyCaloriesScreenBody extends StatelessWidget {
