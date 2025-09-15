@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
@@ -30,10 +31,12 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(
+            horizontal: Constants.paddingHorizontal,
+          ),
           child: Column(
             children: [
-              const OnboardingProgressHeader(progress: 5 / 10),
+              const OnboardingProgressHeader(progress: 5 / 13),
               verticalSpace(40),
 
               const OnboardingHeader(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
@@ -29,10 +30,12 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(
+            horizontal: Constants.paddingHorizontal,
+          ),
           child: Column(
             children: [
-              const OnboardingProgressHeader(progress: 1 / 10),
+              const OnboardingProgressHeader(progress: 1 / 13),
               verticalSpace(60),
 
               const OnboardingHeader(

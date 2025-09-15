@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
@@ -30,11 +31,13 @@ class _GoalSpeedScreenState extends State<GoalSpeedScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          padding: const EdgeInsets.symmetric(
+            horizontal: Constants.paddingHorizontal,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const OnboardingProgressHeader(progress: 8 / 10),
+              const OnboardingProgressHeader(progress: 8 / 13),
               verticalSpace(24),
 
               const OnboardingHeader(
@@ -65,8 +68,13 @@ class _GoalSpeedScreenState extends State<GoalSpeedScreen> {
 
   void _handleContinue(BuildContext context) {
     HapticFeedback.lightImpact();
-    final userInfo = widget.userInfo!.copyWith(weeklyGoalInKg: weeklyGoal);
-    log('Weekly goal set to: $weeklyGoal - ${userInfo.isMale}');
+    final userInfo = widget.userInfo!.copyWith(
+      weeklyGoalInKg: weeklyGoal,
+      weeklyGoalInLb: (weeklyGoal * 2.20462).floor().toDouble(),
+    );
+    log(
+      'Weekly goal set to: ${userInfo.weeklyGoalInLb} - ${userInfo.weeklyGoalInKg}',
+    );
     context.pushNamed(Routes.rolloverExtraCalScreen, arguments: userInfo);
   }
 }

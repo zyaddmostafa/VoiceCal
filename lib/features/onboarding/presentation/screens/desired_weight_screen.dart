@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
@@ -31,8 +32,10 @@ class _DesiredWeightScreenState extends State<DesiredWeightScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: OnboardingProgressHeader(progress: 7 / 10),
+              padding: EdgeInsets.symmetric(
+                horizontal: Constants.paddingHorizontal,
+              ),
+              child: OnboardingProgressHeader(progress: 7 / 13),
             ),
             verticalSpace(24),
 
@@ -58,7 +61,9 @@ class _DesiredWeightScreenState extends State<DesiredWeightScreen> {
             const Spacer(flex: 2),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.symmetric(
+                horizontal: Constants.paddingHorizontal,
+              ),
               child: CustomAppButton(
                 onPressed: () => _handleContinue(context, widget.userInfo!),
                 text: 'Continue',
@@ -75,9 +80,14 @@ class _DesiredWeightScreenState extends State<DesiredWeightScreen> {
     BuildContext context,
     UserInformationsModel userInformation,
   ) {
-    final userInfo = userInformation.copyWith(desiredWeightKg: selectedWeight);
+    final userInfo = userInformation.copyWith(
+      desiredWeightKg: selectedWeight,
+      desiredWeightLb: (selectedWeight * 2.20462).floor().toDouble(),
+    );
 
-    log('user desired weight: ${userInfo.desiredWeightKg} - ${userInfo.goal}');
+    log(
+      'user desired weight: ${userInfo.desiredWeightKg} - ${userInfo.desiredWeightLb}',
+    );
     HapticFeedback.lightImpact();
 
     context.pushNamed(Routes.goalSpeedScreen, arguments: userInfo);

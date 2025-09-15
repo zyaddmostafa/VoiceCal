@@ -19,77 +19,91 @@ The app currently features a comprehensive onboarding system that collects user 
 ### 🚀 Onboarding Journey
 
 #### 1. Welcome Screen
-<img src="assets/screens/Welcome.png" width="250" alt="Welcome Screen">
+<img src="assets/screenshots/Welcome.png" width="250" alt="Welcome Screen">
 
 Premium iOS-style introduction with smooth animations and clear value proposition.
 
 ---
 
 #### 2. Gender Selection
-<img src="assets/screens/gender.png" width="250" alt="Gender Selection">
+<img src="assets/screenshots/gender.png" width="250" alt="Gender Selection">
 
 Clean, accessible gender selection with haptic feedback and smooth transitions.
 
 ---
 
 #### 3. Age Selection
-<img src="assets/screens/age.png" width="250" alt="Age Selection">
+<img src="assets/screenshots/age.png" width="250" alt="Age Selection">
 
 Interactive birth date picker with smooth scrolling and validation.
 
 ---
 
 #### 4. Height & Weight
-<img src="assets/screens/height&weight.png" width="250" alt="Height and Weight">
+<img src="assets/screenshots/height&weight.png" width="250" alt="Height and Weight">
 
 Dual picker interface supporting both metric and imperial units with real-time conversion.
 
 ---
 
 #### 5. Activity Level
-<img src="assets/screens/freq.png" width="250" alt="Activity Frequency">
+<img src="assets/screenshots/freq.png" width="250" alt="Activity Frequency">
 
 Visual activity level selection with clear descriptions and recommendations.
 
 ---
 
 #### 6. Fitness Goals
-<img src="assets/screens/goal_plan.png" width="250" alt="Goal Planning">
+<img src="assets/screenshots/goal_plan.png" width="250" alt="Goal Planning">
 
 Comprehensive goal selection with detailed descriptions and visual icons.
 
 ---
 
 #### 7. Target Weight
-<img src="assets/screens/desired_weight.png" width="250" alt="Desired Weight">
+<img src="assets/screenshots/desired_weight.png" width="250" alt="Desired Weight">
 
 Smart weight goal setting with healthy range recommendations and visual feedback.
 
 ---
 
 #### 8. Goal Timeline
-<img src="assets/screens/goal_speed.png" width="250" alt="Goal Speed">
+<img src="assets/screenshots/goal_speed.png" width="250" alt="Goal Speed">
 
 Interactive timeline slider with health-conscious speed recommendations and visual indicators.
 
 ---
 
 #### 9. Calorie Rollover
-<img src="assets/screens/rollover.png" width="250" alt="Rollover Settings">
+<img src="assets/screenshots/rollover.png" width="250" alt="Rollover Settings">
 
 Advanced feature for managing unused calories with clear explanations and visual examples.
 
 ---
 
-#### 10. Personalized Results
-<img src="assets/screens/daily recommended.png" width="250" alt="Daily Recommendations">
+#### 10. Thank You Screen
+<img src="assets/screenshots/thank_you_screen.png" width="250" alt="Thank You Screen">
+
+Congratulatory screen with privacy assurance and motivation before final plan generation.
+
+---
+
+#### 11. Results Loading
+<img src="assets/screenshots/result_plan_loading.png" width="250" alt="Results Loading">
+
+Animated loading screen with progress tracking and real-time calculation updates for nutrition plan generation.
+
+---
+
+#### 12. Personalized Results
+<img src="assets/screenshots/daily recommended.png" width="250" alt="Daily Recommendations">
 
 Custom calorie and macro recommendations based on user profile with beautiful data visualization.
 
 ---
 
-#### 11. Edit Goals
-<img src="assets/screens/edit_goal.png" width="250" alt="Edit Goals">
+#### 13. Edit Goals
+<img src="assets/screenshots/edit_goal.png" width="250" alt="Edit Goals">
 
 Flexible goal editing interface allowing users to adjust their targets anytime.
 
@@ -106,6 +120,8 @@ lib/
 │   ├── helpers/            # Utility functions & extensions
 │   ├── networking/         # API clients & networking setup
 │   ├── routing/            # Navigation configuration
+│   ├── services/           # Business logic services
+│   │   └── nutrition/      # Nutrition calculation engine ✅
 │   ├── theme/              # App colors, typography, themes
 │   └── widgets/            # Reusable UI components
 └── features/               # Feature modules
@@ -113,7 +129,7 @@ lib/
         ├── data/           # Models & repositories
         │   └── models/     # UserInformationsModel, GoalPlan, etc.
         └── presentation/   # Screens & widgets
-            ├── screens/    # 11 onboarding screens
+            ├── screens/    # 13 onboarding screens + loading states
             └── widgets/    # Feature-specific components
 ```
 
@@ -188,7 +204,8 @@ flutter build apk --release --flavor production --target lib/main_production.dar
 ### ✅ Completed Features
 - [x] **Multi-flavor build system** - Development & Production environments
 - [x] **Firebase integration** - Cloud backend setup
-- [x] **Complete onboarding flow** - 11 comprehensive screens
+- [x] **Complete onboarding flow** - 13 comprehensive screens with loading states
+- [x] **Nutrition calculation engine** - Scientific BMR/TDEE calculations with macro distribution
 - [x] **User data model** - Robust UserInformationsModel with data persistence
 - [x] **Responsive design system** - ScreenUtil-based layouts
 - [x] **Navigation system** - Clean routing with parameter passing

@@ -1,12 +1,17 @@
 class UserInformationsModel {
   final bool? isMale;
   final int? heightCm;
+  final double? heightFt;
   final int? weightKg;
+  final int? weightLb;
   final BornDate? bornDate;
   final String? activityLevel;
   final String? goal;
   final double? desiredWeightKg;
+  final double? desiredWeightLb;
   final double? weeklyGoalInKg;
+  final double? weeklyGoalInLb;
+
   final bool? rolloverCalories;
 
   UserInformationsModel({
@@ -19,6 +24,10 @@ class UserInformationsModel {
     this.desiredWeightKg,
     this.rolloverCalories,
     this.weeklyGoalInKg,
+    this.weeklyGoalInLb,
+    this.heightFt,
+    this.weightLb,
+    this.desiredWeightLb,
   });
   UserInformationsModel copyWith({
     bool? isMale,
@@ -30,6 +39,10 @@ class UserInformationsModel {
     double? desiredWeightKg,
     double? weeklyGoalInKg,
     bool? rolloverCalories,
+    double? heightFt,
+    int? weightLb,
+    double? desiredWeightLb,
+    double? weeklyGoalInLb,
   }) {
     return UserInformationsModel(
       isMale: isMale ?? this.isMale,
@@ -41,6 +54,10 @@ class UserInformationsModel {
       desiredWeightKg: desiredWeightKg ?? this.desiredWeightKg,
       rolloverCalories: rolloverCalories ?? this.rolloverCalories,
       weeklyGoalInKg: weeklyGoalInKg ?? this.weeklyGoalInKg,
+      heightFt: heightFt ?? this.heightFt,
+      weightLb: weightLb ?? this.weightLb,
+      desiredWeightLb: desiredWeightLb ?? this.desiredWeightLb,
+      weeklyGoalInLb: weeklyGoalInLb ?? this.weeklyGoalInLb,
     );
   }
 }

@@ -8,7 +8,8 @@ class Routes {
   static const String desiredWeightScreen = '/weightPicker';
   static const String goalSpeedScreen = '/goalSpeed';
   static const String rolloverExtraCalScreen = '/rolloverExtraCal';
-  static const String recommendedDailyCalAndMacrosScreen =
-      '/recommendedDailyCalAndMacros';
+  static const String resultPlan = '/recommendedDailyCalAndMacros';
   static const String editGoalScreen = '/editGoal';
+  static const String resultLoadingScreen = '/resultLoading';
+  static const String generatePlanScreen = '/thankyouscreen';
 }
