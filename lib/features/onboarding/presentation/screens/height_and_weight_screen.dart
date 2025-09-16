@@ -43,7 +43,11 @@ class _HeightAndWeightScreenState extends State<HeightAndWeightScreen> {
           ),
           child: Column(
             children: [
-              const OnboardingProgressHeader(progress: 2 / 13),
+              verticalSpace(Constants.verticalSpaceAfterSafeArea),
+
+              const OnboardingProgressHeader(
+                progress: 2 / Constants.onboardingScreensCount,
+              ),
               verticalSpace(40),
 
               const OnboardingHeader(

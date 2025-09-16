@@ -32,7 +32,11 @@ class RolloverExtraCalScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const OnboardingProgressHeader(progress: 9 / 13),
+              verticalSpace(Constants.verticalSpaceAfterSafeArea),
+
+              const OnboardingProgressHeader(
+                progress: 9 / Constants.onboardingScreensCount,
+              ),
               verticalSpace(24),
 
               const OnboardingHeader(

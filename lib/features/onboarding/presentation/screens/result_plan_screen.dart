@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../../../core/helpers/constants.dart';
+import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/nutrition/models/nutrition_plan_model.dart';
 import '../../../../core/nutrition/nutrition_calculator_service.dart';
+import '../../../../core/routing/routes.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
-import '../../data/models/calories_and_Macros_model.dart';
+import '../../data/models/calories_and_macros_model.dart';
 import '../widgets/daily_recommendation/goal_bubble.dart';
 import '../widgets/daily_recommendation/recommended_daily_calories_screen_body.dart';
 import '../widgets/onboarding_progress_header.dart';
@@ -53,7 +55,7 @@ class _ResultPlanScreenState extends State<ResultPlanScreen> {
           child: Column(
             children: [
               OnboardingProgressHeader(
-                progress: 1,
+                progress: 13 / Constants.onboardingScreensCount,
                 onBackPressed: () {
                   // Go back to previous screen (result loading screen is removed)
                   Navigator.pop(context);
@@ -99,6 +101,6 @@ class _ResultPlanScreenState extends State<ResultPlanScreen> {
   }
 
   void _handleGetStarted(BuildContext context) {
-    // TODO: Navigate to next screen (main app flow)
+    context.pushNamed(Routes.authScreen);
   }
 }

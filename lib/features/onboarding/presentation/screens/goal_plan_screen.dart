@@ -37,7 +37,11 @@ class _GoalPlanScreenState extends State<GoalPlanScreen> {
           ),
           child: Column(
             children: [
-              const OnboardingProgressHeader(progress: 6 / 13),
+              verticalSpace(Constants.verticalSpaceAfterSafeArea),
+
+              const OnboardingProgressHeader(
+                progress: 6 / Constants.onboardingScreensCount,
+              ),
               verticalSpace(40),
 
               const OnboardingHeader(

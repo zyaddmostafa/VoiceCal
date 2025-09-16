@@ -36,7 +36,11 @@ class _WorkoutFrequencyScreenState extends State<WorkoutFrequencyScreen> {
           ),
           child: Column(
             children: [
-              const OnboardingProgressHeader(progress: 5 / 13),
+              verticalSpace(Constants.verticalSpaceAfterSafeArea),
+
+              const OnboardingProgressHeader(
+                progress: 5 / Constants.onboardingScreensCount,
+              ),
               verticalSpace(40),
 
               const OnboardingHeader(
