@@ -11,7 +11,12 @@ import 'speed_icons_row.dart';
 
 class GoalSpeedScreenBody extends StatefulWidget {
   final void Function(double) onWeightChanged;
-  const GoalSpeedScreenBody({super.key, required this.onWeightChanged});
+  final String userGoal;
+  const GoalSpeedScreenBody({
+    super.key,
+    required this.onWeightChanged,
+    required this.userGoal,
+  });
 
   @override
   State<GoalSpeedScreenBody> createState() => _GoalSpeedScreenBodyState();
@@ -35,7 +40,7 @@ class _GoalSpeedScreenBodyState extends State<GoalSpeedScreenBody> {
 
         Center(
           child: Text(
-            'Loss weight speed per week',
+            ' ${widget.userGoal} speed per week',
             style: TextStyle(
               fontSize: 16.sp,
               color: const Color(0xFF2C2C2E),

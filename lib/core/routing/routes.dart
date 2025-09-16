@@ -12,4 +12,5 @@ class Routes {
   static const String editGoalScreen = '/editGoal';
   static const String resultLoadingScreen = '/resultLoading';
   static const String generatePlanScreen = '/thankyouscreen';
+  static const String authScreen = '/authScreen';
 }

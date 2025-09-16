@@ -28,7 +28,11 @@ class GeneratePlanScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const OnboardingProgressHeader(progress: 10 / 13),
+              verticalSpace(Constants.verticalSpaceAfterSafeArea),
+
+              const OnboardingProgressHeader(
+                progress: 10 / Constants.onboardingScreensCount,
+              ),
               verticalSpace(40),
 
               const Spacer(),

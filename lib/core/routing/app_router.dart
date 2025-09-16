@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../../features/auth/presentation/screens/auth_screen.dart';
 import '../../features/onboarding/data/models/calories_and_macros_model.dart';
 import '../../features/onboarding/data/models/user_informations_model.dart';
 import '../../features/onboarding/presentation/screens/born_date_screen.dart';
@@ -21,6 +22,8 @@ class AppRouter {
   static Route? onGenerateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
     switch (settings.name) {
+      // Onboarding Screens
+
       case Routes.welcomeScreen:
         return CupertinoPageRoute(builder: (_) => const WelcomeScreen());
       case Routes.genderSelectionScreen:
@@ -107,6 +110,10 @@ class AppRouter {
             caloriesAndMacros: caloriesAndMacros,
           ),
         );
+
+      // Auth Screen
+      case Routes.authScreen:
+        return CupertinoPageRoute(builder: (_) => const AuthScreen());
       default:
         return null;
     }

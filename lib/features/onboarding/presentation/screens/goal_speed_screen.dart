@@ -37,17 +37,23 @@ class _GoalSpeedScreenState extends State<GoalSpeedScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const OnboardingProgressHeader(progress: 8 / 13),
+              verticalSpace(Constants.verticalSpaceAfterSafeArea),
+
+              const OnboardingProgressHeader(
+                progress: 8 / Constants.onboardingScreensCount,
+              ),
               verticalSpace(24),
 
-              const OnboardingHeader(
+              OnboardingHeader(
                 title: 'How fast do you want\nto reach your goal?',
-                subtitle: 'Select your desired weight loss speed.',
+                subtitle:
+                    'Select your desired ${widget.userInfo!.goal!.toLowerCase()} speed.',
               ),
 
               const Spacer(),
 
               GoalSpeedScreenBody(
+                userGoal: widget.userInfo!.goal!.toLowerCase(),
                 onWeightChanged: (weight) {
                   setState(() {
                     weeklyGoal = weight;
