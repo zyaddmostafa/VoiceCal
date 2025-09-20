@@ -13,17 +13,14 @@ import 'voice_cal_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //to fix test in release mode
   await ScreenUtil.ensureScreenSize();
 
-  // Load environment variables first
   await dotenv.load(fileName: '.env');
 
-  // Initialize Firebase (for app distribution)
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // Initialize Supabase (for authentication)
   await SupabaseService.supabaseInit();
+
   await HiveService.hiveInit();
   await setupGetIt();
   Bloc.observer = AppBlocObserver();

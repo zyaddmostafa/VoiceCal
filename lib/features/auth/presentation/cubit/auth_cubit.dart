@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -12,22 +10,27 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit({required this.authRepo}) : super(AuthInitial());
   googleSignIn() async {
     emit(AuthLoading());
-    try {
-      log('AuthCubit: Initiating Google Sign-In');
-      await authRepo.googleSignIn();
-      emit(AuthSuccess());
-    } catch (e) {
-      emit(AuthError(error: e.toString()));
-    }
+    final result = await authRepo.googleSignIn();
+    result.when(
+      onSuccess: (_) {
+        emit(AuthSuccess());
+      },
+      onError: (error) {
+        emit(AuthError(error: error.message));
+      },
+    );
   }
 
   signOut() async {
     emit(AuthLoading());
-    try {
-      await authRepo.signOut();
-      emit(AuthInitial());
-    } catch (e) {
-      emit(AuthError(error: e.toString()));
-    }
+    final result = await authRepo.signOut();
+    result.when(
+      onSuccess: (_) {
+        emit(AuthSuccess());
+      },
+      onError: (error) {
+        emit(AuthError(error: error.message));
+      },
+    );
   }
 }

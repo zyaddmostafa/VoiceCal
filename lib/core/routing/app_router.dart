@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/auth/data/repo/auth_repo.dart';
 import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/auth/presentation/screens/auth_screen.dart';
+import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/onboarding/data/models/calories_and_macros_model.dart';
 import '../../features/onboarding/data/models/user_informations_model.dart';
 import '../../features/onboarding/presentation/screens/born_date_screen.dart';
@@ -123,6 +124,11 @@ class AppRouter {
             child: const AuthScreen(),
           ),
         );
+
+      // Home Screen
+      case Routes.homeScreen:
+        return CupertinoPageRoute(builder: (_) => const HomeScreen());
+
       default:
         return null;
     }

@@ -12,12 +12,7 @@
           "package_name": "com.example.voicecal"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "979319094193-6g5u1cpgt9c8m4k0aek6s48smtd6q1er.apps.googleusercontent.com",
-          "client_type": 1
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyD6E3YEWsClhlyTaPxUrTqfqzbLtudA4aI"

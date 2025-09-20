@@ -9,15 +9,29 @@
             "client_info": {
                 "mobilesdk_app_id": "1:411466399036:android:29839acbf9fd8799ba3239",
                 "android_client_info": {
+                    "package_name": "com.example.voicecal"
+                }
+            },
+            "oauth_client": [],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyD6E3YEWsClhlyTaPxUrTqfqzbLtudA4aI"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": []
+                }
+            }
+        },
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:411466399036:android:developmentapp123456789",
+                "android_client_info": {
                     "package_name": "com.example.voicecal.dev"
                 }
             },
-            "oauth_client": [
-                {
-                    "client_id": "979319094193-6g5u1cpgt9c8m4k0aek6s48smtd6q1er.apps.googleusercontent.com",
-                    "client_type": 1
-                }
-            ],
+            "oauth_client": [],
             "api_key": [
                 {
                     "current_key": "AIzaSyD6E3YEWsClhlyTaPxUrTqfqzbLtudA4aI"
