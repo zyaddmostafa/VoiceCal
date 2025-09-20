@@ -1,17 +1,34 @@
-class UserInformationsModel {
+import 'package:hive_flutter/hive_flutter.dart';
+part 'user_informations_model.g.dart';
+
+@HiveType(typeId: 0)
+class UserInformationsModel extends HiveObject {
+  @HiveField(0)
   final bool? isMale;
+  @HiveField(1)
   final int? heightCm;
+  @HiveField(2)
   final double? heightFt;
+  @HiveField(3)
   final int? weightKg;
+  @HiveField(4)
   final int? weightLb;
+  @HiveField(5)
   final BornDate? bornDate;
+  @HiveField(6)
   final String? activityLevel;
+  @HiveField(7)
   final String? goal;
+  @HiveField(8)
   final double? desiredWeightKg;
+  @HiveField(9)
   final double? desiredWeightLb;
+  @HiveField(10)
   final double? weeklyGoalInKg;
+  @HiveField(11)
   final double? weeklyGoalInLb;
 
+  @HiveField(12)
   final bool? rolloverCalories;
 
   UserInformationsModel({
@@ -62,9 +79,13 @@ class UserInformationsModel {
   }
 }
 
+@HiveType(typeId: 1)
 class BornDate {
+  @HiveField(0)
   final int day;
+  @HiveField(1)
   final int month;
+  @HiveField(2)
   final int year;
 
   BornDate({required this.day, required this.month, required this.year});

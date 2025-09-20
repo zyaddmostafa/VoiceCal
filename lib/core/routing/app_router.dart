@@ -1,4 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/auth/data/repo/auth_repo.dart';
+import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/auth/presentation/screens/auth_screen.dart';
 import '../../features/onboarding/data/models/calories_and_macros_model.dart';
 import '../../features/onboarding/data/models/user_informations_model.dart';
@@ -16,6 +19,7 @@ import '../../features/onboarding/presentation/screens/generate_plan_screen.dart
 import '../../features/onboarding/presentation/screens/welcome_screen.dart';
 import '../../features/onboarding/presentation/screens/workout_frequency_screen.dart';
 import '../../features/onboarding/presentation/widgets/edit_goal/edit_goal_args.dart';
+import '../di/get_it.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -113,7 +117,12 @@ class AppRouter {
 
       // Auth Screen
       case Routes.authScreen:
-        return CupertinoPageRoute(builder: (_) => const AuthScreen());
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => AuthCubit(authRepo: getIt<AuthRepo>()),
+            child: const AuthScreen(),
+          ),
+        );
       default:
         return null;
     }
