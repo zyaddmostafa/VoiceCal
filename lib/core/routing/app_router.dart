@@ -118,10 +118,12 @@ class AppRouter {
 
       // Auth Screen
       case Routes.authScreen:
+        final userInfo = arguments as UserInformationsModel?;
+
         return CupertinoPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => AuthCubit(authRepo: getIt<AuthRepo>()),
-            child: const AuthScreen(),
+            child: AuthScreen(userInfo: userInfo),
           ),
         );
 

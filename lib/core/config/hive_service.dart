@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../features/onboarding/data/models/user_informations_model.dart';
-import 'hive_constants.dart';
+import 'config_constants.dart';
 
 class HiveService {
   static final Map<String, Box> _openedBoxes = {};
@@ -12,7 +12,7 @@ class HiveService {
     await initBoxes(hiveBoxesNames);
   }
 
-  static List<String> get hiveBoxesNames => [HiveConstants.userInfoBox];
+  static List<String> get hiveBoxesNames => [ConfigConstants.userInfoBox];
 
   static Future<void> initHiveAdapter() async {
     Hive.registerAdapter(UserInformationsModelAdapter());
@@ -37,13 +37,6 @@ class HiveService {
     _openedBoxes[boxName] = box;
 
     return box;
-  }
-
-  static Future<void> createBox(String boxName) async {
-    if (!_openedBoxes.containsKey(boxName)) {
-      final box = await Hive.openBox(boxName);
-      _openedBoxes[boxName] = box;
-    }
   }
 
   static Future<void> addData(String boxName, String key, value) async {

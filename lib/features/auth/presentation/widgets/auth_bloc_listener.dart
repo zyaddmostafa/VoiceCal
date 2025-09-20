@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/routing/routes.dart';
+import '../../../../core/service/user_local_service.dart';
+import '../../../onboarding/data/models/user_informations_model.dart';
 import '../cubit/auth_cubit.dart';
 
 class AuthBlocListener extends StatelessWidget {
-  const AuthBlocListener({super.key});
+  final UserInformationsModel? userInfo;
+  const AuthBlocListener({super.key, this.userInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,9 @@ class AuthBlocListener extends StatelessWidget {
 
           case AuthSuccess():
             _dismissLoadingDialog(context);
+            UserLocalService.addUserInfo(userInfo!);
             Navigator.pushReplacementNamed(context, Routes.homeScreen);
+
             break;
 
           case AuthError():

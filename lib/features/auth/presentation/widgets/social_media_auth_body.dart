@@ -24,13 +24,7 @@ class SocialMediaAuthBody extends StatelessWidget {
           },
         ),
         verticalSpace(24),
-        SocialMediaAuthbutton(
-          model: socialMediaList[1],
-
-          onPressed: () {
-            // Handle Apple sign-in
-          },
-        ),
+        SocialMediaAuthbutton(model: socialMediaList[1], onPressed: () => {}),
 
         verticalSpace(32),
         RichText(

@@ -101,6 +101,6 @@ class _ResultPlanScreenState extends State<ResultPlanScreen> {
   }
 
   void _handleGetStarted(BuildContext context) {
-    context.pushNamed(Routes.authScreen);
+    context.pushNamed(Routes.authScreen, arguments: widget.userInfo);
   }
 }

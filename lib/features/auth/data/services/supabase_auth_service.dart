@@ -53,7 +53,7 @@ class SupabaseAuthService {
     return Supabase.instance.client.auth.currentUser;
   }
 
-  bool get isAuthenticated {
+  static bool get isAuthenticated {
     return Supabase.instance.client.auth.currentUser != null;
   }
 

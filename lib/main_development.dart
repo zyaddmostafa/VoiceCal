@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app_bloc_observer.dart';
 import 'core/di/get_it.dart';
-import 'core/service/hive_service.dart';
+import 'core/config/hive_service.dart';
 import 'core/service/supabase_service.dart';
 import 'firebase_options.dart';
 import 'voice_cal_app.dart';
