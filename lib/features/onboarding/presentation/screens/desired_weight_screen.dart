@@ -7,6 +7,7 @@ import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
 import '../../data/models/user_informations_model.dart';
@@ -26,16 +27,20 @@ class _DesiredWeightScreenState extends State<DesiredWeightScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundPrimary,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            verticalSpace(Constants.verticalSpaceAfterSafeArea),
+
             const Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: Constants.paddingHorizontal,
               ),
-              child: OnboardingProgressHeader(progress: 7 / 13),
+              child: OnboardingProgressHeader(
+                progress: 7 / Constants.onboardingScreensCount,
+              ),
             ),
             verticalSpace(24),
 

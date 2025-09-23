@@ -8,8 +8,8 @@
 - follow the architecture and patterns described below
 - write comments where necessary
 - use meaningful names
-- consider performance 
-- consider the widget to be responsive
+- consider performance
+- make sure the widget / screen is responsive
 - keep it simple and follow KISS principle
 
 ## Project Overview

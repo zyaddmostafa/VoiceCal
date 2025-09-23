@@ -5,7 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_back_button.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/widgets/onboarding_header.dart';
-import '../../data/models/calories_and_Macros_model.dart';
+import '../../data/models/calories_and_macros_model.dart';
 import '../../data/models/original_nutrition_values_model.dart';
 import '../widgets/edit_goal/edit_goal_args.dart';
 import '../widgets/edit_goal/goal_preview_card.dart';
@@ -32,7 +32,6 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
   // Constants
   static const int _defaultCalorieValue = 2000;
   static const double _defaultProgress = 0.6;
-  static const String _defaultCalorieLabel = 'Calories';
   static const String _caloriesLabel = 'Calories';
 
   // Controllers and state
@@ -202,6 +201,8 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
 
     return Column(
       children: [
+        verticalSpace(Constants.verticalSpaceAfterSafeArea),
+
         const AppBackButton(),
         verticalSpace(16),
         Center(

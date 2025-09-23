@@ -35,7 +35,10 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
           ),
           child: Column(
             children: [
-              const OnboardingProgressHeader(progress: 1 / 13),
+              verticalSpace(Constants.verticalSpaceAfterSafeArea),
+              const OnboardingProgressHeader(
+                progress: 1 / Constants.onboardingScreensCount,
+              ),
               verticalSpace(60),
 
               const OnboardingHeader(

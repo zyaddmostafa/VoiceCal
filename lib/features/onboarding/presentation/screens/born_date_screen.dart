@@ -42,7 +42,11 @@ class _BornDateScreenState extends State<BornDateScreen> {
           ),
           child: Column(
             children: [
-              const OnboardingProgressHeader(progress: 3 / 13),
+              verticalSpace(Constants.verticalSpaceAfterSafeArea),
+
+              const OnboardingProgressHeader(
+                progress: 3 / Constants.onboardingScreensCount,
+              ),
               verticalSpace(40),
               const OnboardingHeader(
                 title: 'When were you born?',

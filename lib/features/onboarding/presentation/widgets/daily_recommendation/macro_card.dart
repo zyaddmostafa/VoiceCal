@@ -6,7 +6,7 @@ import '../../../../../core/helpers/extention.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/routing/routes.dart';
 import '../../../../../core/theme/app_text_styles.dart';
-import '../../../data/models/calories_and_Macros_model.dart';
+import '../../../data/models/calories_and_macros_model.dart';
 import '../edit_goal/edit_goal_args.dart';
 
 class MacroCard extends StatelessWidget {
