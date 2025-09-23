@@ -1,8 +1,5 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -84,7 +81,7 @@ class RolloverExtraCalScreen extends StatelessWidget {
                   );
                   log('Rollover Calories: ${userInfo?.rolloverCalories}');
                   context.pushNamed(
-                    Routes.resultLoadingScreen,
+                    Routes.generatePlanScreen,
                     arguments: userInfo,
                   );
                 },
@@ -94,7 +91,7 @@ class RolloverExtraCalScreen extends StatelessWidget {
                   );
                   log('Rollover Calories: ${userInfo?.rolloverCalories}');
                   context.pushNamed(
-                    Routes.resultLoadingScreen,
+                    Routes.generatePlanScreen,
                     arguments: userInfo,
                   );
                 },

@@ -10,7 +10,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
 import '../../data/models/user_informations_model.dart';
-import '../widgets/age_selection/birth_date_picker.dart';
+import '../widgets/born_date/birth_date_picker.dart';
 import '../widgets/onboarding_progress_header.dart';
 
 class BornDateScreen extends StatefulWidget {
