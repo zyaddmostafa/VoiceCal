@@ -33,7 +33,7 @@ class WelcomeScreen extends StatelessWidget {
 
               WelcomeActions(
                 onGetStarted: () => _handleGetStarted(context),
-                onSignIn: _handleSignIn,
+                onSignIn: () => _handleSignIn(context),
               ),
 
               verticalSpace(32),
@@ -48,8 +48,7 @@ class WelcomeScreen extends StatelessWidget {
     context.pushNamed(Routes.genderSelectionScreen);
   }
 
-  void _handleSignIn() {
-    // TODO: Implement sign-in navigation
-    print('Sign in tapped');
+  void _handleSignIn(BuildContext context) {
+    context.pushNamed(Routes.authScreen);
   }
 }

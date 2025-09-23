@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -37,7 +36,6 @@ class GeneratePlanScreen extends StatelessWidget {
 
               const Spacer(),
 
-              // Finger heart Lottie animation
               Container(
                 padding: EdgeInsets.all(40.w),
                 decoration: const BoxDecoration(
@@ -60,7 +58,6 @@ class GeneratePlanScreen extends StatelessWidget {
 
               verticalSpace(24),
 
-              // "All done!" message with checkmark
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

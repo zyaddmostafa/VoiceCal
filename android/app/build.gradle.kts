@@ -1,8 +1,7 @@
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
+    // Firebase for app distribution (NOT for authentication)
     id("com.google.gms.google-services")
-    // END: FlutterFire Configuration
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
@@ -10,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.example.voicecal"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -28,9 +27,24 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+         
+    }
+
+    flavorDimensions += "default"
+    
+    productFlavors {
+        create("development") {
+            dimension = "default"
+            applicationIdSuffix = ".dev"
+            resValue("string", "app_name", "Voice Cal Development")
+        }
+        create("production") {
+            dimension = "default"
+            resValue("string", "app_name", "Voice Cal")
+        }
     }
 
     buildTypes {
@@ -40,27 +54,13 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
-     flavorDimensions += "default"
-    productFlavors {
-        create("development") {
-            dimension = "default"
-            resValue(
-                type = "string",
-                name = "app_name",
-                value = "Voice Cal  development")
-            applicationIdSuffix = ".dev"
-        }
-        create("production") {
-            dimension = "default"
-            resValue(
-                type = "string",
-                name = "app_name",
-                value = "Voice Cal production")
-           
-        }
-}
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // Google Sign-In v6.x - stable version without Credential Manager
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 }
