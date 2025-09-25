@@ -1,5 +1,6 @@
 class Routes {
   static const String welcomeScreen = '/welcome';
+  static const String mainNavigation = '/mainNavigation';
   static const String genderSelectionScreen = '/genderSelection';
   static const String ageSelectionScreen = '/ageSelection';
   static const String heightAndWeightScreen = '/heightAndWeight';
