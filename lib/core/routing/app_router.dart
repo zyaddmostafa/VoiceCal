@@ -20,6 +20,7 @@ import '../../features/onboarding/presentation/screens/generate_plan_screen.dart
 import '../../features/onboarding/presentation/screens/welcome_screen.dart';
 import '../../features/onboarding/presentation/screens/workout_frequency_screen.dart';
 import '../../features/onboarding/presentation/widgets/edit_goal/edit_goal_args.dart';
+import '../../features/navigation/presentation/screens/main_navigation_screen.dart';
 import '../di/get_it.dart';
 import 'routes.dart';
 
@@ -127,7 +128,10 @@ class AppRouter {
           ),
         );
 
-      // Home Screen
+      // Navigation Screens
+      case Routes.mainNavigation:
+        return CupertinoPageRoute(builder: (_) => const MainNavigationScreen());
+
       case Routes.homeScreen:
         return CupertinoPageRoute(builder: (_) => const HomeScreen());
 
