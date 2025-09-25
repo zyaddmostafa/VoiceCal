@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -12,9 +11,10 @@ class SupabaseAuthService {
   static Future<void> googleInit() async {
     if (_isInitialized) return;
 
-    final webClientId = dotenv.env['GOOGLE_WEB_CLIENT_ID'];
-    if (webClientId == null || webClientId.isEmpty) {
-      throw Exception('GOOGLE_WEB_CLIENT_ID not found in .env file');
+    final webClientId =
+        '979319094193-8jitdm1kdrrhfab2ohvvb5f57q06c0d2.apps.googleusercontent.com';
+    if (webClientId.isEmpty) {
+      throw Exception('webClientId not found in .env file');
     }
 
     await _googleSignIn.initialize(serverClientId: webClientId);

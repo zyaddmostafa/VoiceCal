@@ -85,4 +85,4 @@ flutter:
     - assets/svgs/
     - assets/screenshots/
     - assets/lottie/
-    - .env
+    # .env file is optional - used only for local development

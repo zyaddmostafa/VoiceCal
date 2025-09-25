@@ -15,7 +15,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
 
-  await dotenv.load(fileName: '.env');
+  // Load .env file if it exists (for local development)
+  // In production/CI, environment variables will be used instead
+  try {
+    await dotenv.load(fileName: '.env');
+  } catch (e) {
+    // .env file not found, using system environment variables
+    print('No .env file found, using system environment variables');
+  }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
