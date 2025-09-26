@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/helpers/spacing.dart';
 import '../../data/models/user_settings.dart';
 import '../widgets/settings_section.dart';
 import '../widgets/settings_item.dart';
@@ -35,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 16.h),
+            verticalSpace(16),
 
             // Account Section
             SettingsSection(
@@ -131,7 +132,7 @@ class SettingsScreen extends StatelessWidget {
               ],
             ),
 
-            SizedBox(height: 100.h), // Bottom padding for navigation bar
+            verticalSpace(100), // Bottom padding for navigation bar
           ],
         ),
       ),

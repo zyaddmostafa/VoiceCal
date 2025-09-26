@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/helpers/spacing.dart';
 import 'achievement_badge_widget.dart';
 
 class AchievementsSectionWidget extends StatelessWidget {
@@ -7,8 +9,6 @@ class AchievementsSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final spacingWidth = 12.w;
-
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(20.r),
@@ -34,13 +34,13 @@ class AchievementsSectionWidget extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          SizedBox(height: 16.h),
+          verticalSpace(16),
           Row(
             children: [
               const AchievementBadgeWidget(emoji: '🔥', title: '7 Day Streak'),
-              SizedBox(width: spacingWidth),
+              horizontalSpace(12),
               const AchievementBadgeWidget(emoji: '🎯', title: 'Goal Achieved'),
-              SizedBox(width: spacingWidth),
+              horizontalSpace(12),
               const AchievementBadgeWidget(emoji: '📈', title: '5kg Lost'),
             ],
           ),

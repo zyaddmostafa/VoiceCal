@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NutritionLegendWidget extends StatelessWidget {
-  final bool showBarChart;
-
-  const NutritionLegendWidget({super.key, required this.showBarChart});
+  const NutritionLegendWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: const [
+      children: [
         LegendItemWidget(
           color: Color(0xFFFF6B6B),
           label: 'Protein',

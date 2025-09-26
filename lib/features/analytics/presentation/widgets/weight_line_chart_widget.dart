@@ -19,7 +19,7 @@ class WeightLineChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 180.h,
+      height: 150.h,
       child: LineChart(
         LineChartData(
           gridData: _buildGridData(),
@@ -55,7 +55,9 @@ class WeightLineChartWidget extends StatelessWidget {
         sideTitles: SideTitles(
           showTitles: true,
           reservedSize: 30.h,
+          interval: 1,
           getTitlesWidget: (double value, TitleMeta meta) {
+            if (value % 1 != 0) return const SizedBox.shrink();
             const style = TextStyle(
               color: Colors.grey,
               fontWeight: FontWeight.w400,

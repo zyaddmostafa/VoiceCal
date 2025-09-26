@@ -2,12 +2,17 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../data/models/daily_nutrition.dart';
+import '../../data/models/grouped_nutrition_data.dart';
 
 class NutritionBarChartWidget extends StatefulWidget {
-  final List<DailyNutrition> nutritionData;
+  final List<GroupedNutritionData> groupedData;
+  final String selectedPeriod;
 
-  const NutritionBarChartWidget({super.key, required this.nutritionData});
+  const NutritionBarChartWidget({
+    super.key,
+    required this.groupedData,
+    required this.selectedPeriod,
+  });
 
   @override
   State<NutritionBarChartWidget> createState() =>
@@ -19,15 +24,26 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.groupedData.isEmpty) {
+      return Center(
+        child: Text(
+          'No nutrition data available',
+          style: TextStyle(color: Colors.grey, fontSize: 14.sp),
+        ),
+      );
+    }
+
+    final maxY = _calculateMaxY();
+
     return BarChart(
       BarChartData(
         alignment: BarChartAlignment.spaceEvenly,
-        maxY: 100,
+        maxY: maxY,
         barTouchData: _buildBarTouchData(),
         titlesData: _buildTitlesData(),
         borderData: FlBorderData(show: false),
         barGroups: _buildBarGroups(),
-        gridData: _buildGridData(),
+        gridData: _buildGridData(maxY),
       ),
     );
   }
@@ -40,6 +56,7 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
               barTouchResponse == null ||
               barTouchResponse.spot == null) {
             touchedIndex = -1;
+
             return;
           }
           touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
@@ -48,9 +65,12 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
       touchTooltipData: BarTouchTooltipData(
         getTooltipColor: (_) => Colors.black87,
         getTooltipItem: (group, groupIndex, rod, rodIndex) {
-          final nutrition = widget.nutritionData[groupIndex];
+          if (groupIndex >= widget.groupedData.length) return null;
+
+          final nutrition = widget.groupedData[groupIndex];
           final labels = ['Protein', 'Carbs', 'Fats'];
           final values = [nutrition.protein, nutrition.carbs, nutrition.fats];
+
           return BarTooltipItem(
             '${labels[rodIndex]}\n${values[rodIndex].toStringAsFixed(1)}g',
             const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
@@ -68,14 +88,25 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          reservedSize: 30.h,
+          reservedSize: 35.h,
+          interval: 1,
           getTitlesWidget: (double value, TitleMeta meta) {
-            const style = TextStyle(
+            if (value % 1 != 0) return const SizedBox.shrink();
+            final style = TextStyle(
               color: Colors.grey,
               fontWeight: FontWeight.w400,
-              fontSize: 10,
+              fontSize: 10.sp,
             );
-            return Text('Day ${value.toInt() + 1}', style: style);
+
+            final index = value.toInt();
+            if (index >= 0 && index < widget.groupedData.length) {
+              return Padding(
+                padding: EdgeInsets.only(top: 8.h),
+                child: Text(widget.groupedData[index].label, style: style),
+              );
+            }
+
+            return const SizedBox.shrink();
           },
         ),
       ),
@@ -83,19 +114,36 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
     );
   }
 
-  FlGridData _buildGridData() {
+  FlGridData _buildGridData(double maxY) {
     return FlGridData(
       show: true,
       drawVerticalLine: false,
-      horizontalInterval: 25,
+      horizontalInterval: maxY / 4,
       getDrawingHorizontalLine: (value) {
-        return FlLine(color: Colors.grey[200]!, strokeWidth: 1);
+        return FlLine(color: Colors.grey[200], strokeWidth: 1);
       },
     );
   }
 
+  double _calculateMaxY() {
+    if (widget.groupedData.isEmpty) return 100;
+
+    double maxValue = 0;
+    for (final data in widget.groupedData) {
+      final max = [
+        data.protein,
+        data.carbs,
+        data.fats,
+      ].reduce((a, b) => a > b ? a : b);
+      if (max > maxValue) maxValue = max;
+    }
+
+    // Add 20% padding to the max value
+    return (maxValue * 1.2).ceilToDouble();
+  }
+
   List<BarChartGroupData> _buildBarGroups() {
-    return widget.nutritionData.asMap().entries.map((entry) {
+    return widget.groupedData.asMap().entries.map((entry) {
       final index = entry.key;
       final nutrition = entry.value;
 
@@ -113,6 +161,7 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
 
   BarChartRodData _buildBarRod(double value, Color color) {
     final topRadius = Radius.circular(4.r);
+
     return BarChartRodData(
       toY: value,
       color: color,

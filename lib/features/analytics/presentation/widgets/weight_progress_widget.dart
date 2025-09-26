@@ -2,25 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../data/models/weight_entry.dart';
+import '../../data/services/weight_data_processor.dart';
 import 'weight_change_badge_widget.dart';
 import 'weight_chart_legend_widget.dart';
-import 'weight_line_chart_widget.dart';
+import 'grouped_weight_line_chart_widget.dart';
 import 'weight_summary_card_widget.dart';
 
 class WeightProgressWidget extends StatelessWidget {
   final List<WeightEntry> weightData;
+  final String selectedPeriod;
 
-  const WeightProgressWidget({super.key, required this.weightData});
+  const WeightProgressWidget({
+    super.key,
+    required this.weightData,
+    required this.selectedPeriod,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final weights = weightData.map((e) => e.weight).toList();
-    final minWeight = weights.isNotEmpty
-        ? weights.reduce((a, b) => a < b ? a : b) - 2
-        : 70.0;
-    final maxWeight = weights.isNotEmpty
-        ? weights.reduce((a, b) => a > b ? a : b) + 2
-        : 80.0;
+    // Process weight data based on selected time period
+    final groupedData = WeightDataProcessor.processWeightData(
+      weightData,
+      selectedPeriod,
+    );
+
+    final weights = groupedData.isNotEmpty
+        ? groupedData.map((e) => e.weight).toList()
+        : weightData.map((e) => e.weight).toList();
 
     final weightChange = weights.isNotEmpty && weights.length > 1
         ? weights.last - weights.first
@@ -61,10 +69,9 @@ class WeightProgressWidget extends StatelessWidget {
           if (weights.isNotEmpty)
             WeightChartLegendWidget(currentWeight: weights.last),
           SizedBox(height: 20.h),
-          WeightLineChartWidget(
-            weightData: weightData,
-            minWeight: minWeight,
-            maxWeight: maxWeight,
+          GroupedWeightLineChartWidget(
+            groupedData: groupedData,
+            selectedPeriod: selectedPeriod,
           ),
           SizedBox(height: 16.h),
           WeightSummaryCardWidget(weightData: weightData),

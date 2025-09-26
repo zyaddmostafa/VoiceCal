@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/helpers/spacing.dart';
+
 import '../../../../core/theme/app_colors.dart';
 
 class SettingsToggleItem extends StatelessWidget {
@@ -33,7 +35,7 @@ class SettingsToggleItem extends StatelessWidget {
       child: Row(
         children: [
           Icon(icon, size: 20.sp, color: iconColor ?? const Color(0xFF666666)),
-          SizedBox(width: 12.w),
+          horizontalSpace(12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +49,7 @@ class SettingsToggleItem extends StatelessWidget {
                   ),
                 ),
                 if (subtitle != null) ...[
-                  SizedBox(height: 2.h),
+                  verticalSpace(2),
                   Text(
                     subtitle!,
                     style: TextStyle(
