@@ -15,4 +15,6 @@ class Routes {
   static const String generatePlanScreen = '/thankyouscreen';
   static const String authScreen = '/authScreen';
   static const String homeScreen = '/homeScreen';
+  static const String analyticsScreen = '/analyticsScreen';
+  static const String settingsScreen = '/settingsScreen';
 }

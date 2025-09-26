@@ -197,7 +197,7 @@ class ProfileRepository {
 ```
 
 ### Error Handling
-- Use `Either<Failure, Success>` pattern for repositories
+- Use ApiResult in the core/networking folder pattern for repositories
 - Implement proper error states in BLoC
 - Provide user-friendly error messages
 - Log errors appropriately for debugging

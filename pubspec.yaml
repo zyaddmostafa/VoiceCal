@@ -32,6 +32,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   dio: ^5.9.0
   firebase_core: ^4.1.0
+  fl_chart: ^1.1.1
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
@@ -43,7 +44,7 @@ dependencies:
   flutter_svg: ^2.2.1
   font_awesome_flutter: ^10.10.0
   get_it: ^8.2.0
-  google_sign_in: ^7.1.1  # Latest version with Credential Manager integration
+  google_sign_in: ^7.1.1
   hive_flutter: ^1.1.0
   json_annotation: ^4.9.0
   lottie: ^3.3.1
@@ -85,4 +86,4 @@ flutter:
     - assets/svgs/
     - assets/screenshots/
     - assets/lottie/
-    # .env file is optional - used only for local development
+    - .env 

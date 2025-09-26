@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../home/presentation/screens/home_screen.dart';
-import '../../../search/presentation/screens/search_screen.dart';
-import '../../../stats/presentation/screens/stats_screen.dart';
-import '../../../profile/presentation/screens/profile_screen.dart';
+import '../../../analytics/presentation/screens/analytics_screen.dart';
+import '../../../settings/presentation/screens/settings_screen.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -18,9 +17,8 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<Widget> _pages = [
     const HomeScreen(),
-    const SearchScreen(),
-    const StatsScreen(),
-    const ProfileScreen(),
+    const AnalyticsScreen(),
+    const SettingsScreen(),
   ];
 
   @override

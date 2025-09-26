@@ -16,9 +16,10 @@ class VoiceCalApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: SupabaseAuthService.isAuthenticated
-            ? Routes.homeScreen
-            : Routes.welcomeScreen,
+        // initialRoute: SupabaseAuthService.isAuthenticated
+        //     ? Routes.homeScreen
+        //     : Routes.welcomeScreen,
+        initialRoute: Routes.analyticsScreen,
         onGenerateRoute: AppRouter.onGenerateRoute,
       ),
     );
