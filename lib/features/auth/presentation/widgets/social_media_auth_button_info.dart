@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
 
@@ -24,8 +24,8 @@ class SocialMediaAuthButtonInfo extends StatelessWidget {
       children: [
         SvgPicture.asset(
           logoPath,
-          width: 32,
-          height: 32,
+          width: 32.w,
+          height: 32.h,
           colorFilter: logoColor != null
               ? ColorFilter.mode(logoColor!, BlendMode.srcIn)
               : null,

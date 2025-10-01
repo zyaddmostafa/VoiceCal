@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../widgets/weight_progress_widget.dart';
-import '../widgets/nutrition_chart_widget.dart';
-import '../widgets/time_period_selector_widget.dart';
-import '../widgets/analytics_app_bar_widget.dart';
+import '../../../../core/helpers/spacing.dart';
+import '../widgets/analytics_combined_card_widget.dart';
+import '../widgets/shared/time_period_selector_widget.dart';
+import '../widgets/shared/analytics_app_bar_widget.dart';
 import '../../data/providers/analytics_data_provider.dart';
 import '../../data/services/analytics_data_filter.dart';
 
@@ -16,13 +16,13 @@ class AnalyticsScreen extends StatefulWidget {
 }
 
 class _AnalyticsScreenState extends State<AnalyticsScreen> {
-  String selectedPeriod = '7 Days';
+  String selectedPeriod = '90 Days';
 
   @override
   Widget build(BuildContext context) {
+    // Fetch sample data (replace with real data fetching logic)
     final analyticsData = AnalyticsDataProvider.getSampleData();
 
-    // Filter data based on selected time period
     final filteredWeightData = AnalyticsDataFilter.filterWeightData(
       analyticsData.weightEntries,
       selectedPeriod,
@@ -36,33 +36,31 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const AnalyticsAppBarWidget(),
+          const AnalyticsAppBarWidget(
+            progressPercent: 80.0,
+            showAchievedBadge: true,
+          ),
 
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Column(
                 children: [
-                  SizedBox(height: 8.h),
+                  verticalSpace(8),
 
                   TimePeriodSelectorWidget(
                     selectedPeriod: selectedPeriod,
                     onPeriodChanged: (period) =>
                         setState(() => selectedPeriod = period),
                   ),
-                  SizedBox(height: 24.h),
+                  verticalSpace(24),
 
-                  WeightProgressWidget(
+                  AnalyticsCombinedCardWidget(
                     weightData: filteredWeightData,
-                    selectedPeriod: selectedPeriod,
-                  ),
-                  SizedBox(height: 20.h),
-
-                  NutritionChartWidget(
                     nutritionData: filteredNutritionData,
                     selectedPeriod: selectedPeriod,
                   ),
-                  SizedBox(height: 100.h),
+                  verticalSpace(100),
                 ],
               ),
             ),

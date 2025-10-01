@@ -2,7 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../data/models/grouped_nutrition_data.dart';
+import '../../../../../core/theme/app_text_styles.dart';
+import '../../../data/models/grouped_nutrition_data.dart';
 
 class NutritionBarChartWidget extends StatefulWidget {
   final List<GroupedNutritionData> groupedData;
@@ -28,7 +29,7 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
       return Center(
         child: Text(
           'No nutrition data available',
-          style: TextStyle(color: Colors.grey, fontSize: 14.sp),
+          style: AppTextStyles.font14RegularGrey,
         ),
       );
     }
@@ -67,12 +68,16 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
         getTooltipItem: (group, groupIndex, rod, rodIndex) {
           if (groupIndex >= widget.groupedData.length) return null;
 
-          final nutrition = widget.groupedData[groupIndex];
-          final labels = ['Protein', 'Carbs', 'Fats'];
-          final values = [nutrition.protein, nutrition.carbs, nutrition.fats];
+          final n = widget.groupedData[groupIndex];
+          final total = n.protein + n.carbs + n.fats;
+          final text =
+              'P ${n.protein.toStringAsFixed(0)}g  ·  '
+              'C ${n.carbs.toStringAsFixed(0)}g  ·  '
+              'F ${n.fats.toStringAsFixed(0)}g\n'
+              'Total ${total.toStringAsFixed(0)}g';
 
           return BarTooltipItem(
-            '${labels[rodIndex]}\n${values[rodIndex].toStringAsFixed(1)}g',
+            text,
             const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
           );
         },
@@ -92,17 +97,19 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
           interval: 1,
           getTitlesWidget: (double value, TitleMeta meta) {
             if (value % 1 != 0) return const SizedBox.shrink();
-            final style = TextStyle(
-              color: Colors.grey,
-              fontWeight: FontWeight.w400,
-              fontSize: 10.sp,
-            );
+            final style = AppTextStyles.font10MediumGrey;
 
             final index = value.toInt();
             if (index >= 0 && index < widget.groupedData.length) {
+              String label = widget.groupedData[index].label;
+              // Extract just the day name (e.g., "Tue" from "Tue 23")
+              if (label.contains(' ')) {
+                label = label.split(' ')[0];
+              }
+
               return Padding(
                 padding: EdgeInsets.only(top: 8.h),
-                child: Text(widget.groupedData[index].label, style: style),
+                child: Text(label, style: style),
               );
             }
 
@@ -130,12 +137,8 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
 
     double maxValue = 0;
     for (final data in widget.groupedData) {
-      final max = [
-        data.protein,
-        data.carbs,
-        data.fats,
-      ].reduce((a, b) => a > b ? a : b);
-      if (max > maxValue) maxValue = max;
+      final total = data.protein + data.carbs + data.fats;
+      if (total > maxValue) maxValue = total;
     }
 
     // Add 20% padding to the max value
@@ -145,28 +148,42 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
   List<BarChartGroupData> _buildBarGroups() {
     return widget.groupedData.asMap().entries.map((entry) {
       final index = entry.key;
-      final nutrition = entry.value;
+      final n = entry.value;
+
+      // Build a single stacked rod per group
+      final protein = n.protein;
+      final carbs = n.carbs;
+      final fats = n.fats;
+
+      final double total = protein + carbs + fats;
 
       return BarChartGroupData(
         x: index,
         barRods: [
-          _buildBarRod(nutrition.protein, const Color(0xFFFF6B6B)),
-          _buildBarRod(nutrition.carbs, const Color(0xFF4ECDC4)),
-          _buildBarRod(nutrition.fats, const Color(0xFFFFBE0B)),
+          BarChartRodData(
+            toY: total,
+            width: 12.w,
+            rodStackItems: [
+              BarChartRodStackItem(0, protein, const Color(0xFFFF6B6B)),
+              BarChartRodStackItem(
+                protein,
+                protein + carbs,
+                const Color(0xFF4ECDC4),
+              ),
+              BarChartRodStackItem(
+                protein + carbs,
+                total,
+                const Color(0xFFFFBE0B),
+              ),
+            ],
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.r),
+              topRight: Radius.circular(4.r),
+            ),
+          ),
         ],
         barsSpace: 2.w,
       );
     }).toList();
-  }
-
-  BarChartRodData _buildBarRod(double value, Color color) {
-    final topRadius = Radius.circular(4.r);
-
-    return BarChartRodData(
-      toY: value,
-      color: color,
-      width: 8.w,
-      borderRadius: BorderRadius.only(topLeft: topRadius, topRight: topRadius),
-    );
   }
 }

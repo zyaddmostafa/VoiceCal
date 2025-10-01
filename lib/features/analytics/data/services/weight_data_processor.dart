@@ -9,17 +9,16 @@ class WeightDataProcessor {
     if (weightData.isEmpty) return [];
 
     switch (selectedPeriod) {
-      case '7 Days':
-        return _groupByWeekNames(weightData);
-      case '1 Month':
-        return _groupByWeeks(weightData);
-      case '3 Months':
+      case '90 Days':
         return _groupByMonthNames(weightData, 3);
       case '6 Months':
         return _groupByMonthNames(weightData, 6);
       case '1 Year':
         return _groupByQuarters(weightData);
+      case 'All time':
+        return _groupByMonthNames(weightData, 12);
       default:
+        // Fallback to recent week view
         return _groupByWeekNames(weightData);
     }
   }
@@ -38,7 +37,7 @@ class WeightDataProcessor {
       final targetDate = now.subtract(Duration(days: i));
       final dayName = _getDayName(targetDate.weekday);
       final dayLabel = '$dayName ${targetDate.day}';
-      
+
       // Skip if we've already processed this day
       if (processedDays.contains(dayLabel)) continue;
 
@@ -65,7 +64,7 @@ class WeightDataProcessor {
             endDate: dayEntries.last.date,
           ),
         );
-        
+
         // Mark this day as processed
         processedDays.add(dayLabel);
       } else if (i == 0) {
@@ -88,7 +87,7 @@ class WeightDataProcessor {
         final date = now.subtract(Duration(days: 6 - i));
         final dayName = _getDayName(date.weekday);
         final dayLabel = '$dayName ${date.day}';
-        
+
         if (!processedDays.contains(dayLabel)) {
           groupedData.add(
             GroupedWeightData(
@@ -105,50 +104,8 @@ class WeightDataProcessor {
 
     // Sort by date to maintain chronological order
     groupedData.sort((a, b) => a.startDate.compareTo(b.startDate));
-    
+
     return groupedData;
-  }
-
-  /// Groups data into exactly 4 weeks for 1 month period
-  static List<GroupedWeightData> _groupByWeeks(List<WeightEntry> data) {
-    final last28Days = data.length >= 28
-        ? data.sublist(data.length - 28)
-        : data;
-    final List<GroupedWeightData> weeks = [];
-
-    // Create exactly 4 weeks of data - ensure no duplicates
-    for (int i = 0; i < 4; i++) {
-      final weekStart = i * 7;
-      final weekEnd = (i + 1) * 7;
-
-      if (weekStart < last28Days.length) {
-        final weekData = last28Days.sublist(
-          weekStart,
-          weekEnd > last28Days.length ? last28Days.length : weekEnd,
-        );
-
-        if (weekData.isNotEmpty) {
-          final avgWeight =
-              weekData.map((d) => d.weight).reduce((a, b) => a + b) /
-              weekData.length;
-
-          final weekLabel = 'Week ${i + 1}';
-          // Check if this week label already exists to prevent duplicates
-          if (!weeks.any((w) => w.label == weekLabel)) {
-            weeks.add(
-              GroupedWeightData(
-                label: weekLabel,
-                weight: avgWeight,
-                startDate: weekData.first.date,
-                endDate: weekData.last.date,
-              ),
-            );
-          }
-        }
-      }
-    }
-
-    return weeks;
   }
 
   /// Groups data by month names for 3 or 6 month periods
@@ -202,7 +159,7 @@ class WeightDataProcessor {
     final List<GroupedWeightData> quarterGroups = [];
 
     // Determine current quarter (1-4)
-    int currentQuarter = ((now.month - 1) ~/ 3) + 1;
+    final int currentQuarter = ((now.month - 1) ~/ 3) + 1;
 
     // Generate exactly 4 quarters from oldest to newest
     for (int i = 3; i >= 0; i--) {
@@ -223,7 +180,9 @@ class WeightDataProcessor {
       // Filter data for this quarter
       final quarterData = data.where((weight) {
         final m = weight.date.month;
-        return weight.date.year == year && m >= quarterStartMonth && m <= quarterEndMonth;
+        return weight.date.year == year &&
+            m >= quarterStartMonth &&
+            m <= quarterEndMonth;
       }).toList();
 
       if (quarterData.isNotEmpty) {

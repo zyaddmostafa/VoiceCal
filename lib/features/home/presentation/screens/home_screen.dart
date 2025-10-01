@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/theme/app_colors.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../widgets/today_info_card.dart';
 import '../widgets/calories_card.dart';

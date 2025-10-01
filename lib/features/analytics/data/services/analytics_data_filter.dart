@@ -13,18 +13,16 @@ class AnalyticsDataFilter {
       ..sort((a, b) => a.date.compareTo(b.date));
 
     switch (selectedPeriod) {
-      case '7 Days':
-        return _filterLastDays(sortedData, 7);
-      case '1 Month':
-        return _filterLastDays(sortedData, 30);
-      case '3 Months':
+      case '90 Days':
         return _filterLastDays(sortedData, 90);
       case '6 Months':
         return _filterLastDays(sortedData, 180);
       case '1 Year':
         return _filterLastDays(sortedData, 365);
+      case 'All time':
+        return sortedData;
       default:
-        return _filterLastDays(sortedData, 7);
+        return _filterLastDays(sortedData, 90);
     }
   }
 
@@ -39,18 +37,16 @@ class AnalyticsDataFilter {
       ..sort((a, b) => a.date.compareTo(b.date));
 
     switch (selectedPeriod) {
-      case '7 Days':
-        return _filterNutritionLastDays(sortedData, 7);
-      case '1 Month':
-        return _filterNutritionLastDays(sortedData, 30);
-      case '3 Months':
+      case '90 Days':
         return _filterNutritionLastDays(sortedData, 90);
       case '6 Months':
         return _filterNutritionLastDays(sortedData, 180);
       case '1 Year':
         return _filterNutritionLastDays(sortedData, 365);
+      case 'All time':
+        return sortedData;
       default:
-        return _filterNutritionLastDays(sortedData, 7);
+        return _filterNutritionLastDays(sortedData, 90);
     }
   }
 

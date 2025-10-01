@@ -9,6 +9,7 @@ class MacroItem extends StatelessWidget {
   final String value;
   final String sublabel;
   final Color color;
+  final double progress;
 
   const MacroItem({
     super.key,
@@ -16,21 +17,26 @@ class MacroItem extends StatelessWidget {
     required this.value,
     required this.sublabel,
     required this.color,
+    this.progress = 0.0,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8.w),
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 20.h),
+      margin: EdgeInsets.symmetric(horizontal: 6.w),
+      padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         color: AppColors.backgroundPrimary,
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(
+          color: AppColors.divider.withValues(alpha: 0.3),
+          width: 1,
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 12,
+            offset: Offset(0, 3.h),
           ),
         ],
       ),
@@ -38,29 +44,45 @@ class MacroItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            children: [
+              Container(
+                width: 8.w,
+                height: 8.h,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(4.r),
+                ),
+              ),
+              horizontalSpace(8),
+              Text(label, style: AppTextStyles.font12MediumPrimary),
+            ],
+          ),
+          verticalSpace(12),
+          Text(
+            value,
+            style: AppTextStyles.font18SemiBoldPrimary.copyWith(color: color),
+          ),
+          verticalSpace(4),
+          Text(sublabel, style: AppTextStyles.font12RegularSecondary),
+          verticalSpace(12),
           Container(
-            height: 8.h,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-              color: AppColors.divider,
+            height: 6.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(3.r),
+              color: AppColors.backgroundSecondary,
             ),
             child: FractionallySizedBox(
               alignment: Alignment.centerLeft,
-              widthFactor: 0.6, // You can make this dynamic based on progress
+              widthFactor: progress.clamp(0.0, 1.0),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  borderRadius: BorderRadius.circular(3.r),
                   color: color,
                 ),
               ),
             ),
           ),
-          verticalSpace(8),
-          Text(label, style: AppTextStyles.font12MediumPrimary),
-          verticalSpace(4),
-          Text(value, style: AppTextStyles.font14MediumPrimary),
-          verticalSpace(2),
-          Text(sublabel, style: AppTextStyles.font12RegularSecondary),
         ],
       ),
     );
