@@ -4,6 +4,7 @@ import '../../features/auth/data/repo/auth_repo.dart';
 import '../../features/auth/data/services/supabase_auth_service.dart';
 import '../nutrition/nutrition_calculator_service.dart';
 import '../config/hive_service.dart';
+import '../config/speech_to_text_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -11,6 +12,7 @@ Future<void> setupGetIt() async {
   // Register services
   getIt.registerLazySingleton(() => NutritionCalculatorService());
   getIt.registerLazySingleton(() => HiveService());
+  getIt.registerLazySingleton(() => SpeechToTextService());
 
   getIt.registerLazySingleton<SupabaseAuthService>(() => SupabaseAuthService());
 

@@ -6,30 +6,15 @@ import '../../../../core/helpers/spacing.dart';
 import 'meal_card.dart';
 
 class MealsSection extends StatelessWidget {
-  const MealsSection({super.key});
+  final List<Map<String, dynamic>> meals;
 
-  // Sample user meals data - In real app, this would come from state management
-  List<Map<String, dynamic>> get _userMeals => [
-    {
-      'icon': Icons.restaurant_rounded,
-      'iconColor': const Color(0xFF66BB6A),
-      'name': 'Grilled Salmon',
-      'description': 'Salmon with quinoa & vegetables',
-      'calories': 520,
-      'isCompleted': true,
-    },
-    {
-      'icon': Icons.local_dining_rounded,
-      'iconColor': const Color(0xFF42A5F5),
-      'name': 'Mediterranean Bowl',
-      'description': 'Chickpeas, feta, olives & greens',
-      'calories': 380,
-      'isCompleted': false,
-    },
-  ];
+  const MealsSection({
+    super.key,
+    required this.meals,
+  });
 
   Widget _buildMealsList() {
-    if (_userMeals.isEmpty) {
+    if (meals.isEmpty) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,10 +51,10 @@ class MealsSection extends StatelessWidget {
     }
 
     return ListView.separated(
-      itemCount: _userMeals.length,
+      itemCount: meals.length,
       separatorBuilder: (context, index) => verticalSpace(12),
       itemBuilder: (context, index) {
-        final meal = _userMeals[index];
+        final meal = meals[index];
 
         return MealCard(
           icon: meal['icon'],

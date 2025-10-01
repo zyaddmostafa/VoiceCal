@@ -19,7 +19,7 @@ class VoiceCalApp extends StatelessWidget {
         // initialRoute: SupabaseAuthService.isAuthenticated
         //     ? Routes.homeScreen
         //     : Routes.welcomeScreen,
-        initialRoute: Routes.analyticsScreen,
+        initialRoute: Routes.homeScreen,
         onGenerateRoute: AppRouter.onGenerateRoute,
       ),
     );

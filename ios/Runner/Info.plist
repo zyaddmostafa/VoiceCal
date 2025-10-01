@@ -14,6 +14,10 @@
 		<string>6.0</string>
 		<key>CFBundleName</key>
 		<string>voicecal</string>
+		<string>NSSpeechRecognitionUsageDescription</string>
+		<string>We need your permission to use speech recognition for voice commands.</string>
+		<string>NSMicrophoneUsageDescription</string>
+		<string>We need your permission to use the microphone for voice commands.</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
