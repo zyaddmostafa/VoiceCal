@@ -85,24 +85,21 @@ class _CustomAppButtonState extends State<CustomAppButton>
               child: Container(
                 width: double.infinity,
                 height: 56.h,
-                decoration: widget.isEnabled
-                    ? AppDesignSystem.primaryButton
-                    : AppDesignSystem.tertiaryButton.copyWith(
-                        gradient: const LinearGradient(
-                          colors: [
-                            AppColors.backgroundTertiary,
-                            AppColors.borderSecondary,
-                          ],
-                        ),
-                        boxShadow: [
+                decoration: BoxDecoration(
+                  color: widget.isEnabled
+                      ? AppColors.primaryBlack
+                      : AppColors.infoSurface,
+                  borderRadius: const BorderRadius.all(Radius.circular(36)),
+                  boxShadow: _isPressed
+                      ? []
+                      : [
                           BoxShadow(
-                            color: AppColors.shadowLight,
+                            color: Colors.black.withOpacity(0.1),
                             blurRadius: 8,
-                            offset: Offset(0, 2.h),
-                            spreadRadius: 0,
+                            offset: const Offset(0, 4),
                           ),
                         ],
-                      ),
+                ),
                 child: Center(
                   child: Text(
                     widget.text,

@@ -13,3 +13,12 @@ final class AuthError extends AuthState {
   final String error;
   AuthError({required this.error});
 }
+
+final class AuthProfileLoading extends AuthState {}
+
+final class AuthProfileSuccess extends AuthState {}
+
+final class AuthProfileError extends AuthState {
+  final ApiErrorModel error;
+  AuthProfileError({required this.error});
+}

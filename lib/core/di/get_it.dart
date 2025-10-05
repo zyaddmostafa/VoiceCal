@@ -1,7 +1,4 @@
-import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:retrofit/error_logger.dart';
-
 import '../../features/auth/data/repo/auth_repo.dart';
 import '../../features/auth/data/services/supabase_auth_service.dart';
 import '../../features/home/data/repo/home_repo.dart';

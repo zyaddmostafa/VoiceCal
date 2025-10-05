@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/service/supabase_constants.dart';
+import '../model/user_profile.dart';
+
 class SupabaseAuthService {
   static final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
 
@@ -63,5 +66,29 @@ class SupabaseAuthService {
     await googleInit();
 
     return await _googleSignIn.attemptLightweightAuthentication();
+  }
+
+  Future<void> createUserProfile(UserProfile userProfile) async {
+    final user = getCurrentUser();
+
+    await Supabase.instance.client
+        .from(SupabaseConstants.supabaseProfileTable)
+        .insert(userProfile.toJson());
+
+    log(
+      'User profile created successfully for userId: ${user?.id ?? "no id found"}',
+    );
+  }
+
+  Future<void> updateUserProfile(UserProfile userProfile) async {
+    final user = getCurrentUser();
+
+    await Supabase.instance.client
+        .from(SupabaseConstants.supabaseProfileTable)
+        .upsert(userProfile.toJson(), onConflict: 'id');
+
+    log(
+      'User profile updated successfully for userId: ${user?.id ?? "no id found"}',
+    );
   }
 }

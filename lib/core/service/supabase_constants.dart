@@ -14,4 +14,7 @@ class SupabaseConstants {
 
     return dotenv.env['SUPABASE_ANON_KEY'] ?? ''; //  Local dev uses this path
   }
+
+  static String get supabaseProfileTable => 'profiles';
+  static String get supabaseMealsTable => 'meals';
 }

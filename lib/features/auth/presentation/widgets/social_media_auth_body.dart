@@ -4,12 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/nutrition/models/nutrition_plan_model.dart';
 import '../../data/model/social_media_auth_model.dart';
 import '../cubit/auth_cubit.dart';
 import 'social_media_auth_button.dart';
 
 class SocialMediaAuthBody extends StatelessWidget {
-  const SocialMediaAuthBody({super.key});
+  final NutritionPlanModel? nutritionPlan;
+
+  const SocialMediaAuthBody({super.key, this.nutritionPlan});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,21 @@ class SocialMediaAuthBody extends StatelessWidget {
         SocialMediaAuthbutton(
           model: socialMediaList[0],
           onPressed: () {
-            context.read<AuthCubit>().googleSignIn();
+            if (nutritionPlan != null) {
+              context.read<AuthCubit>().googleSignIn(
+                dailyCalorieGoal: nutritionPlan!.dailyCalories.round(),
+                dailyProteinGoal: nutritionPlan!.macros.proteinGrams.round(),
+                dailyCarbGoal: nutritionPlan!.macros.carbsGrams.round(),
+                dailyFatGoal: nutritionPlan!.macros.fatGrams.round(),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Please complete onboarding first'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
           },
         ),
         verticalSpace(24),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/helpers/spacing.dart';
 
-/// Empty state widget when no meals are logged
 class EmptyMealsState extends StatelessWidget {
   const EmptyMealsState({super.key});
 

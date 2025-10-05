@@ -5,7 +5,6 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../data/models/meal_data.dart';
 
-/// Widget to display a logged meal with its ingredients
 class LoggedMealCard extends StatelessWidget {
   final MealData meal;
 
@@ -89,7 +88,6 @@ class _MealHeaderWidget extends StatelessWidget {
   }
 }
 
-/// Nutrition summary (calories, protein, carbs, fats)
 class _NutritionSummaryWidget extends StatelessWidget {
   final MealData meal;
 
