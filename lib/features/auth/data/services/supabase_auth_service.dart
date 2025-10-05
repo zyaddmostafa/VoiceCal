@@ -91,4 +91,16 @@ class SupabaseAuthService {
       'User profile updated successfully for userId: ${user?.id ?? "no id found"}',
     );
   }
+
+  Future<UserProfile?> getUserProfile(String userId) async {
+    final response = await Supabase.instance.client
+        .from(SupabaseConstants.supabaseProfileTable)
+        .select()
+        .eq('id', userId)
+        .maybeSingle();
+
+    log('Profile fetched successfully for userId: $userId');
+
+    return response == null ? null : UserProfile.fromJson(response);
+  }
 }

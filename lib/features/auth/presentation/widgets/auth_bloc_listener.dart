@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../../../../core/config/config_constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/service/user_local_service.dart';
@@ -14,7 +17,7 @@ class AuthBlocListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         switch (state) {
           case AuthLoading():
             showDialog(
@@ -27,11 +30,23 @@ class AuthBlocListener extends StatelessWidget {
 
           case AuthSuccess():
             _dismissLoadingDialog(context);
+
+            final box = Hive.box(ConfigConstants.userProfileBox);
+            box.put('userProfile', state.userProfile);
+
             UserLocalService.addUserInfo(userInfo!);
             context.pushNamedAndRemoveUntil(
               Routes.homeScreen,
               predicate: (Route<dynamic> route) => false,
             );
+
+            break;
+
+          case AuthSignOutSuccess():
+            _dismissLoadingDialog(context);
+
+            final box = Hive.box(ConfigConstants.userProfileBox);
+            await box.delete('userProfile');
 
             break;
 

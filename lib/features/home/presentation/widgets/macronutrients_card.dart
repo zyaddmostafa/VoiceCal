@@ -1,39 +1,63 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
 import 'macro_item.dart';
 
 class MacronutrientsCard extends StatelessWidget {
-  const MacronutrientsCard({super.key});
+  final double consumedProtein;
+  final double goalProtein;
+  final double consumedCarbs;
+  final double goalCarbs;
+  final double consumedFats;
+  final double goalFats;
+
+  const MacronutrientsCard({
+    super.key,
+    required this.consumedProtein,
+    required this.goalProtein,
+    required this.consumedCarbs,
+    required this.goalCarbs,
+    required this.consumedFats,
+    required this.goalFats,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    final proteinProgress = goalProtein > 0
+        ? (consumedProtein / goalProtein).clamp(0.0, 1.0)
+        : 0.0;
+    final carbsProgress = goalCarbs > 0
+        ? (consumedCarbs / goalCarbs).clamp(0.0, 1.0)
+        : 0.0;
+    final fatsProgress = goalFats > 0
+        ? (consumedFats / goalFats).clamp(0.0, 1.0)
+        : 0.0;
+
+    return Row(
       children: [
         Expanded(
           child: MacroItem(
             label: 'Protein',
-            value: '78g',
-            sublabel: '130g goal',
+            value: '${consumedProtein.toInt()}g',
+            sublabel: '${goalProtein.toInt()}g goal',
             color: Colors.red,
-            progress: 0.6, // 78/130
+            progress: proteinProgress,
           ),
         ),
         Expanded(
           child: MacroItem(
             label: 'Carbs',
-            value: '113g',
-            sublabel: '260g goal',
+            value: '${consumedCarbs.toInt()}g',
+            sublabel: '${goalCarbs.toInt()}g goal',
             color: Colors.orange,
-            progress: 0.43, // 113/260
+            progress: carbsProgress,
           ),
         ),
         Expanded(
           child: MacroItem(
             label: 'Fat',
-            value: '45g',
-            sublabel: '70g goal',
+            value: '${consumedFats.toInt()}g',
+            sublabel: '${goalFats.toInt()}g goal',
             color: Colors.blueAccent,
-            progress: 0.64, // 45/70
+            progress: fatsProgress,
           ),
         ),
       ],

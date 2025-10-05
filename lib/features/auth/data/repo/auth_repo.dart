@@ -62,4 +62,16 @@ class AuthRepo {
       return ApiResult.failure(ApiErrorHandler.handle(error));
     }
   }
+
+  Future<ApiResult<UserProfile?>> getUserProfile(String userId) async {
+    try {
+      final profile = await supabaseAuthService.getUserProfile(userId);
+
+      return ApiResult.success(profile);
+    } catch (error) {
+      log('Get user profile error: $error');
+
+      return ApiResult.failure(ApiErrorHandler.handle(error));
+    }
+  }
 }

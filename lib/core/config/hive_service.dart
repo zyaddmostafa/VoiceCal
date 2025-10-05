@@ -1,5 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../features/auth/data/model/user_profile.dart';
 import '../../features/onboarding/data/models/user_informations_model.dart';
 import 'config_constants.dart';
 
@@ -12,11 +13,15 @@ class HiveService {
     await initBoxes(hiveBoxesNames);
   }
 
-  static List<String> get hiveBoxesNames => [ConfigConstants.userInfoBox];
+  static List<String> get hiveBoxesNames => [
+    ConfigConstants.userInfoBox,
+    ConfigConstants.userProfileBox,
+  ];
 
   static Future<void> initHiveAdapter() async {
     Hive.registerAdapter(UserInformationsModelAdapter());
     Hive.registerAdapter(BornDateAdapter());
+    Hive.registerAdapter(UserProfileAdapter());
   }
 
   static Future<void> initBoxes(List<String> boxNames) async {

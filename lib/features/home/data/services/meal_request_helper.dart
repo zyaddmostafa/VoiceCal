@@ -11,7 +11,7 @@ class MealRequestHelper {
     final timeFormat = DateFormat('HH:mm');
 
     return MealDataRequest(
-      userId: "97e51947-0304-4169-9981-56cc590262f0",
+      userId: user?.id ?? '',
       mealText: mealText,
       mealDate: dateFormat.format(now),
       mealTime: timeFormat.format(now),

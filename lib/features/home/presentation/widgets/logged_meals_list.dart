@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../data/models/meal_data.dart';
 import 'logged_meal_card.dart';
 
-/// List view of logged meals
 class LoggedMealsList extends StatelessWidget {
   final List<MealData> meals;
 
