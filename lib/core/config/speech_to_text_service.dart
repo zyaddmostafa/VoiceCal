@@ -64,7 +64,7 @@ class SpeechToTextService {
           }
         },
         listenFor: const Duration(seconds: 60),
-        pauseFor: const Duration(seconds: 3),
+        // pauseFor: const Duration(seconds: 3),
         localeId: 'en_US',
         onSoundLevelChange: (level) {
           debugPrint('Sound level: $level');

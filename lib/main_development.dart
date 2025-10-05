@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app_bloc_observer.dart';
 import 'core/config/speech_to_text_service.dart';
@@ -37,5 +38,6 @@ void main() async {
   await getIt<SpeechToTextService>().speechToTextInit();
 
   Bloc.observer = AppBlocObserver();
+
   runApp(const VoiceCalApp());
 }

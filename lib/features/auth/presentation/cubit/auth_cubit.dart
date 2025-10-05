@@ -16,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthSuccess());
       },
       onError: (error) {
-        emit(AuthError(error: error.message));
+        emit(AuthError(error: error.message!));
       },
     );
   }
@@ -29,7 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthSuccess());
       },
       onError: (error) {
-        emit(AuthError(error: error.message));
+        emit(AuthError(error: error.message!));
       },
     );
   }
