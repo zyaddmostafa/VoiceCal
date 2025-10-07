@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/networking/api_error_model.dart';
 import '../../data/model/user_profile.dart';
@@ -12,12 +11,7 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepo authRepo;
   AuthCubit({required this.authRepo}) : super(AuthInitial());
 
-  googleSignIn({
-    required int dailyCalorieGoal,
-    required int dailyProteinGoal,
-    required int dailyCarbGoal,
-    required int dailyFatGoal,
-  }) async {
+  googleSignIn({required UserProfile userProfile}) async {
     emit(AuthLoading());
 
     final result = await authRepo.googleSignIn();
@@ -25,11 +19,14 @@ class AuthCubit extends Cubit<AuthState> {
     await result.when(
       onSuccess: (user) async {
         await _handleUserProfile(
-          user: user,
-          dailyCalorieGoal: dailyCalorieGoal,
-          dailyProteinGoal: dailyProteinGoal,
-          dailyCarbGoal: dailyCarbGoal,
-          dailyFatGoal: dailyFatGoal,
+          userProfile: userProfile.copyWith(
+            userId: user.id,
+            email: user.email,
+            fullName:
+                user.userMetadata?['full_name'] ??
+                user.userMetadata?['name'] ??
+                'none',
+          ),
         );
       },
       onError: (error) {
@@ -38,27 +35,17 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<void> _handleUserProfile({
-    required User user,
-    required int dailyCalorieGoal,
-    required int dailyProteinGoal,
-    required int dailyCarbGoal,
-    required int dailyFatGoal,
-  }) async {
-    final existingProfileResult = await authRepo.getUserProfile(user.id);
+  Future<void> _handleUserProfile({required UserProfile userProfile}) async {
+    final existingProfileResult = await authRepo.getUserProfile(
+      userProfile.userId!,
+    );
 
     await existingProfileResult.when(
       onSuccess: (existingProfile) async {
         if (existingProfile != null) {
           emit(AuthSuccess(userProfile: existingProfile));
         } else {
-          await _createUserProfile(
-            user: user,
-            dailyCalorieGoal: dailyCalorieGoal,
-            dailyProteinGoal: dailyProteinGoal,
-            dailyCarbGoal: dailyCarbGoal,
-            dailyFatGoal: dailyFatGoal,
-          );
+          await _createUserProfile(userProfile: userProfile);
         }
       },
       onError: (error) {
@@ -72,23 +59,7 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<void> _createUserProfile({
-    required User user,
-    required int dailyCalorieGoal,
-    required int dailyProteinGoal,
-    required int dailyCarbGoal,
-    required int dailyFatGoal,
-  }) async {
-    final userProfile = UserProfile(
-      userId: user.id,
-      fullName: user.userMetadata?['full_name'] ?? user.userMetadata?['name'],
-      email: user.email,
-      dailyCalorieGoal: dailyCalorieGoal,
-      dailyProteinGoal: dailyProteinGoal,
-      dailyCarbGoal: dailyCarbGoal,
-      dailyFatGoal: dailyFatGoal,
-    );
-
+  Future<void> _createUserProfile({required UserProfile userProfile}) async {
     final profileResult = await authRepo.createUserProfile(userProfile);
 
     profileResult.when(

@@ -42,7 +42,10 @@ class AuthScreen extends StatelessWidget {
                 style: AppTextStyles.font32BoldPrimary,
               ),
               const Spacer(),
-              SocialMediaAuthBody(nutritionPlan: nutritionPlan),
+              SocialMediaAuthBody(
+                nutritionPlan: nutritionPlan,
+                userInfo: userInfo!,
+              ),
               const Spacer(),
               AuthBlocListener(userInfo: userInfo),
             ],
