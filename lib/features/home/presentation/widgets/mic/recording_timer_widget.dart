@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_colors.dart';
 
 class RecordingTimerWidget extends StatefulWidget {
   final bool isRecording;
@@ -65,12 +65,14 @@ class _RecordingTimerWidgetState extends State<RecordingTimerWidget> {
   String _formatTime(int seconds) {
     final minutes = seconds ~/ 60;
     final secs = seconds % 60;
+
     return '${minutes.toString().padLeft(1, '0')}:${secs.toString().padLeft(2, '0')}';
   }
 
   String _formatMaxTime() {
     final minutes = widget.maxDuration ~/ 60;
     final secs = widget.maxDuration % 60;
+
     return '${minutes.toString().padLeft(1, '0')}:${secs.toString().padLeft(2, '0')}';
   }
 

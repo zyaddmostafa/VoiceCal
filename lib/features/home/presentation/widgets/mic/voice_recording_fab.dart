@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/helpers/spacing.dart';
+import '../../../../../core/helpers/spacing.dart';
 import 'mic_button_widget.dart';
 import 'recording_timer_widget.dart';
 

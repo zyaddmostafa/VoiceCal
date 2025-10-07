@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
-import '../../../../core/config/speech_to_text_service.dart';
+import 'speech_to_text_service.dart';
 
-class VoiceMealLoggingService {
+class VoiceLoggingService {
   final SpeechToTextService _speechService;
 
   bool _isRecording = false;
   String _recognizedText = '';
 
-  VoiceMealLoggingService(this._speechService);
+  VoiceLoggingService(this._speechService);
 
   bool get isRecording => _isRecording;
   bool get isInitialized => _speechService.isInitialized;

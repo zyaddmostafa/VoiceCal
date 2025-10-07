@@ -7,10 +7,10 @@ import '../../../../core/helpers/spacing.dart';
 import '../../../auth/data/model/user_profile.dart';
 import '../../data/models/meal_data.dart';
 import '../../data/services/nutrition_progress_calculator.dart';
-import 'calories_card.dart';
-import 'empty_meals_state.dart';
-import 'logged_meals_list.dart';
-import 'macronutrients_card.dart';
+import 'calories_and_macros/calories_card.dart';
+import 'logged_meals/empty_meals_state.dart';
+import 'logged_meals/logged_meals_list.dart';
+import 'calories_and_macros/macronutrients_card.dart';
 import 'today_info_card.dart';
 
 class HomeBodyContent extends StatelessWidget {

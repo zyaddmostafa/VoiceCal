@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../data/models/meal_data.dart';
+import '../../../data/models/meal_data.dart';
 import 'logged_meal_card.dart';
 
 class LoggedMealsList extends StatelessWidget {

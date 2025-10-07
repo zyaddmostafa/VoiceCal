@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_colors.dart';
 
 class MicButtonWidget extends StatefulWidget {
   final VoidCallback? onPressed;
   final bool isRecording;
 
-  const MicButtonWidget({
-    super.key,
-    this.onPressed,
-    this.isRecording = false,
-  });
+  const MicButtonWidget({super.key, this.onPressed, this.isRecording = false});
 
   @override
   State<MicButtonWidget> createState() => _MicButtonWidgetState();
@@ -30,10 +26,7 @@ class _MicButtonWidgetState extends State<MicButtonWidget>
     );
 
     _pulseAnimation = Tween<double>(begin: 1.0, end: 1.15).animate(
-      CurvedAnimation(
-        parent: _pulseController,
-        curve: Curves.easeInOut,
-      ),
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
 
     if (widget.isRecording) {
@@ -70,7 +63,9 @@ class _MicButtonWidgetState extends State<MicButtonWidget>
             height: 60.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: widget.isRecording ? AppColors.error : AppColors.primaryBlack,
+              color: widget.isRecording
+                  ? AppColors.error
+                  : AppColors.primaryBlack,
               boxShadow: [
                 BoxShadow(
                   color: widget.isRecording
@@ -87,10 +82,7 @@ class _MicButtonWidgetState extends State<MicButtonWidget>
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 transitionBuilder: (child, animation) {
-                  return ScaleTransition(
-                    scale: animation,
-                    child: child,
-                  );
+                  return ScaleTransition(scale: animation, child: child);
                 },
                 child: widget.isRecording
                     ? Container(
