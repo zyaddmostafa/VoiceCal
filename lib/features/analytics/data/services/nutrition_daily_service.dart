@@ -1,9 +1,7 @@
 import '../models/daily_nutrition.dart';
 import '../models/grouped_nutrition_data.dart';
 
-/// Service responsible for daily and weekly nutrition data operations
 class NutritionDailyService {
-  /// Groups entries at specific anchored day-of-month positions
   static List<GroupedNutritionData> groupByAnchoredDaysInMonth(
     List<DailyNutrition> data,
     DateTime referenceDate,

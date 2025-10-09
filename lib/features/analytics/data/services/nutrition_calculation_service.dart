@@ -1,15 +1,12 @@
 import '../models/daily_nutrition.dart';
 
-/// Service responsible for nutrition data calculations and statistics
 class NutritionCalculationService {
-  /// Calculates total calories from protein, carbs, and fats
   static double calculateTotalCalories(DailyNutrition nutrition) {
     return (nutrition.protein * 4) +
         (nutrition.carbs * 4) +
         (nutrition.fats * 9);
   }
 
-  /// Calculates total calories for a list of nutrition entries
   static double calculateTotalCaloriesForEntries(List<DailyNutrition> entries) {
     return entries.fold(
       0.0,
@@ -17,13 +14,12 @@ class NutritionCalculationService {
     );
   }
 
-  /// Calculates daily average calories for a list of nutrition entries
   static double calculateDailyAverageCalories(List<DailyNutrition> entries) {
     if (entries.isEmpty) return 0;
+
     return calculateTotalCaloriesForEntries(entries) / entries.length;
   }
 
-  /// Calculates macronutrient totals for a list of entries
   static Map<String, double> calculateMacronutrientTotals(
     List<DailyNutrition> entries,
   ) {
@@ -49,7 +45,6 @@ class NutritionCalculationService {
     };
   }
 
-  /// Calculates macronutrient averages for a list of entries
   static Map<String, double> calculateMacronutrientAverages(
     List<DailyNutrition> entries,
   ) {
@@ -68,13 +63,12 @@ class NutritionCalculationService {
     };
   }
 
-  /// Calculates percentage change between two values
   static double calculatePercentageChange(double oldValue, double newValue) {
     if (oldValue == 0) return 0;
+
     return ((newValue - oldValue) / oldValue) * 100;
   }
 
-  /// Finds the highest calorie day in a list of entries
   static DailyNutrition? findHighestCalorieDay(List<DailyNutrition> entries) {
     if (entries.isEmpty) return null;
 
@@ -92,7 +86,6 @@ class NutritionCalculationService {
     return highest;
   }
 
-  /// Finds the lowest calorie day in a list of entries
   static DailyNutrition? findLowestCalorieDay(List<DailyNutrition> entries) {
     if (entries.isEmpty) return null;
 

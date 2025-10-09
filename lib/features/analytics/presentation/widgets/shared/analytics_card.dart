@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 
-/// Reusable card component for analytics widgets
 class AnalyticsCard extends StatelessWidget {
   final Widget child;
   final EdgeInsets? margin;

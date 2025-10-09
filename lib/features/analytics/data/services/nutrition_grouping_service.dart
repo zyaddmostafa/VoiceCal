@@ -151,6 +151,7 @@ class NutritionGroupingService {
 
   static double _calculateAverage(List<double> values) {
     if (values.isEmpty) return 0;
+
     return values.reduce((a, b) => a + b) / values.length;
   }
 
@@ -170,6 +171,7 @@ class NutritionGroupingService {
       'Nov',
       'Dec',
     ];
+
     return months[month];
   }
 

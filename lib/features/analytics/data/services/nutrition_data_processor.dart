@@ -4,9 +4,7 @@ import 'nutrition_grouping_service.dart';
 import 'nutrition_daily_service.dart';
 import 'nutrition_calculation_service.dart';
 
-/// Main processor that delegates to specialized services
 class NutritionDataProcessor {
-  /// Main entry point for processing nutrition data by period
   static List<GroupedNutritionData> processNutritionData(
     List<DailyNutrition> nutritionData,
     String selectedPeriod,
@@ -17,7 +15,6 @@ class NutritionDataProcessor {
     );
   }
 
-  /// Groups entries by anchored days in a month
   static List<GroupedNutritionData> groupByAnchoredDaysInMonth(
     List<DailyNutrition> data,
     DateTime referenceDate,

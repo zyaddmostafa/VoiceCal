@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../core/di/get_it.dart';
 import '../../../../core/networking/api_error_model.dart';
+import '../../../../core/weight_entry/weight_entry_repo.dart';
 import '../../data/model/user_profile.dart';
 import '../../data/repo/auth_repo.dart';
 
@@ -62,8 +67,10 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> _createUserProfile({required UserProfile userProfile}) async {
     final profileResult = await authRepo.createUserProfile(userProfile);
 
-    profileResult.when(
-      onSuccess: (_) {
+    await profileResult.when(
+      onSuccess: (_) async {
+        // Add initial weight entry after successful profile creation
+        await _addInitialWeightEntry(userProfile);
         emit(AuthSuccess(userProfile: userProfile));
       },
       onError: (error) {
@@ -75,6 +82,25 @@ class AuthCubit extends Cubit<AuthState> {
         );
       },
     );
+  }
+
+  Future<void> _addInitialWeightEntry(UserProfile userProfile) async {
+    try {
+      final weightEntryRepo = getIt<WeightEntryRepo>();
+      final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+      await weightEntryRepo.addWeightEntry(
+        userId: userProfile.userId!,
+        weight: userProfile.weight ?? 0,
+        entryDate: today,
+      );
+      log(
+        'Initial weight entry added for user ${userProfile.userId} on $today , ${userProfile.weight}kg',
+      );
+    } catch (e) {
+      // Silent fail - don't block user sign-in if weight entry fails
+      // User can add weight manually later
+    }
   }
 
   signOut() async {
