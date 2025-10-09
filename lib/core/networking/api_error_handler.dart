@@ -211,7 +211,5 @@ class ApiErrorHandler {
 
 ApiErrorModel _handleError(data) {
   // Handle API response errors
-  return ApiErrorModel(
-    message: "Server returned an error: ${data?.toString() ?? 'Unknown error'}",
-  );
+  return ApiErrorModel(message: " ${data?['message'] ?? 'Unknown error'}");
 }

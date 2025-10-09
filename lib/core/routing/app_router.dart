@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/analytics/presentation/screens/analytics_screen.dart';
 import '../../features/auth/data/repo/auth_repo.dart';
 import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/auth/presentation/screens/auth_screen.dart';
@@ -20,6 +21,8 @@ import '../../features/onboarding/presentation/screens/generate_plan_screen.dart
 import '../../features/onboarding/presentation/screens/welcome_screen.dart';
 import '../../features/onboarding/presentation/screens/workout_frequency_screen.dart';
 import '../../features/onboarding/presentation/widgets/edit_goal/edit_goal_args.dart';
+import '../../features/navigation/presentation/screens/main_navigation_screen.dart';
+import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../di/get_it.dart';
 import 'routes.dart';
 
@@ -127,10 +130,17 @@ class AppRouter {
           ),
         );
 
-      // Home Screen
+      // Navigation Screens
+      case Routes.mainNavigation:
+        return CupertinoPageRoute(builder: (_) => const MainNavigationScreen());
+
       case Routes.homeScreen:
         return CupertinoPageRoute(builder: (_) => const HomeScreen());
 
+      case Routes.analyticsScreen:
+        return CupertinoPageRoute(builder: (_) => const AnalyticsScreen());
+      case Routes.settingsScreen:
+        return CupertinoPageRoute(builder: (_) => const SettingsScreen());
       default:
         return null;
     }

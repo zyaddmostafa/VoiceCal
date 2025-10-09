@@ -13,7 +13,7 @@
 - keep it simple and follow KISS principle
 
 ## Project Overview
-VoiceCal is a voice-powered calorie tracking Flutter application designed for intuitive nutrition management. Users can track their meals, set nutrition goals, and manage their dietary intake primarily through voice interactions.
+VoiceCal is a voice-powered calorie tracking Flutter application designed for intuitive nutrition management. Users can track their meals, set nutrition goals, and manage their dietary intake primarily through voice interactions using n8n as the automation tool to streamline workflows and integrate with various APIs.
 
 ## Core Technology Stack
 - **Flutter**: Cross-platform mobile development with multi-flavor support
@@ -70,7 +70,7 @@ Entry points:
 - **firebase_core**: Cloud data persistence
 
 ### Authentication
-- **firebase_core**: Primary auth provider
+- **supabase**: Primary auth provider
 - **google_sign_in**: Google OAuth integration
 - **flutter_facebook_auth**: Facebook login
 - Pattern: Unified auth repository with multiple providers
@@ -197,7 +197,7 @@ class ProfileRepository {
 ```
 
 ### Error Handling
-- Use `Either<Failure, Success>` pattern for repositories
+- Use ApiResult in the core/networking folder pattern for repositories
 - Implement proper error states in BLoC
 - Provide user-friendly error messages
 - Log errors appropriately for debugging

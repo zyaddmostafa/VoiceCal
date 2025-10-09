@@ -1,8 +1,10 @@
 import 'dart:developer';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../../../core/service/supabase_constants.dart';
+import '../model/user_profile.dart';
 
 class SupabaseAuthService {
   static final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
@@ -12,9 +14,10 @@ class SupabaseAuthService {
   static Future<void> googleInit() async {
     if (_isInitialized) return;
 
-    final webClientId = dotenv.env['GOOGLE_WEB_CLIENT_ID'];
-    if (webClientId == null || webClientId.isEmpty) {
-      throw Exception('GOOGLE_WEB_CLIENT_ID not found in .env file');
+    final webClientId =
+        '979319094193-8jitdm1kdrrhfab2ohvvb5f57q06c0d2.apps.googleusercontent.com';
+    if (webClientId.isEmpty) {
+      throw Exception('webClientId not found in .env file');
     }
 
     await _googleSignIn.initialize(serverClientId: webClientId);
@@ -63,5 +66,41 @@ class SupabaseAuthService {
     await googleInit();
 
     return await _googleSignIn.attemptLightweightAuthentication();
+  }
+
+  Future<void> createUserProfile(UserProfile userProfile) async {
+    final user = getCurrentUser();
+
+    await Supabase.instance.client
+        .from(SupabaseConstants.supabaseProfileTable)
+        .insert(userProfile.toJson());
+
+    log(
+      'User profile created successfully for userId: ${user?.id ?? "no id found"}',
+    );
+  }
+
+  Future<void> updateUserProfile(UserProfile userProfile) async {
+    final user = getCurrentUser();
+
+    await Supabase.instance.client
+        .from(SupabaseConstants.supabaseProfileTable)
+        .upsert(userProfile.toJson(), onConflict: 'id');
+
+    log(
+      'User profile updated successfully for userId: ${user?.id ?? "no id found"}',
+    );
+  }
+
+  Future<UserProfile?> getUserProfile(String userId) async {
+    final response = await Supabase.instance.client
+        .from(SupabaseConstants.supabaseProfileTable)
+        .select()
+        .eq('id', userId)
+        .maybeSingle();
+
+    log('Profile fetched successfully for userId: $userId');
+
+    return response == null ? null : UserProfile.fromJson(response);
   }
 }

@@ -17,19 +17,19 @@ class GoalPlanModel {
   /// Static list of all goal plans
   static const List<GoalPlanModel> goals = [
     GoalPlanModel(
-      id: 'Lose Weight',
+      id: 'lose_weight',
       icon: Icons.local_fire_department_outlined,
       title: 'Lose Weight',
       description: 'Burn fat and slim down.',
     ),
     GoalPlanModel(
-      id: 'Maintain Weight',
+      id: 'maintain_weight',
       icon: Icons.favorite_outline,
       title: 'Maintain Weight',
       description: 'Stay fit and healthy.',
     ),
     GoalPlanModel(
-      id: 'Gain Weight',
+      id: 'gain_weight',
       icon: Icons.fitness_center_outlined,
       title: 'Gain Weight',
       description: 'Build muscle and strength.',

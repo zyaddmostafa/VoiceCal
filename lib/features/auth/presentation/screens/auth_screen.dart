@@ -3,6 +3,7 @@ import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/nutrition/nutrition_calculator_service.dart';
 import '../../../onboarding/data/models/user_informations_model.dart';
 import '../../../onboarding/presentation/widgets/onboarding_progress_header.dart';
 import '../widgets/auth_bloc_listener.dart';
@@ -14,6 +15,11 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate nutrition goals from user info
+    final nutritionPlan = userInfo != null
+        ? NutritionCalculatorService.calculateNutritionPlan(userInfo!)
+        : null;
+
     return Scaffold(
       backgroundColor: AppColors.backgroundPrimary,
       body: SafeArea(
@@ -36,7 +42,10 @@ class AuthScreen extends StatelessWidget {
                 style: AppTextStyles.font32BoldPrimary,
               ),
               const Spacer(),
-              const SocialMediaAuthBody(),
+              SocialMediaAuthBody(
+                nutritionPlan: nutritionPlan,
+                userInfo: userInfo!,
+              ),
               const Spacer(),
               AuthBlocListener(userInfo: userInfo),
             ],

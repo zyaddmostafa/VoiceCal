@@ -3,25 +3,74 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_colors.dart';
 
 class AppTextStyles {
-  // Large Headings
-  static TextStyle get font32BoldPrimary => TextStyle(
-    fontSize: 32.sp,
-    fontWeight: FontWeight.w700,
+  // Font family - Modern rounded sans-serif
+  static const String _fontFamily = 'SF Pro Display';
+
+  // Display headings - Premium hierarchy with rounded font
+  static TextStyle get displayLarge => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 36.sp,
+    fontWeight: FontWeight.w700, // Bold
     color: AppColors.textPrimary,
     letterSpacing: -0.5,
     height: 1.1,
   );
 
-  static TextStyle get font32Bold => TextStyle(
+  static TextStyle get displayMedium => TextStyle(
+    fontFamily: _fontFamily,
     fontSize: 32.sp,
-    fontWeight: FontWeight.w700,
-    letterSpacing: -0.5,
+    fontWeight: FontWeight.w700, // Bold
+    color: AppColors.textPrimary,
+    letterSpacing: -0.4,
+    height: 1.15,
   );
 
+  static TextStyle get displaySmall => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 28.sp,
+    fontWeight: FontWeight.w600, // SemiBold
+    color: AppColors.textPrimary,
+    letterSpacing: -0.3,
+    height: 1.2,
+  );
+
+  // Headings - Clear hierarchy
+  static TextStyle get headingLarge => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600, // SemiBold
+    color: AppColors.textPrimary,
+    letterSpacing: -0.2,
+    height: 1.25,
+  );
+
+  static TextStyle get headingMedium => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w600, // SemiBold
+    color: AppColors.textPrimary,
+    letterSpacing: -0.1,
+    height: 1.3,
+  );
+
+  static TextStyle get headingSmall => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w600, // SemiBold
+    color: AppColors.textPrimary,
+    letterSpacing: 0,
+    height: 1.35,
+  );
+
+  // Legacy support - Enhanced with font family
+  static TextStyle get font32BoldPrimary => displayMedium;
+  static TextStyle get font32Bold => displayMedium;
   static TextStyle get font32ExtraBold => TextStyle(
+    fontFamily: _fontFamily,
     fontSize: 32.sp,
     fontWeight: FontWeight.w800,
-    letterSpacing: -0.5,
+    letterSpacing: -0.6,
+    height: 1.05,
   );
 
   static const TextStyle font28BoldBlack = TextStyle(
@@ -48,12 +97,68 @@ class AppTextStyles {
     color: AppColors.primaryBlack,
   );
 
-  // Body Text
+  // Body Text - Modern and readable
+  static TextStyle get bodyLarge => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 17.sp,
+    fontWeight: FontWeight.w400, // Regular
+    color: AppColors.textPrimary,
+    height: 1.5,
+    letterSpacing: 0,
+  );
+
+  static TextStyle get bodyMedium => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400, // Regular
+    color: AppColors.textPrimary,
+    height: 1.5,
+    letterSpacing: 0,
+  );
+
+  static TextStyle get bodySmall => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400, // Regular
+    color: AppColors.textSecondary,
+    height: 1.4,
+    letterSpacing: 0.1,
+  );
+
+  // Label styles - Medium weight for UI elements
+  static TextStyle get labelLarge => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500, // Medium
+    color: AppColors.textPrimary,
+    height: 1.4,
+    letterSpacing: 0.1,
+  );
+
+  static TextStyle get labelMedium => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500, // Medium
+    color: AppColors.textPrimary,
+    height: 1.4,
+    letterSpacing: 0.2,
+  );
+
+  static TextStyle get labelSmall => TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w500, // Medium
+    color: AppColors.textSecondary,
+    height: 1.3,
+    letterSpacing: 0.3,
+  );
+
+  // Body Text - Legacy support
   static TextStyle get font17RegularSecondary => TextStyle(
     fontSize: 17.sp,
     fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
-    height: 1.4,
+    height: 1.5,
     letterSpacing: -0.2,
   );
 
@@ -222,5 +327,74 @@ class AppTextStyles {
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
     color: isComplete ? AppColors.success : AppColors.textSecondary,
+  );
+
+  // Analytics specific styles
+  static TextStyle get font14RegularGrey => TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+    color: Colors.grey,
+  );
+
+  static TextStyle get font16SemiBoldBlack87 => TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: Colors.black87,
+  );
+
+  static TextStyle get font10MediumGrey => TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeight.w500,
+    color: Colors.grey,
+  );
+
+  static TextStyle get font10MediumBlack70 => TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeight.w500,
+    color: Colors.black.withValues(alpha: 0.7),
+  );
+
+  static TextStyle font12MediumConditional({required bool isSelected}) =>
+      TextStyle(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w500,
+        color: isSelected ? Colors.white : Colors.grey[700],
+      );
+
+  static TextStyle font14MediumConditional({required bool isSelected}) =>
+      TextStyle(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+        color: isSelected ? Colors.white : Colors.grey[700],
+      );
+
+  static TextStyle get font16SemiBoldGrey700 => TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: Colors.grey[700],
+  );
+
+  static TextStyle get font12SemiBoldGreen700 => TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
+    color: Colors.green[700],
+  );
+
+  static TextStyle get font12RegularGrey600 => TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w400,
+    color: Colors.grey[600],
+  );
+
+  static TextStyle get font18SemiBoldBlack87 => TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w600,
+    color: Colors.black87,
+  );
+
+  static TextStyle get font12MediumGrey600 => TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w500,
+    color: Colors.grey[600],
   );
 }
