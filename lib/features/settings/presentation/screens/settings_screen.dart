@@ -1,196 +1,206 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/di/get_it.dart';
+import '../../../../core/helpers/custom_snackbar.dart';
 import '../../../../core/helpers/spacing.dart';
-import '../../data/models/user_settings.dart';
-import '../widgets/settings_section.dart';
-import '../widgets/settings_item.dart';
-import '../widgets/settings_toggle_item.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_text_styles.dart';
+import '../../../auth/data/repo/auth_repo.dart';
+import '../../data/service/settings_buttons_service.dart';
+import '../cubit/settings_cubit.dart';
+import '../widgets/enhanced_settings_item.dart';
+import '../widgets/enhanced_settings_section.dart';
+import '../widgets/user_metrics_display.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final userSettings = _getSampleUserSettings();
+    return BlocProvider(
+      create: (context) =>
+          SettingsCubit(authRepo: getIt<AuthRepo>())
+            ..getUserProfile(Supabase.instance.client.auth.currentUser!.id),
+      child: const _SettingsScreenContent(),
+    );
+  }
+}
 
+class _SettingsScreenContent extends StatelessWidget {
+  const _SettingsScreenContent();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: AppColors.backgroundSecondary,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF5F5F5),
+        backgroundColor: AppColors.backgroundSecondary,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black, size: 20),
-          onPressed: () => Navigator.pop(context),
-        ),
         title: Text(
           'Settings',
-          style: TextStyle(
-            fontSize: 24.sp,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
+          style: AppTextStyles.headingLarge.copyWith(
+            color: AppColors.textPrimary,
           ),
         ),
         centerTitle: false,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            verticalSpace(16),
+      body: BlocConsumer<SettingsCubit, SettingsState>(
+        listener: (context, state) {
+          if (state is SettingsError) {
+            CustomSnackbar.showError(
+              context,
+              state.apiErrorModel.message ?? 'Failed to load profile',
+            );
+          } else if (state is SettingsProfileUpdated) {
+            CustomSnackbar.showSuccess(context, state.message);
+          }
+        },
+        builder: (context, state) {
+          if (state is SettingsLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-            // Account Section
-            SettingsSection(
-              title: 'ACCOUNT',
-              children: [
-                SettingsItem(
-                  icon: Icons.mail_outline,
-                  title: 'Email',
-                  trailing: userSettings.email,
-                  onTap: () => _handleEmailTap(context),
-                ),
-                SettingsItem(
-                  icon: Icons.person_outline,
-                  title: 'Plan',
-                  trailing: userSettings.plan,
-                  onTap: () => _handlePlanTap(context),
-                ),
-                SettingsItem(
-                  icon: Icons.mic_none,
-                  title: 'Voice Records Left',
-                  trailing: '${userSettings.voiceRecordsLeft}',
-                  onTap: () => _handleVoiceRecordsTap(context),
-                ),
-              ],
-            ),
+          if (state is SettingsProfileLoaded) {
+            return _buildContent(context, state);
+          }
 
-            // Data & Preferences Section
-            SettingsSection(
-              title: 'DATA & PREFERENCES',
-              children: [
-                SettingsItem(
-                  icon: Icons.download_outlined,
-                  title: 'Export Data',
-                  hasArrow: true,
-                  onTap: () => _handleExportDataTap(context),
-                ),
-                SettingsItem(
-                  icon: Icons.language_outlined,
-                  title: 'Language',
-                  trailing: userSettings.language,
-                  hasArrow: true,
-                  onTap: () => _handleLanguageTap(context),
-                ),
-                SettingsToggleItem(
-                  icon: Icons.notifications_none,
-                  title: 'Daily Reminders',
-                  value: userSettings.dailyRemindersEnabled,
-                  onChanged: (value) => _handleDailyReminderToggle(value),
-                ),
-              ],
-            ),
-
-            // About App Section
-            SettingsSection(
-              title: 'ABOUT APP',
-              children: [
-                SettingsItem(
-                  icon: Icons.shield_outlined,
-                  title: 'Privacy Policy',
-                  hasArrow: true,
-                  onTap: () => _handlePrivacyPolicyTap(context),
-                ),
-                SettingsItem(
-                  icon: Icons.info_outline,
-                  title: 'About App',
-                  hasArrow: true,
-                  onTap: () => _handleAboutAppTap(context),
-                ),
-                SettingsItem(
-                  icon: Icons.help_outline,
-                  title: 'FAQ',
-                  hasArrow: true,
-                  onTap: () => _handleFAQTap(context),
-                ),
-              ],
-            ),
-
-            // Actions Section
-            SettingsSection(
-              title: 'ACTIONS',
-              children: [
-                SettingsItem(
-                  icon: Icons.logout,
-                  title: 'Sign Out',
-                  onTap: () => _handleSignOutTap(context),
-                ),
-                SettingsItem(
-                  icon: Icons.delete_outline,
-                  title: 'Delete Account',
-                  isDestructive: true,
-                  onTap: () => _handleDeleteAccountTap(context),
-                ),
-              ],
-            ),
-
-            verticalSpace(100), // Bottom padding for navigation bar
-          ],
-        ),
+          // Initial or error state
+          return _buildContent(context, null);
+        },
       ),
     );
   }
 
-  // Handler methods
-  void _handleEmailTap(BuildContext context) {
-    // TODO: Navigate to email settings
-  }
+  Widget _buildContent(BuildContext context, SettingsProfileLoaded? state) {
+    final profile = state?.profile;
 
-  void _handlePlanTap(BuildContext context) {
-    // TODO: Navigate to plan settings
-  }
+    // Calculate age from bornDate
+    String age = 'N/A';
+    if (profile?.bornDate != null) {
+      try {
+        final birthDate = DateTime.parse(profile!.bornDate!);
+        final today = DateTime.now();
+        age = (today.year - birthDate.year).toString();
+      } catch (e) {
+        age = 'N/A';
+      }
+    }
 
-  void _handleVoiceRecordsTap(BuildContext context) {
-    // TODO: Navigate to voice records settings
-  }
+    String height = 'N/A';
+    if (profile?.height != null) {
+      final heightInCm = profile!.height!;
+      if (heightInCm >= 100) {
+        final heightInMeters = heightInCm / 100;
+        height = '${heightInMeters.toStringAsFixed(2)} m';
+      } else {
+        height = '${heightInCm.toStringAsFixed(0)} cm';
+      }
+    }
 
-  void _handleExportDataTap(BuildContext context) {
-    // TODO: Handle export data
-  }
+    String currentWeight = 'N/A';
+    if (profile?.weight != null) {
+      final weightInKg = profile!.weight!;
+      currentWeight = '${weightInKg.toStringAsFixed(1)} kg';
+    }
 
-  void _handleLanguageTap(BuildContext context) {
-    // TODO: Navigate to language settings
-  }
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // User Metrics Section
+          Container(
+            margin: EdgeInsets.all(20.w),
+            decoration: BoxDecoration(
+              color: AppColors.backgroundPrimary,
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: AppColors.border, width: 0.5),
+            ),
+            child: UserMetricsDisplay(
+              age: age,
+              height: height,
+              currentWeight: currentWeight,
+            ),
+          ),
 
-  void _handleDailyReminderToggle(bool value) {
-    // TODO: Handle daily reminder toggle
-  }
+          // Customization Section
+          EnhancedSettingsSection(
+            title: 'CUSTOMIZATION',
+            children: [
+              EnhancedSettingsItem(
+                title: 'Personal details',
+                hasArrow: true,
+                onTap: () =>
+                    SettingsButtonsService.handlePersonalDetailsTap(context),
+              ),
+              EnhancedSettingsItem(
+                title: 'Adjust goals',
+                subtitle: 'Calories, carbs, fats, and protein.',
+                hasArrow: true,
+                onTap: () =>
+                    SettingsButtonsService.handleAdjustGoalsTap(context),
+              ),
+            ],
+          ),
 
-  void _handlePrivacyPolicyTap(BuildContext context) {
-    // TODO: Navigate to privacy policy
-  }
+          // Legal Section
+          EnhancedSettingsSection(
+            title: 'LEGAL',
+            children: [
+              EnhancedSettingsItem(
+                title: 'Terms and Conditions',
+                hasArrow: true,
+                onTap: () =>
+                    SettingsButtonsService.handleTermsAndConditionsTap(context),
+              ),
+              EnhancedSettingsItem(
+                title: 'Privacy Policy',
+                hasArrow: true,
+                onTap: () =>
+                    SettingsButtonsService.handlePrivacyPolicyTap(context),
+              ),
+              EnhancedSettingsItem(
+                title: 'Support Email',
+                hasArrow: true,
+                onTap: () =>
+                    SettingsButtonsService.handleSupportEmailTap(context),
+              ),
+              EnhancedSettingsItem(
+                title: 'Delete Account?',
+                hasArrow: true,
+                onTap: () =>
+                    SettingsButtonsService.handleDeleteAccountTap(context),
+              ),
+            ],
+          ),
 
-  void _handleAboutAppTap(BuildContext context) {
-    // TODO: Navigate to about app
-  }
+          // Sign Out Button
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            child: GestureDetector(
+              onTap: () => SettingsButtonsService.handleSignOut(context),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Sign Out',
+                    style: AppTextStyles.labelLarge.copyWith(
+                      color: Colors.red,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  horizontalSpace(8),
+                  Icon(Icons.logout, color: Colors.red, size: 20.sp),
+                ],
+              ),
+            ),
+          ),
 
-  void _handleFAQTap(BuildContext context) {
-    // TODO: Navigate to FAQ
-  }
-
-  void _handleSignOutTap(BuildContext context) {
-    // TODO: Handle sign out
-  }
-
-  void _handleDeleteAccountTap(BuildContext context) {
-    // TODO: Handle delete account
-  }
-
-  UserSettings _getSampleUserSettings() {
-    return const UserSettings(
-      email: 'user@gmail.com',
-      plan: 'Free',
-      voiceRecordsLeft: 6,
-      language: 'English',
-      dailyRemindersEnabled: true,
+          verticalSpace(40), // Bottom padding
+        ],
+      ),
     );
   }
 }
