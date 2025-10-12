@@ -26,11 +26,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           activeIcon: Icon(Icons.home),
           label: 'Home',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search_outlined),
-          activeIcon: Icon(Icons.search),
-          label: 'Search',
-        ),
+
         BottomNavigationBarItem(
           icon: Icon(Icons.analytics_outlined),
           activeIcon: Icon(Icons.analytics),
