@@ -1,51 +1,28 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../core/di/get_it.dart';
+import '../../../../core/helpers/custom_app_bar.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
-import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
-import '../../../auth/data/repo/auth_repo.dart';
-import '../../data/service/settings_buttons_service.dart';
+import '../../../auth/data/model/user_profile.dart';
 import '../cubit/settings_cubit.dart';
-import '../widgets/enhanced_settings_item.dart';
-import '../widgets/enhanced_settings_section.dart';
-import '../widgets/user_metrics_display.dart';
+import '../widgets/settings/settings_screen_body.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          SettingsCubit(authRepo: getIt<AuthRepo>())
-            ..getUserProfile(Supabase.instance.client.auth.currentUser!.id),
-      child: const _SettingsScreenContent(),
-    );
-  }
-}
-
-class _SettingsScreenContent extends StatelessWidget {
-  const _SettingsScreenContent();
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundSecondary,
-      appBar: AppBar(
-        backgroundColor: AppColors.backgroundSecondary,
-        elevation: 0,
-        title: Text(
-          'Settings',
-          style: AppTextStyles.headingLarge.copyWith(
-            color: AppColors.textPrimary,
-          ),
-        ),
-        centerTitle: false,
+      appBar: CustomAppBar.build(
+        context: context,
+        child: const Text('Settings', style: AppTextStyles.font28BoldBlack),
+        centerTitle: true,
+        hasBackButton: false,
       ),
       body: BlocConsumer<SettingsCubit, SettingsState>(
         listener: (context, state) {
@@ -60,7 +37,22 @@ class _SettingsScreenContent extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is SettingsLoading) {
-            return const Center(child: CircularProgressIndicator());
+            // Create a dummy profile for skeleton loading
+            final dummyProfile = UserProfile(
+              userId: '',
+              fullName: 'Loading...',
+              email: 'loading@example.com',
+            );
+
+            return Skeletonizer(
+              enabled: true,
+              child: SettingsScreenBody(
+                age: 'N/A',
+                height: 'N/A',
+                currentWeight: 'N/A',
+                profile: dummyProfile,
+              ),
+            );
           }
 
           if (state is SettingsProfileLoaded) {
@@ -76,6 +68,15 @@ class _SettingsScreenContent extends StatelessWidget {
 
   Widget _buildContent(BuildContext context, SettingsProfileLoaded? state) {
     final profile = state?.profile;
+
+    // If no profile, create a dummy one
+    final currentProfile =
+        profile ??
+        UserProfile(
+          userId: '',
+          fullName: 'Unknown',
+          email: 'unknown@example.com',
+        );
 
     // Calculate age from bornDate
     String age = 'N/A';
@@ -106,101 +107,11 @@ class _SettingsScreenContent extends StatelessWidget {
       currentWeight = '${weightInKg.toStringAsFixed(1)} kg';
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // User Metrics Section
-          Container(
-            margin: EdgeInsets.all(20.w),
-            decoration: BoxDecoration(
-              color: AppColors.backgroundPrimary,
-              borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: AppColors.border, width: 0.5),
-            ),
-            child: UserMetricsDisplay(
-              age: age,
-              height: height,
-              currentWeight: currentWeight,
-            ),
-          ),
-
-          // Customization Section
-          EnhancedSettingsSection(
-            title: 'CUSTOMIZATION',
-            children: [
-              EnhancedSettingsItem(
-                title: 'Personal details',
-                hasArrow: true,
-                onTap: () =>
-                    SettingsButtonsService.handlePersonalDetailsTap(context),
-              ),
-              EnhancedSettingsItem(
-                title: 'Adjust goals',
-                subtitle: 'Calories, carbs, fats, and protein.',
-                hasArrow: true,
-                onTap: () =>
-                    SettingsButtonsService.handleAdjustGoalsTap(context),
-              ),
-            ],
-          ),
-
-          // Legal Section
-          EnhancedSettingsSection(
-            title: 'LEGAL',
-            children: [
-              EnhancedSettingsItem(
-                title: 'Terms and Conditions',
-                hasArrow: true,
-                onTap: () =>
-                    SettingsButtonsService.handleTermsAndConditionsTap(context),
-              ),
-              EnhancedSettingsItem(
-                title: 'Privacy Policy',
-                hasArrow: true,
-                onTap: () =>
-                    SettingsButtonsService.handlePrivacyPolicyTap(context),
-              ),
-              EnhancedSettingsItem(
-                title: 'Support Email',
-                hasArrow: true,
-                onTap: () =>
-                    SettingsButtonsService.handleSupportEmailTap(context),
-              ),
-              EnhancedSettingsItem(
-                title: 'Delete Account?',
-                hasArrow: true,
-                onTap: () =>
-                    SettingsButtonsService.handleDeleteAccountTap(context),
-              ),
-            ],
-          ),
-
-          // Sign Out Button
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-            child: GestureDetector(
-              onTap: () => SettingsButtonsService.handleSignOut(context),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Sign Out',
-                    style: AppTextStyles.labelLarge.copyWith(
-                      color: Colors.red,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  horizontalSpace(8),
-                  Icon(Icons.logout, color: Colors.red, size: 20.sp),
-                ],
-              ),
-            ),
-          ),
-
-          verticalSpace(40), // Bottom padding
-        ],
-      ),
+    return SettingsScreenBody(
+      age: age,
+      height: height,
+      currentWeight: currentWeight,
+      profile: currentProfile,
     );
   }
 }

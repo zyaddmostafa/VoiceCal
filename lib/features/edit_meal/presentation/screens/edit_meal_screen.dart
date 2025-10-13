@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/helpers/custom_app_bar_helper.dart';
+import '../../../../core/helpers/custom_app_bar.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
 import '../../../../core/helpers/quantity_dialog_helper.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -88,7 +88,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
       },
       child: Scaffold(
         backgroundColor: AppColors.backgroundSecondary,
-        appBar: CustomAppBarHelper.build(
+        appBar: CustomAppBar.build(
           context: context,
           child: Text(
             TimeOfDay.now().format(context),

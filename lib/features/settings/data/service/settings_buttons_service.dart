@@ -2,11 +2,15 @@ import 'package:flutter/widgets.dart';
 
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/routing/routes.dart';
+import '../../../auth/data/model/user_profile.dart';
 
 class SettingsButtonsService {
   // Handler methods
-  static void handlePersonalDetailsTap(BuildContext context) {
-    context.pushNamed(Routes.personalDetailsScreen);
+  static void handlePersonalDetailsTap(
+    BuildContext context,
+    UserProfile profile,
+  ) {
+    context.pushNamed(Routes.personalDetailsScreen, arguments: profile);
   }
 
   static void handleAdjustGoalsTap(BuildContext context) {

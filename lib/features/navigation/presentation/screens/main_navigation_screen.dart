@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../home/presentation/screens/home_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../../../core/di/get_it.dart';
 import '../../../analytics/presentation/screens/analytics_screen.dart';
+import '../../../auth/data/repo/auth_repo.dart';
+import '../../../home/presentation/screens/home_screen.dart';
+import '../../../settings/presentation/cubit/settings_cubit.dart';
 import '../../../settings/presentation/screens/settings_screen.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 
@@ -15,11 +21,22 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<bool> _hasBeenBuilt = [false, false, false, false];
 
-  final List<Widget> _pages = [
-    const HomeScreen(),
-    const AnalyticsScreen(),
-    const SettingsScreen(),
-  ];
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      const HomeScreen(),
+      const AnalyticsScreen(),
+      BlocProvider(
+        create: (context) =>
+            SettingsCubit(authRepo: getIt<AuthRepo>())
+              ..getUserProfile(Supabase.instance.client.auth.currentUser!.id),
+        child: const SettingsScreen(),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
