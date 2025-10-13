@@ -4,6 +4,8 @@ import '../../features/analytics/presentation/screens/analytics_screen.dart';
 import '../../features/auth/data/repo/auth_repo.dart';
 import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/auth/presentation/screens/auth_screen.dart';
+import '../../features/edit_meal/presentation/cubit/edit_meal_cubit.dart';
+import '../../features/edit_meal/presentation/screens/edit_meal_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/onboarding/data/models/calories_and_macros_model.dart';
 import '../../features/onboarding/data/models/user_informations_model.dart';
@@ -147,6 +149,18 @@ class AppRouter {
       case Routes.personalDetailsScreen:
         return CupertinoPageRoute(
           builder: (_) => const PersonalDetailsScreen(),
+        );
+      // Edit Meal Screen
+      case Routes.editMealScreen:
+        final mealId = arguments as String?;
+
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<EditMealCubit>(),
+            child: const EditMealScreen(
+              mealId: "32cd3a1a-b531-42b9-bd8e-79e11405f820",
+            ),
+          ),
         );
       default:
         return null;

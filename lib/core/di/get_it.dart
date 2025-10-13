@@ -4,6 +4,9 @@ import '../../features/analytics/data/repo/analytics_repo.dart';
 import '../../features/analytics/data/services/analytics_api_service.dart';
 import '../../features/auth/data/repo/auth_repo.dart';
 import '../../features/auth/data/services/supabase_auth_service.dart';
+import '../../features/edit_meal/data/apis/edit_meal_api_service.dart';
+import '../../features/edit_meal/data/repo/edit_meal_repo.dart';
+import '../../features/edit_meal/presentation/cubit/edit_meal_cubit.dart';
 import '../../features/home/data/repo/home_repo.dart';
 import '../../features/home/data/services/home_api_service.dart';
 import '../networking/dio_factory.dart';
@@ -24,6 +27,7 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton(() => HiveService());
   getIt.registerLazySingleton(() => SpeechToTextService());
   getIt.registerLazySingleton(() => HomeApiService(dio));
+  getIt.registerLazySingleton(() => EditMealApiService(dio));
   getIt.registerLazySingleton(() => AnalyticsApiService(supabase));
   getIt.registerLazySingleton(() => WeightEntryApiService(supabase));
 
@@ -39,11 +43,20 @@ Future<void> setupGetIt() async {
   );
 
   getIt.registerLazySingleton(
+    () => EditMealRepo(editMealApiService: getIt<EditMealApiService>()),
+  );
+
+  getIt.registerLazySingleton(
     () => AnalyticsRepo(analyticsApiService: getIt<AnalyticsApiService>()),
   );
 
   getIt.registerLazySingleton(
     () =>
         WeightEntryRepo(weightEntryApiService: getIt<WeightEntryApiService>()),
+  );
+
+  // Register Cubits/Blocs
+  getIt.registerFactory(
+    () => EditMealCubit(editMealRepo: getIt<EditMealRepo>()),
   );
 }

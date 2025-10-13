@@ -11,6 +11,6 @@ part 'home_api_service.g.dart';
 abstract class HomeApiService {
   factory HomeApiService(Dio dio, {String baseUrl}) = _HomeApiService;
 
-  @POST(ApiConstants.sendData)
+  @POST(ApiConstants.logMeal)
   Future<MealDataResponse> getMealData(@Body() MealDataRequest request);
 }
