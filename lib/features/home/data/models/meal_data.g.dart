@@ -19,6 +19,7 @@ MealData _$MealDataFromJson(Map<String, dynamic> json) => MealData(
       ingredients: (json['ingredients'] as List<dynamic>)
           .map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
           .toList(),
+      quantity: (json['Qty'] as num).toInt(),
     );
 
 Map<String, dynamic> _$MealDataToJson(MealData instance) => <String, dynamic>{
@@ -32,6 +33,7 @@ Map<String, dynamic> _$MealDataToJson(MealData instance) => <String, dynamic>{
       'total_carbs': instance.totalCarbs,
       'total_fats': instance.totalFats,
       'ingredients': instance.ingredients,
+      'Qty': instance.quantity,
     };
 
 Ingredient _$IngredientFromJson(Map<String, dynamic> json) => Ingredient(

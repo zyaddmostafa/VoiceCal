@@ -21,6 +21,8 @@ class MealData {
   @JsonKey(name: 'total_fats')
   final double totalFats;
   final List<Ingredient> ingredients;
+  @JsonKey(name: 'Qty')
+  final int quantity;
 
   MealData({
     required this.id,
@@ -33,6 +35,7 @@ class MealData {
     required this.totalCarbs,
     required this.totalFats,
     required this.ingredients,
+    required this.quantity,
   });
 
   factory MealData.fromJson(Map<String, dynamic> json) =>
