@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/helpers/spacing.dart';
+import '../../../../../core/helpers/spacing.dart';
 
 class SettingsItem extends StatelessWidget {
   final IconData icon;

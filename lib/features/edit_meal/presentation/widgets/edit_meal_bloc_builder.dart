@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +47,7 @@ class EditMealBlocBuilder extends StatelessWidget {
     return BlocBuilder<EditMealCubit, EditMealState>(
       builder: (context, state) {
         if (state is EditMealLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(child: CupertinoActivityIndicator(radius: 14.r));
         }
 
         return Stack(

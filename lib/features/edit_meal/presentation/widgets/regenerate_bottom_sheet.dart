@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,10 +13,8 @@ class RegenerateBottomSheet {
   }) {
     final TextEditingController descriptionController = TextEditingController();
 
-    showModalBottomSheet(
+    showCupertinoModalPopup(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -54,7 +53,7 @@ class RegenerateBottomSheet {
                         Row(
                           children: [
                             Icon(
-                              Icons.auto_fix_high,
+                              CupertinoIcons.sparkles,
                               color: AppColors.textPrimary,
                               size: 24.sp,
                             ),
@@ -82,18 +81,16 @@ class RegenerateBottomSheet {
                         borderRadius: BorderRadius.circular(16.r),
                         border: Border.all(color: AppColors.border, width: 1.5),
                       ),
-                      child: TextFormField(
+                      child: CupertinoTextField(
                         controller: descriptionController,
                         style: AppTextStyles.font14MediumPrimary,
                         maxLines: 4,
                         autofocus: true,
-                        decoration: InputDecoration(
-                          hintText:
-                              'e.g., Grilled chicken with rice and broccoli',
-                          hintStyle: AppTextStyles.font14RegularSecondary,
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(16.r),
-                        ),
+                        placeholder:
+                            'e.g., Grilled chicken with rice and broccoli',
+                        placeholderStyle: AppTextStyles.font14RegularSecondary,
+                        decoration: const BoxDecoration(),
+                        padding: EdgeInsets.all(16.r),
                       ),
                     ),
 

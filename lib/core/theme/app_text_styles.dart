@@ -25,15 +25,6 @@ class AppTextStyles {
     height: 1.15,
   );
 
-  static TextStyle get displaySmall => TextStyle(
-    fontFamily: _fontFamily,
-    fontSize: 28.sp,
-    fontWeight: FontWeight.w600, // SemiBold
-    color: AppColors.textPrimary,
-    letterSpacing: -0.3,
-    height: 1.2,
-  );
-
   // Headings - Clear hierarchy
   static TextStyle get headingLarge => TextStyle(
     fontFamily: _fontFamily,
@@ -42,24 +33,6 @@ class AppTextStyles {
     color: AppColors.textPrimary,
     letterSpacing: -0.2,
     height: 1.25,
-  );
-
-  static TextStyle get headingMedium => TextStyle(
-    fontFamily: _fontFamily,
-    fontSize: 20.sp,
-    fontWeight: FontWeight.w600, // SemiBold
-    color: AppColors.textPrimary,
-    letterSpacing: -0.1,
-    height: 1.3,
-  );
-
-  static TextStyle get headingSmall => TextStyle(
-    fontFamily: _fontFamily,
-    fontSize: 18.sp,
-    fontWeight: FontWeight.w600, // SemiBold
-    color: AppColors.textPrimary,
-    letterSpacing: 0,
-    height: 1.35,
   );
 
   // Legacy support - Enhanced with font family
@@ -169,13 +142,6 @@ class AppTextStyles {
     letterSpacing: -0.2,
   );
 
-  static TextStyle get font17SemiBoldDisabled => TextStyle(
-    fontSize: 17.sp,
-    fontWeight: FontWeight.w600,
-    color: const Color(0xFF8E8E93),
-    letterSpacing: -0.2,
-  );
-
   static TextStyle get font16MediumBlack => TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
@@ -201,12 +167,6 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: Colors.white,
     letterSpacing: -0.2,
-  );
-
-  static TextStyle get font18SemiBoldWhite => TextStyle(
-    fontSize: 18.sp,
-    fontWeight: FontWeight.w600,
-    color: Colors.white,
   );
 
   // Small Text
@@ -251,32 +211,11 @@ class AppTextStyles {
     color: Colors.white,
     letterSpacing: -0.1,
   );
-  // Special Purpose
-  static TextStyle get fontBlueLink =>
-      const TextStyle(color: Color(0xFF007AFF));
-
-  static TextStyle get font15MediumBlack => TextStyle(
-    fontSize: 15.sp,
-    fontWeight: FontWeight.w500,
-    color: AppColors.primaryBlack,
-  );
 
   static TextStyle get font20SemiBoldPrimary => TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
-  );
-
-  static TextStyle get fontPicker => TextStyle(
-    fontSize: 20.sp,
-    fontWeight: FontWeight.w400,
-    color: AppColors.textPrimary,
-  );
-
-  static TextStyle get fontPickerSelected => TextStyle(
-    fontSize: 24.sp,
-    fontWeight: FontWeight.w600,
-    color: AppColors.primaryBlack,
   );
 
   // Conditional styles with parameters

@@ -11,6 +11,7 @@
 - consider performance
 - make sure the widget / screen is responsive
 - keep it simple and follow KISS principle
+- follow the design language (iOS style)
 
 ## Project Overview
 VoiceCal is a voice-powered calorie tracking Flutter application designed for intuitive nutrition management. Users can track their meals, set nutrition goals, and manage their dietary intake primarily through voice interactions using n8n as the automation tool to streamline workflows and integrate with various APIs.

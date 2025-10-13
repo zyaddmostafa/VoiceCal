@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/analytics/presentation/screens/analytics_screen.dart';
+import '../../features/auth/data/model/user_profile.dart';
 import '../../features/auth/data/repo/auth_repo.dart';
 import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/auth/presentation/screens/auth_screen.dart';
@@ -147,8 +148,10 @@ class AppRouter {
 
       // Personal Details Screen
       case Routes.personalDetailsScreen:
+        final profile = arguments as UserProfile;
+
         return CupertinoPageRoute(
-          builder: (_) => const PersonalDetailsScreen(),
+          builder: (_) => PersonalDetailsScreen(profile: profile),
         );
       // Edit Meal Screen
       case Routes.editMealScreen:
