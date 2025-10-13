@@ -19,4 +19,5 @@ class Routes {
   static const String analyticsScreen = '/analyticsScreen';
   static const String settingsScreen = '/settingsScreen';
   static const String personalDetailsScreen = '/personalDetailsScreen';
+  static const String editNutritionGoalsScreen = '/editNutritionGoals';
 }

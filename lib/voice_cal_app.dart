@@ -17,7 +17,7 @@ class VoiceCalApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: SupabaseAuthService.isAuthenticated
-            ? Routes.settingsScreen
+            ? Routes.editNutritionGoalsScreen
             : Routes.welcomeScreen,
         // initialRoute: Routes.homeScreen,
         onGenerateRoute: AppRouter.onGenerateRoute,

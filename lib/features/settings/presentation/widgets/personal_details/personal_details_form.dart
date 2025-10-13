@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/helpers/spacing.dart';
+import '../../../../../core/widgets/custom_app_button.dart';
 import '../../../../auth/data/model/user_profile.dart';
 import 'basic_information_section.dart';
 import 'goals_section.dart';
 import 'physical_details_section.dart';
-import 'save_button.dart';
 import 'section_card.dart';
 import 'section_header.dart';
 
@@ -111,7 +111,7 @@ class PersonalDetailsForm extends StatelessWidget {
               verticalSpace(40),
 
               // Save Button
-              SaveButton(onPressed: onSavePressed),
+              CustomAppButton(onPressed: onSavePressed, text: 'Save Changes'),
               verticalSpace(40),
             ],
           ),
