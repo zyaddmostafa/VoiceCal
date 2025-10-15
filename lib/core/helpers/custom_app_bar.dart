@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'app_icons.dart';
 import '../theme/app_colors.dart';
 
 class CustomAppBar {
@@ -20,7 +21,7 @@ class CustomAppBar {
                 padding: EdgeInsets.zero,
                 onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
                 child: Icon(
-                  CupertinoIcons.back,
+                  AppIcons.back,
                   color: AppColors.textPrimary,
                   size: 28.sp,
                 ),

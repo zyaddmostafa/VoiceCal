@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/di/get_it.dart';
+import '../../../../core/helpers/app_icons.dart';
 import '../../../analytics/data/repo/analytics_repo.dart';
 import '../../../analytics/presentation/cubit/analytics_cubit.dart';
 import '../../../analytics/presentation/screens/analytics_screen.dart';
@@ -78,18 +79,18 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
         ),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home),
-            activeIcon: Icon(CupertinoIcons.house_fill),
+            icon: Icon(AppIcons.home),
+            activeIcon: Icon(AppIcons.homeFilled),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.chart_bar),
-            activeIcon: Icon(CupertinoIcons.chart_bar_fill),
+            icon: Icon(AppIcons.stats),
+            activeIcon: Icon(AppIcons.statsFilled),
             label: 'Stats',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.settings),
-            activeIcon: Icon(CupertinoIcons.settings_solid),
+            icon: Icon(AppIcons.settings),
+            activeIcon: Icon(AppIcons.settingsFilled),
             label: 'Settings',
           ),
         ],

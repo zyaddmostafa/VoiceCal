@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../core/helpers/app_icons.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
@@ -58,7 +59,7 @@ class BirthDatePicker extends StatelessWidget {
                   ),
                   horizontalSpace(8),
                   Icon(
-                    CupertinoIcons.calendar,
+                    AppIcons.calendar,
                     size: 16.sp,
                     color: AppColors.textSecondary,
                   ),

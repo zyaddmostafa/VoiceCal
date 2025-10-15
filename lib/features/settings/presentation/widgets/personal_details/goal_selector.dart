@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../core/helpers/app_icons.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
@@ -57,7 +58,7 @@ class GoalSelector extends StatelessWidget {
                   ),
                   SizedBox(width: 4.w),
                   Icon(
-                    CupertinoIcons.chevron_down,
+                    AppIcons.chevronDown,
                     size: 14.sp,
                     color: AppColors.textSecondary,
                   ),
