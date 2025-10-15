@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
 import '../../data/models/meal_data.dart';
 import '../cubit/home_cubit.dart';
-import 'home_body_content.dart';
+import 'home_body_bloc_builder.dart';
 import 'mic/voice_recording_fab.dart';
 
 class HomeScreenBlocListener extends StatelessWidget {
@@ -55,7 +55,7 @@ class HomeScreenBlocListener extends StatelessWidget {
       child: CupertinoPageScaffold(
         child: Stack(
           children: [
-            HomeBodyContent(
+            HomeBodyBlocBuilder(
               loggedMeals: loggedMeals,
               isLoadingMeal: isLoadingMeal,
               isLoadingUserMeals: isLoadingUserMeals,

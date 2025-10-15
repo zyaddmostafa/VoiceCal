@@ -20,6 +20,7 @@ class AppAssets {
   static const String protein = 'assets/svgs/protein.svg';
   static const String carbs = 'assets/svgs/carbs.svg';
   static const String fats = 'assets/svgs/fats.svg';
+  static const String calories = 'assets/svgs/calories.svg';
 
   // ==================== Image Assets ====================
 

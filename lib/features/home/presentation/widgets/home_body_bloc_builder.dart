@@ -13,12 +13,12 @@ import 'logged_meals/logged_meals_list.dart';
 import 'macros/macronutrients_card.dart';
 import 'today_info_card.dart';
 
-class HomeBodyContent extends StatelessWidget {
+class HomeBodyBlocBuilder extends StatelessWidget {
   final List<MealData> loggedMeals;
   final bool isLoadingMeal;
   final bool isLoadingUserMeals;
 
-  const HomeBodyContent({
+  const HomeBodyBlocBuilder({
     super.key,
     required this.loggedMeals,
     this.isLoadingMeal = false,

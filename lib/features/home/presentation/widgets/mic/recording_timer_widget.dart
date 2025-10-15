@@ -83,7 +83,7 @@ class _RecordingTimerWidgetState extends State<RecordingTimerWidget> {
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: AppColors.primaryDark,
         borderRadius: BorderRadius.circular(20.r),
@@ -116,16 +116,6 @@ class _RecordingTimerWidgetState extends State<RecordingTimerWidget> {
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,
-            ),
-          ),
-          SizedBox(width: 10.w),
-          // "FREE" or status text (optional)
-          Text(
-            'FREE',
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.6),
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w500,
             ),
           ),
         ],
