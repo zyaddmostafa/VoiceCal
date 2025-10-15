@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
@@ -13,8 +13,8 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return CupertinoPageScaffold(
+      child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: Constants.paddingHorizontal,

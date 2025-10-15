@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../../../../core/helpers/constants.dart';
+import '../../../../core/helpers/custom_snackbar.dart';
 import '../../../../core/nutrition/nutrition_calculator_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_back_button.dart';
@@ -67,7 +68,7 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
       value: defaultCalories,
       progress: _defaultProgress,
       ringColor: AppColors.primaryBlack,
-      icon: Icons.local_fire_department,
+      icon: CupertinoIcons.flame_fill,
     );
   }
 
@@ -79,11 +80,9 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
 
   void _onDone() {
     if (!_isValidData()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Unable to update goal: missing or invalid data.'),
-          backgroundColor: Colors.redAccent,
-        ),
+      CustomSnackbar.showError(
+        context,
+        'Unable to update goal: missing or invalid data.',
       );
       return;
     }
@@ -180,9 +179,9 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
+    return CupertinoPageScaffold(
+      backgroundColor: AppColors.backgroundPrimary,
+      child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: Constants.paddingHorizontal,

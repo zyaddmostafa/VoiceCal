@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../core/helpers/constants.dart';
@@ -26,9 +26,9 @@ class _DesiredWeightScreenState extends State<DesiredWeightScreen> {
   double selectedWeight = 47.6;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundPrimary,
-      body: SafeArea(
+      child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

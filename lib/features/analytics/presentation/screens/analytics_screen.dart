@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../core/di/get_it.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
 import '../../../../core/helpers/spacing.dart';
-import '../../data/repo/analytics_repo.dart';
 import '../cubit/analytics_cubit.dart';
 import '../utils/analytics_skeleton_data.dart';
 import '../widgets/analytics_combined_card_widget.dart';
@@ -15,27 +13,14 @@ import '../widgets/shared/time_period_selector_widget.dart';
 import '../widgets/shared/analytics_app_bar_widget.dart';
 import '../widgets/shared/analytics_empty_state_widget.dart';
 
-class AnalyticsScreen extends StatelessWidget {
+class AnalyticsScreen extends StatefulWidget {
   const AnalyticsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          AnalyticsCubit(analyticsRepo: getIt<AnalyticsRepo>()),
-      child: const _AnalyticsScreenContent(),
-    );
-  }
+  State<AnalyticsScreen> createState() => _AnalyticsScreenState();
 }
 
-class _AnalyticsScreenContent extends StatefulWidget {
-  const _AnalyticsScreenContent();
-
-  @override
-  State<_AnalyticsScreenContent> createState() => _AnalyticsScreenState();
-}
-
-class _AnalyticsScreenState extends State<_AnalyticsScreenContent> {
+class _AnalyticsScreenState extends State<AnalyticsScreen> {
   String selectedPeriod = '90 Days';
 
   @override
@@ -82,8 +67,8 @@ class _AnalyticsScreenState extends State<_AnalyticsScreenContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<AnalyticsCubit, AnalyticsState>(
+    return CupertinoPageScaffold(
+      child: BlocConsumer<AnalyticsCubit, AnalyticsState>(
         listener: (context, state) {
           if (state is AnalyticsError) {
             final errorMessage = state.apiErrorModel.message ?? '';
@@ -105,6 +90,11 @@ class _AnalyticsScreenState extends State<_AnalyticsScreenContent> {
         builder: (context, state) {
           return CustomScrollView(
             slivers: [
+              // Safe area padding at top
+              SliverToBoxAdapter(
+                child: SizedBox(height: MediaQuery.of(context).padding.top),
+              ),
+
               const AnalyticsAppBarWidget(
                 progressPercent: 80.0,
                 showAchievedBadge: true,

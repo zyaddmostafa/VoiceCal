@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/nutrition/models/nutrition_plan_model.dart';
 import '../../../../core/nutrition/nutrition_calculator_service.dart';
 import '../../../../core/routing/routes.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
 import '../../data/models/calories_and_macros_model.dart';
@@ -44,10 +45,10 @@ class _ResultPlanScreenState extends State<ResultPlanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
+    return CupertinoPageScaffold(
+      backgroundColor: AppColors.backgroundPrimary,
 
-      body: SafeArea(
+      child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: Constants.paddingHorizontal,

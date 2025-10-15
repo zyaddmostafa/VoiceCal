@@ -128,4 +128,25 @@ class AuthCubit extends Cubit<AuthState> {
       },
     );
   }
+
+  getUserProfile({required String userId}) async {
+    emit(UserProfileLoading());
+    final result = await authRepo.getUserProfile(userId);
+    result.when(
+      onSuccess: (profile) {
+        if (profile != null) {
+          emit(UserProfileLoaded(userProfile: profile));
+        } else {
+          emit(
+            UserProfileError(
+              error: ApiErrorModel(message: 'User profile not found'),
+            ),
+          );
+        }
+      },
+      onError: (error) {
+        emit(UserProfileError(error: error));
+      },
+    );
+  }
 }

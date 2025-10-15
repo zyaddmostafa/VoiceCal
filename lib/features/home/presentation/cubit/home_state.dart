@@ -18,3 +18,17 @@ final class HomeError extends HomeState {
 
   HomeError({required this.apiErrorModel});
 }
+
+final class UserMealsLoading extends HomeState {}
+
+final class UserMealsSuccess extends HomeState {
+  final List<MealData> meals;
+
+  UserMealsSuccess({required this.meals});
+}
+
+final class UserMealsError extends HomeState {
+  final ApiErrorModel apiErrorModel;
+
+  UserMealsError({required this.apiErrorModel});
+}

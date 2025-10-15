@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../core/helpers/constants.dart';
@@ -18,9 +18,9 @@ class GeneratePlanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundPrimary,
-      body: SafeArea(
+      child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: Constants.paddingHorizontal,
@@ -68,7 +68,11 @@ class GeneratePlanScreen extends StatelessWidget {
                       color: Color(0xFFFF9500),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.check, color: Colors.white, size: 12.w),
+                    child: Icon(
+                      CupertinoIcons.check_mark,
+                      color: CupertinoColors.white,
+                      size: 12.w,
+                    ),
                   ),
                   horizontalSpace(8),
                   Text('All done!', style: AppTextStyles.font16MediumBlack),

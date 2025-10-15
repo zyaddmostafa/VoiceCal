@@ -27,6 +27,7 @@ import '../../features/onboarding/presentation/screens/welcome_screen.dart';
 import '../../features/onboarding/presentation/screens/workout_frequency_screen.dart';
 import '../../features/onboarding/presentation/widgets/edit_goal/edit_goal_args.dart';
 import '../../features/navigation/presentation/screens/main_navigation_screen.dart';
+import '../../features/settings/presentation/cubit/settings_cubit.dart';
 import '../../features/settings/presentation/screens/personal_details_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../di/get_it.dart';
@@ -153,7 +154,10 @@ class AppRouter {
         final profile = arguments as UserProfile;
 
         return CupertinoPageRoute(
-          builder: (_) => PersonalDetailsScreen(profile: profile),
+          builder: (_) => BlocProvider(
+            create: (context) => SettingsCubit(authRepo: getIt()),
+            child: PersonalDetailsScreen(profile: profile),
+          ),
         );
       // Edit Meal Screen
       case Routes.editMealScreen:

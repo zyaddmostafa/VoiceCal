@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_colors.dart';
@@ -42,7 +42,7 @@ class FormTextField extends StatelessWidget {
           horizontalSpace(16),
           Expanded(
             flex: 3,
-            child: TextFormField(
+            child: CupertinoTextField(
               controller: controller,
               keyboardType: keyboardType,
               enabled: enabled,
@@ -50,21 +50,24 @@ class FormTextField extends StatelessWidget {
                 color: AppColors.textPrimary,
                 fontWeight: FontWeight.w500,
               ),
-              decoration: InputDecoration(
-                hintText: hint,
-                hintStyle: AppTextStyles.labelMedium.copyWith(
-                  color: AppColors.textSecondary.withValues(alpha: 0.5),
-                ),
-                suffixText: suffix,
-                suffixStyle: AppTextStyles.labelMedium.copyWith(
-                  color: AppColors.textSecondary,
-                ),
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.zero,
-                isDense: true,
+              placeholder: hint,
+              placeholderStyle: AppTextStyles.labelMedium.copyWith(
+                color: AppColors.textSecondary.withValues(alpha: 0.5),
               ),
+              suffix: suffix != null
+                  ? Padding(
+                      padding: EdgeInsets.only(right: 8.w),
+                      child: Text(
+                        suffix!,
+                        style: AppTextStyles.labelMedium.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    )
+                  : null,
+              decoration: null,
+              padding: EdgeInsets.zero,
               textAlign: TextAlign.right,
-              validator: validator,
             ),
           ),
         ],

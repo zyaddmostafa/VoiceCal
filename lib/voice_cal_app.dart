@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,8 +15,9 @@ class VoiceCalApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
+      child: CupertinoApp(
         debugShowCheckedModeBanner: false,
+        theme: const CupertinoThemeData(brightness: Brightness.light),
         initialRoute: SupabaseAuthService.isAuthenticated
             ? Routes.mainNavigation
             : Routes.welcomeScreen,

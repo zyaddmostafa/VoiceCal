@@ -3,20 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/config/speech_to_text_service.dart';
 import '../../../../core/di/get_it.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
+import '../../../auth/data/services/supabase_auth_service.dart';
 import '../../data/models/meal_data.dart';
 import '../../data/services/meal_request_helper.dart';
 import '../../../../core/config/voice_logging_service.dart';
 import '../cubit/home_cubit.dart';
 import 'home_screen_bloc_listener.dart';
 
-class HomeScreenContent extends StatefulWidget {
-  const HomeScreenContent({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomeScreenContent> createState() => HomeScreenContentState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class HomeScreenContentState extends State<HomeScreenContent>
+class _HomeScreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -24,11 +25,13 @@ class HomeScreenContentState extends State<HomeScreenContent>
   late final VoiceLoggingService _voiceService;
   final List<MealData> _loggedMeals = [];
   bool _isLoadingMeal = false;
+  bool _isLoadingUserMeals = true;
 
   @override
   void initState() {
     super.initState();
     _initializeVoiceService();
+    _loadUserMeals();
   }
 
   void _initializeVoiceService() {
@@ -41,6 +44,17 @@ class HomeScreenContentState extends State<HomeScreenContent>
           'Voice input unavailable. Check microphone permissions.',
         );
       });
+    }
+  }
+
+  void _loadUserMeals() {
+    final supabaseAuthService = getIt<SupabaseAuthService>();
+    final currentUser = supabaseAuthService.getCurrentUser();
+
+    if (currentUser != null) {
+      context.read<HomeCubit>().getUserMeals(userId: currentUser.id);
+    } else {
+      setState(() => _isLoadingUserMeals = false);
     }
   }
 
@@ -97,6 +111,14 @@ class HomeScreenContentState extends State<HomeScreenContent>
     CustomSnackbar.showSuccess(context, 'Meal logged successfully!');
   }
 
+  void _onUserMealsLoaded(List<MealData> meals) {
+    setState(() {
+      _loggedMeals.clear();
+      _loggedMeals.addAll(meals);
+      _isLoadingUserMeals = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -104,8 +126,10 @@ class HomeScreenContentState extends State<HomeScreenContent>
     return HomeScreenBlocListener(
       loggedMeals: _loggedMeals,
       isLoadingMeal: _isLoadingMeal,
+      isLoadingUserMeals: _isLoadingUserMeals,
       isRecording: _voiceService.isRecording,
       onMealLogged: _onMealLogged,
+      onUserMealsLoaded: _onUserMealsLoaded,
       onLoadingChanged: (isLoading) =>
           setState(() => _isLoadingMeal = isLoading),
       onToggleRecording: _toggleRecording,

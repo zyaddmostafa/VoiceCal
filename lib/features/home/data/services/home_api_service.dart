@@ -5,6 +5,7 @@ import 'package:retrofit/http.dart';
 import '../../../../core/networking/api_constants.dart';
 import '../models/meal_data_request.dart';
 import '../models/meal_data_response.dart';
+import '../models/user_meals_response.dart';
 part 'home_api_service.g.dart';
 
 @RestApi(baseUrl: ApiConstants.baseUrl)
@@ -13,4 +14,7 @@ abstract class HomeApiService {
 
   @POST(ApiConstants.logMeal)
   Future<MealDataResponse> getMealData(@Body() MealDataRequest request);
+
+  @POST(ApiConstants.getAllMeals)
+  Future<UserMealsResponse> getUserMeals(@Query('user_id') String userId);
 }

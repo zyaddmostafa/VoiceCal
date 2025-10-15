@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../features/analytics/data/repo/analytics_repo.dart';
 import '../../features/analytics/data/services/analytics_api_service.dart';
 import '../../features/auth/data/repo/auth_repo.dart';
+import '../../features/auth/data/services/auth_local_service.dart';
 import '../../features/auth/data/services/supabase_auth_service.dart';
 import '../../features/edit_meal/data/apis/edit_meal_api_service.dart';
 import '../../features/edit_meal/data/repo/edit_meal_repo.dart';
@@ -32,10 +33,14 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton(() => WeightEntryApiService(supabase));
 
   getIt.registerLazySingleton<SupabaseAuthService>(() => SupabaseAuthService());
+  getIt.registerLazySingleton<AuthLocalService>(() => AuthLocalService());
 
   // Register repositories
   getIt.registerLazySingleton(
-    () => AuthRepo(supabaseAuthService: getIt<SupabaseAuthService>()),
+    () => AuthRepo(
+      supabaseAuthService: getIt<SupabaseAuthService>(),
+      authLocalService: getIt<AuthLocalService>(),
+    ),
   );
 
   getIt.registerLazySingleton(

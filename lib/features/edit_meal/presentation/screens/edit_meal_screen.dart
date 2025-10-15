@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' show TimeOfDay;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/helpers/custom_app_bar.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
 import '../../../../core/helpers/quantity_dialog_helper.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -86,30 +86,33 @@ class _EditMealScreenState extends State<EditMealScreen> {
           );
         }
       },
-      child: Scaffold(
+      child: CupertinoPageScaffold(
         backgroundColor: AppColors.backgroundSecondary,
-        appBar: CustomAppBar.build(
-          context: context,
-          child: Text(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text(
             TimeOfDay.now().format(context),
             style: AppTextStyles.font14RegularSecondary,
           ),
+          backgroundColor: AppColors.backgroundSecondary,
+          border: null,
         ),
-        body: EditMealBlocBuilder(
-          formKey: _formKey,
-          mealName: _mealName,
-          mealQuantity: _mealQuantity.toString(),
-          calories: _calories,
-          protein: _protein,
-          carbs: _carbs,
-          fats: _fats,
-          ingredients: _ingredients,
-          onQuantityTap: _showQuantityDialog,
-          onRemove: () {
-            Navigator.of(context).pop();
-          },
-          onFixResults: _showRegenerateBottomSheet,
-          onDone: _saveChanges,
+        child: SafeArea(
+          child: EditMealBlocBuilder(
+            formKey: _formKey,
+            mealName: _mealName,
+            mealQuantity: _mealQuantity.toString(),
+            calories: _calories,
+            protein: _protein,
+            carbs: _carbs,
+            fats: _fats,
+            ingredients: _ingredients,
+            onQuantityTap: _showQuantityDialog,
+            onRemove: () {
+              Navigator.of(context).pop();
+            },
+            onFixResults: _showRegenerateBottomSheet,
+            onDone: _saveChanges,
+          ),
         ),
       ),
     );

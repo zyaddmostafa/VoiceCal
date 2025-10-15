@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
 import '../../data/models/meal_data.dart';
@@ -11,16 +11,20 @@ class HomeScreenBlocListener extends StatelessWidget {
     super.key,
     required this.loggedMeals,
     required this.isLoadingMeal,
+    required this.isLoadingUserMeals,
     required this.isRecording,
     required this.onMealLogged,
+    required this.onUserMealsLoaded,
     required this.onLoadingChanged,
     required this.onToggleRecording,
   });
 
   final List<MealData> loggedMeals;
   final bool isLoadingMeal;
+  final bool isLoadingUserMeals;
   final bool isRecording;
   final ValueChanged<MealData> onMealLogged;
+  final ValueChanged<List<MealData>> onUserMealsLoaded;
   final ValueChanged<bool> onLoadingChanged;
   final VoidCallback onToggleRecording;
 
@@ -39,18 +43,34 @@ class HomeScreenBlocListener extends StatelessWidget {
             context,
             state.apiErrorModel.message ?? 'Failed to log meal',
           );
+        } else if (state is UserMealsSuccess) {
+          onUserMealsLoaded(state.meals);
+        } else if (state is UserMealsError) {
+          CustomSnackbar.showError(
+            context,
+            state.apiErrorModel.message ?? 'Failed to load meals',
+          );
         }
       },
-      child: Scaffold(
-        body: HomeBodyContent(
-          loggedMeals: loggedMeals,
-          isLoadingMeal: isLoadingMeal,
+      child: CupertinoPageScaffold(
+        child: Stack(
+          children: [
+            HomeBodyContent(
+              loggedMeals: loggedMeals,
+              isLoadingMeal: isLoadingMeal,
+              isLoadingUserMeals: isLoadingUserMeals,
+            ),
+            Positioned(
+              bottom: 20,
+              left: 0,
+              right: 0,
+              child: VoiceRecordingFab(
+                isRecording: isRecording,
+                onPressed: onToggleRecording,
+              ),
+            ),
+          ],
         ),
-        floatingActionButton: VoiceRecordingFab(
-          isRecording: isRecording,
-          onPressed: onToggleRecording,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

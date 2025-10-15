@@ -1,14 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/di/get_it.dart';
+import '../../../analytics/data/repo/analytics_repo.dart';
+import '../../../analytics/presentation/cubit/analytics_cubit.dart';
 import '../../../analytics/presentation/screens/analytics_screen.dart';
 import '../../../auth/data/repo/auth_repo.dart';
+import '../../../auth/presentation/cubit/auth_cubit.dart';
+import '../../../home/data/repo/home_repo.dart';
+import '../../../home/presentation/cubit/home_cubit.dart';
 import '../../../home/presentation/screens/home_screen.dart';
 import '../../../settings/presentation/cubit/settings_cubit.dart';
 import '../../../settings/presentation/screens/settings_screen.dart';
-import '../widgets/custom_bottom_navigation_bar.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -26,13 +30,31 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   void initState() {
     super.initState();
+    final currentUserId = Supabase.instance.client.auth.currentUser?.id;
+
     _pages = [
-      const HomeScreen(),
-      const AnalyticsScreen(),
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => HomeCubit(homeRepo: getIt<HomeRepo>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                AuthCubit(authRepo: getIt<AuthRepo>())
+                  ..getUserProfile(userId: currentUserId!),
+          ),
+        ],
+        child: const HomeScreen(),
+      ),
+      BlocProvider(
+        create: (context) =>
+            AnalyticsCubit(analyticsRepo: getIt<AnalyticsRepo>()),
+        child: const AnalyticsScreen(),
+      ),
       BlocProvider(
         create: (context) =>
             SettingsCubit(authRepo: getIt<AuthRepo>())
-              ..getUserProfile(Supabase.instance.client.auth.currentUser!.id),
+              ..getUserProfile(currentUserId!),
         child: const SettingsScreen(),
       ),
     ];
@@ -40,28 +62,45 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages.asMap().entries.map((entry) {
-          final index = entry.key;
-          final page = entry.value;
-
-          if (!_hasBeenBuilt[index] && index == _currentIndex) {
-            _hasBeenBuilt[index] = true;
-          }
-
-          return _hasBeenBuilt[index] ? page : const SizedBox.shrink();
-        }).toList(),
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
+        activeColor: CupertinoColors.black,
+        inactiveColor: CupertinoColors.systemGrey,
+        backgroundColor: CupertinoColors.systemBackground,
+        border: const Border(
+          top: BorderSide(color: CupertinoColors.systemGrey4, width: 0.5),
+        ),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.home),
+            activeIcon: Icon(CupertinoIcons.house_fill),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.chart_bar),
+            activeIcon: Icon(CupertinoIcons.chart_bar_fill),
+            label: 'Stats',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.settings),
+            activeIcon: Icon(CupertinoIcons.settings_solid),
+            label: 'Settings',
+          ),
+        ],
       ),
+      tabBuilder: (context, index) {
+        if (!_hasBeenBuilt[index] && index == _currentIndex) {
+          _hasBeenBuilt[index] = true;
+        }
+
+        return _hasBeenBuilt[index] ? _pages[index] : const SizedBox.shrink();
+      },
     );
   }
 }

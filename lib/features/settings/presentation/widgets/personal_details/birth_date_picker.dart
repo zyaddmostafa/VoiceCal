@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_colors.dart';
@@ -24,18 +24,8 @@ class BirthDatePicker extends StatelessWidget {
         ? DateTime.parse(currentBornDate!).toString().split(' ')[0]
         : 'Select date';
 
-    return InkWell(
-      onTap: () async {
-        final date = await showDatePicker(
-          context: context,
-          initialDate: birthDate ?? DateTime(2000),
-          firstDate: DateTime(1900),
-          lastDate: DateTime.now(),
-        );
-        if (date != null) {
-          onDateSelected(date);
-        }
-      },
+    return GestureDetector(
+      onTap: () => _showDatePicker(context),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
         child: Row(
@@ -68,11 +58,80 @@ class BirthDatePicker extends StatelessWidget {
                   ),
                   horizontalSpace(8),
                   Icon(
-                    Icons.calendar_today,
+                    CupertinoIcons.calendar,
                     size: 16.sp,
                     color: AppColors.textSecondary,
                   ),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showDatePicker(BuildContext context) {
+    DateTime selectedDate = birthDate ?? DateTime(2000);
+
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 300.h,
+        color: CupertinoColors.systemBackground,
+        child: Column(
+          children: [
+            Container(
+              height: 44.h,
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              decoration: BoxDecoration(
+                color: CupertinoColors.systemBackground,
+                border: Border(
+                  bottom: BorderSide(
+                    color: CupertinoColors.separator,
+                    width: 0.5,
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(
+                      'Cancel',
+                      style: AppTextStyles.labelMedium.copyWith(
+                        color: CupertinoColors.systemBlue,
+                      ),
+                    ),
+                  ),
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      onDateSelected(selectedDate);
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      'Done',
+                      style: AppTextStyles.labelMedium.copyWith(
+                        color: CupertinoColors.systemBlue,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: birthDate ?? DateTime(2000),
+                minimumDate: DateTime(1900),
+                maximumDate: DateTime.now(),
+                onDateTimeChanged: (DateTime newDate) {
+                  selectedDate = newDate;
+                },
               ),
             ),
           ],

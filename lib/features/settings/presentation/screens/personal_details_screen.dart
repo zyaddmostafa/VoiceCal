@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../core/helpers/custom_app_bar.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -94,57 +92,59 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundSecondary,
-      appBar: CustomAppBar.build(
-        context: context,
-        child: const Text(
+
+      navigationBar: const CupertinoNavigationBar(
+        middle: const Text(
           'Personal Details',
           style: AppTextStyles.font28BoldBlack,
         ),
-        hasBackButton: true,
-        centerTitle: true,
+        backgroundColor: AppColors.backgroundSecondary,
+        border: null,
       ),
-      body: BlocConsumer<SettingsCubit, SettingsState>(
-        listener: (context, state) {
-          if (state is SettingsError) {
-            CustomSnackbar.showError(
-              context,
-              state.apiErrorModel.message ?? 'Failed to update profile',
+      child: SafeArea(
+        child: BlocConsumer<SettingsCubit, SettingsState>(
+          listener: (context, state) {
+            if (state is SettingsError) {
+              CustomSnackbar.showError(
+                context,
+                state.apiErrorModel.message ?? 'Failed to update profile',
+              );
+            } else if (state is SettingsProfileUpdated) {
+              CustomSnackbar.showSuccess(
+                context,
+                'Profile updated successfully!',
+              );
+              Navigator.pop(context);
+            }
+          },
+          builder: (context, state) {
+            return PersonalDetailsForm(
+              formKey: _formKey,
+              nameController: _nameController,
+              emailController: _emailController,
+              heightController: _heightController,
+              weightController: _weightController,
+              desiredWeightController: _desiredWeightController,
+              weeklyGoalController: _weeklyGoalController,
+              isMale: _isMale,
+              birthDate: _birthDate,
+              activityLevel: _activityLevel,
+              goal: _goal,
+              rolloverCalories: _rolloverCalories,
+              currentProfile: widget.profile,
+              onGenderChanged: (value) => setState(() => _isMale = value),
+              onDateSelected: (date) => setState(() => _birthDate = date),
+              onGoalChanged: (value) => setState(() => _goal = value),
+              onActivityLevelChanged: (value) =>
+                  setState(() => _activityLevel = value),
+              onRolloverChanged: (value) =>
+                  setState(() => _rolloverCalories = value),
+              onSavePressed: _saveChanges,
             );
-          } else if (state is SettingsProfileUpdated) {
-            CustomSnackbar.showSuccess(
-              context,
-              'Profile updated successfully!',
-            );
-            Navigator.pop(context);
-          }
-        },
-        builder: (context, state) {
-          return PersonalDetailsForm(
-            formKey: _formKey,
-            nameController: _nameController,
-            emailController: _emailController,
-            heightController: _heightController,
-            weightController: _weightController,
-            desiredWeightController: _desiredWeightController,
-            weeklyGoalController: _weeklyGoalController,
-            isMale: _isMale,
-            birthDate: _birthDate,
-            activityLevel: _activityLevel,
-            goal: _goal,
-            rolloverCalories: _rolloverCalories,
-            currentProfile: widget.profile,
-            onGenderChanged: (value) => setState(() => _isMale = value),
-            onDateSelected: (date) => setState(() => _birthDate = date),
-            onGoalChanged: (value) => setState(() => _goal = value),
-            onActivityLevelChanged: (value) =>
-                setState(() => _activityLevel = value),
-            onRolloverChanged: (value) =>
-                setState(() => _rolloverCalories = value),
-            onSavePressed: _saveChanges,
-          );
-        },
+          },
+        ),
       ),
     );
   }

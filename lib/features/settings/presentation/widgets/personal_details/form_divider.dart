@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../../../../../core/theme/app_colors.dart';
 
 class FormDivider extends StatelessWidget {
@@ -6,6 +6,6 @@ class FormDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Divider(height: 1, thickness: 0.5, color: AppColors.border);
+    return Container(height: 0.5, color: AppColors.border);
   }
 }

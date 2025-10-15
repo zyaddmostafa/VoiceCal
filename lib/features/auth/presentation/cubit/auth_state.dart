@@ -27,3 +27,15 @@ final class AuthProfileError extends AuthState {
   final ApiErrorModel error;
   AuthProfileError({required this.error});
 }
+
+final class UserProfileLoading extends AuthState {}
+
+final class UserProfileLoaded extends AuthState {
+  final UserProfile userProfile;
+  UserProfileLoaded({required this.userProfile});
+}
+
+final class UserProfileError extends AuthState {
+  final ApiErrorModel error;
+  UserProfileError({required this.error});
+}

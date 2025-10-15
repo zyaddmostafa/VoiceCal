@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/helpers/custom_app_bar.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -37,54 +35,59 @@ class _EditNutritionGoalsScreenState extends State<EditNutritionGoalsScreen> {
     final topPadding = 24.h;
     final itemSpacing = 12.h;
 
-    return Scaffold(
+    return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundSecondary,
-      appBar: CustomAppBar.build(
-        context: context,
-        child: const Text('Adjust goals', style: AppTextStyles.font28BoldBlack),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(
-          horizontalPadding,
-          topPadding,
-          horizontalPadding,
-          40.h,
+      navigationBar: CupertinoNavigationBar(
+        middle: const Text(
+          'Adjust goals',
+          style: AppTextStyles.font28BoldBlack,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Adjust goals',
-              style: AppTextStyles.headingLarge.copyWith(
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.w700,
+        backgroundColor: AppColors.backgroundSecondary,
+        border: null,
+      ),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(
+            horizontalPadding,
+            topPadding,
+            horizontalPadding,
+            40.h,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Adjust goals',
+                style: AppTextStyles.headingLarge.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
-            verticalSpace(24),
-            ...List.generate(_goals.length, (index) {
-              final goal = _goals[index];
+              verticalSpace(24),
+              ...List.generate(_goals.length, (index) {
+                final goal = _goals[index];
 
-              return Padding(
-                padding: EdgeInsets.only(
-                  bottom: index == _goals.length - 1 ? 0 : itemSpacing,
-                ),
-                child: GoalItem(
-                  title: goal.title,
-                  value: goal.value,
-                  progressColor: goal.progressColor,
-                  icon: goal.icon,
-                  progressPercentage: goal.progressPercentage,
-                  onValueChanged: (newValue) =>
-                      _updateGoalValue(index, newValue),
-                ),
-              );
-            }),
-            verticalSpace(32),
-            _isSaving
-                ? const Center(child: CupertinoActivityIndicator())
-                : CustomAppButton(text: 'Save Goals', onPressed: _saveGoals),
-          ],
+                return Padding(
+                  padding: EdgeInsets.only(
+                    bottom: index == _goals.length - 1 ? 0 : itemSpacing,
+                  ),
+                  child: GoalItem(
+                    title: goal.title,
+                    value: goal.value,
+                    progressColor: goal.progressColor,
+                    icon: goal.icon,
+                    progressPercentage: goal.progressPercentage,
+                    onValueChanged: (newValue) =>
+                        _updateGoalValue(index, newValue),
+                  ),
+                );
+              }),
+              verticalSpace(32),
+              _isSaving
+                  ? const Center(child: CupertinoActivityIndicator())
+                  : CustomAppButton(text: 'Save Goals', onPressed: _saveGoals),
+            ],
+          ),
         ),
       ),
     );
@@ -98,28 +101,28 @@ class _EditNutritionGoalsScreenState extends State<EditNutritionGoalsScreen> {
           title: 'Calorie goal',
           value: '1595',
           progressColor: const Color(0xFF111827),
-          icon: Icons.local_fire_department,
+          icon: CupertinoIcons.flame_fill,
           progressPercentage: 75,
         ),
         GoalData(
           title: 'Protein goal',
           value: '87',
           progressColor: const Color(0xFFFF453A),
-          icon: Icons.flash_on,
+          icon: CupertinoIcons.bolt_fill,
           progressPercentage: 60,
         ),
         GoalData(
           title: 'Carb goal',
           value: '211',
           progressColor: const Color(0xFFFF9F0A),
-          icon: Icons.local_florist,
+          icon: CupertinoIcons.square_grid_2x2_fill,
           progressPercentage: 45,
         ),
         GoalData(
           title: 'Fat goal',
           value: '44',
           progressColor: const Color(0xFF0A84FF),
-          icon: Icons.water_drop,
+          icon: CupertinoIcons.drop_fill,
           progressPercentage: 30,
         ),
       ];
@@ -130,28 +133,28 @@ class _EditNutritionGoalsScreenState extends State<EditNutritionGoalsScreen> {
         title: 'Calorie goal',
         value: data.calorieGoal,
         progressColor: const Color(0xFF111827),
-        icon: Icons.local_fire_department,
+        icon: CupertinoIcons.flame_fill,
         progressPercentage: 75,
       ),
       GoalData(
         title: 'Protein goal',
         value: data.proteinGoal,
         progressColor: const Color(0xFFFF453A),
-        icon: Icons.flash_on,
+        icon: CupertinoIcons.bolt_fill,
         progressPercentage: 60,
       ),
       GoalData(
         title: 'Carb goal',
         value: data.carbGoal,
         progressColor: const Color(0xFFFF9F0A),
-        icon: Icons.local_florist,
+        icon: CupertinoIcons.square_grid_2x2_fill,
         progressPercentage: 45,
       ),
       GoalData(
         title: 'Fat goal',
         value: data.fatGoal,
         progressColor: const Color(0xFF0A84FF),
-        icon: Icons.water_drop,
+        icon: CupertinoIcons.drop_fill,
         progressPercentage: 30,
       ),
     ];

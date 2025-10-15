@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,6 +8,7 @@ import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_app_button.dart';
 import '../../../../core/widgets/onboarding_header.dart';
 import '../../data/models/user_informations_model.dart';
@@ -26,9 +27,9 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
+    return CupertinoPageScaffold(
+      backgroundColor: AppColors.backgroundPrimary,
+      child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: Constants.paddingHorizontal,
@@ -52,14 +53,14 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                 children: [
                   GenderCard(
                     gender: 'Male',
-                    icon: Icons.male_outlined,
+                    icon: CupertinoIcons.person,
                     isSelected: selectedGender == 'Male',
                     onTap: () => _selectGender('Male'),
                   ),
                   verticalSpace(20),
                   GenderCard(
                     gender: 'Female',
-                    icon: Icons.female_outlined,
+                    icon: CupertinoIcons.person_fill,
                     isSelected: selectedGender == 'Female',
                     onTap: () => _selectGender('Female'),
                   ),
