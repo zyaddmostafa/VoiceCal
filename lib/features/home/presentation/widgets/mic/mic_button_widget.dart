@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/theme/app_colors.dart';
@@ -96,7 +97,7 @@ class _MicButtonWidgetState extends State<MicButtonWidget>
                       )
                     : Icon(
                         key: const ValueKey('mic'),
-                        Icons.mic,
+                        CupertinoIcons.mic,
                         color: Colors.white,
                         size: 26.sp,
                       ),

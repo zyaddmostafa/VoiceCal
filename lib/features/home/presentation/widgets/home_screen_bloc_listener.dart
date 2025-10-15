@@ -32,12 +32,12 @@ class HomeScreenBlocListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<HomeCubit, HomeState>(
       listener: (context, state) {
-        if (state is HomeLoading) {
+        if (state is GetMealLoading) {
           onLoadingChanged(true);
-        } else if (state is HomeSuccess) {
+        } else if (state is GetMealSuccess) {
           onLoadingChanged(false);
           onMealLogged(state.mealData);
-        } else if (state is HomeError) {
+        } else if (state is GetMealError) {
           onLoadingChanged(false);
           CustomSnackbar.showError(
             context,

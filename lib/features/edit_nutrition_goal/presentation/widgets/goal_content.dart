@@ -4,7 +4,6 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import 'editable_value_field.dart';
 
-/// Content section displaying the goal title and editable value
 class GoalContent extends StatelessWidget {
   const GoalContent({
     super.key,

@@ -5,18 +5,18 @@ sealed class HomeState {}
 
 final class HomeInitial extends HomeState {}
 
-final class HomeLoading extends HomeState {}
+final class GetMealLoading extends HomeState {}
 
-final class HomeSuccess extends HomeState {
+final class GetMealSuccess extends HomeState {
   final MealData mealData;
 
-  HomeSuccess({required this.mealData});
+  GetMealSuccess({required this.mealData});
 }
 
-final class HomeError extends HomeState {
+final class GetMealError extends HomeState {
   final ApiErrorModel apiErrorModel;
 
-  HomeError({required this.apiErrorModel});
+  GetMealError({required this.apiErrorModel});
 }
 
 final class UserMealsLoading extends HomeState {}

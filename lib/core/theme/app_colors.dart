@@ -54,6 +54,18 @@ class AppColors {
   static const Color accent = Color(0xFF0891B2);
 
   // ============================================================================
+  // MACRONUTRIENT COLORS (iOS System Colors)
+  // ============================================================================
+  /// Protein color - iOS red
+  static const Color macroProtein = Color(0xFFFF453A);
+
+  /// Carbohydrates color - iOS orange
+  static const Color macroCarbs = Color(0xFFFF9F0A);
+
+  /// Fats color - iOS blue
+  static const Color macroFats = Color(0xFF0A84FF);
+
+  // ============================================================================
   // SYSTEM STATUS COLORS
   // ============================================================================
   /// Success/positive state color

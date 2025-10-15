@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import '../../../../../core/helpers/app_assets.dart';
+import '../../../../../core/theme/app_colors.dart';
 import 'macro_item.dart';
 
 class MacronutrientsCard extends StatelessWidget {
@@ -38,7 +40,8 @@ class MacronutrientsCard extends StatelessWidget {
             label: 'Protein',
             value: '${consumedProtein.toInt()}g',
             sublabel: '${goalProtein.toInt()}g goal',
-            color: Colors.red,
+            color: AppColors.macroProtein,
+            svgAsset: AppAssets.protein,
             progress: proteinProgress,
           ),
         ),
@@ -47,7 +50,8 @@ class MacronutrientsCard extends StatelessWidget {
             label: 'Carbs',
             value: '${consumedCarbs.toInt()}g',
             sublabel: '${goalCarbs.toInt()}g goal',
-            color: Colors.orange,
+            color: AppColors.macroCarbs,
+            svgAsset: AppAssets.carbs,
             progress: carbsProgress,
           ),
         ),
@@ -56,7 +60,8 @@ class MacronutrientsCard extends StatelessWidget {
             label: 'Fat',
             value: '${consumedFats.toInt()}g',
             sublabel: '${goalFats.toInt()}g goal',
-            color: Colors.blueAccent,
+            color: AppColors.macroFats,
+            svgAsset: AppAssets.fats,
             progress: fatsProgress,
           ),
         ),

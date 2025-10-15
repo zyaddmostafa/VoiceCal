@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 class AppIcons {
-  AppIcons._(); 
+  AppIcons._();
 
   // ==================== Navigation Icons ====================
   static const home = CupertinoIcons.home;

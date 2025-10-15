@@ -13,16 +13,17 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit({required this.homeRepo}) : super(HomeInitial());
 
   void getMealData({required MealDataRequest request}) async {
-    emit(HomeLoading());
+    emit(GetMealLoading());
 
     final result = await homeRepo.getMealData(request);
 
     result.when(
       onSuccess: (meal) {
-        emit(HomeSuccess(mealData: meal.data!));
+        emit(GetMealSuccess(mealData: meal.data!));
+        getUserMeals(userId: request.userId);
       },
       onError: (error) {
-        emit(HomeError(apiErrorModel: error));
+        emit(GetMealError(apiErrorModel: error));
       },
     );
   }
