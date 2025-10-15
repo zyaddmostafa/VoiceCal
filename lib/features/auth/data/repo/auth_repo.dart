@@ -75,6 +75,7 @@ class AuthRepo {
       if (authLocalService.hasUserProfile()) {
         final localProfile = authLocalService.getUserProfile();
         log('User profile loaded from Hive cache');
+
         return ApiResult.success(localProfile);
       }
 

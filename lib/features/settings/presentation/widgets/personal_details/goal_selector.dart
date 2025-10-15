@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/helpers/app_icons.dart';
+import '../../../../../core/helpers/custom_bottom_sheets.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
@@ -71,81 +72,19 @@ class GoalSelector extends StatelessWidget {
     );
   }
 
-  void _showGoalPicker(BuildContext context) {
+  void _showGoalPicker(BuildContext context) async {
     final goals = ['lose_weight', 'maintain_weight', 'gain_weight'];
+    final initialIndex = goal != null ? goals.indexOf(goal!) : 0;
 
-    showCupertinoModalPopup(
+    final selectedGoal = await CustomBottomSheets.showPicker(
       context: context,
-      builder: (BuildContext context) => Container(
-        height: 250.h,
-        color: CupertinoColors.systemBackground,
-        child: Column(
-          children: [
-            Container(
-              height: 44.h,
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              decoration: BoxDecoration(
-                color: CupertinoColors.systemBackground,
-                border: Border(
-                  bottom: BorderSide(
-                    color: CupertinoColors.separator,
-                    width: 0.5,
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Text(
-                      'Cancel',
-                      style: AppTextStyles.labelMedium.copyWith(
-                        color: CupertinoColors.systemBlue,
-                      ),
-                    ),
-                  ),
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Text(
-                      'Done',
-                      style: AppTextStyles.labelMedium.copyWith(
-                        color: CupertinoColors.systemBlue,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: CupertinoPicker(
-                itemExtent: 32.h,
-                scrollController: FixedExtentScrollController(
-                  initialItem: goal != null ? goals.indexOf(goal!) : 0,
-                ),
-                onSelectedItemChanged: (int index) {
-                  onChanged(goals[index]);
-                },
-                children: goals
-                    .map(
-                      (goalValue) => Center(
-                        child: Text(
-                          goalValue.replaceAll('_', ' ').toUpperCase(),
-                          style: AppTextStyles.labelMedium.copyWith(
-                            color: AppColors.textPrimary,
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
-          ],
-        ),
-      ),
+      items: goals,
+      initialIndex: initialIndex,
+      itemBuilder: (value) => value.replaceAll('_', ' ').toUpperCase(),
     );
+
+    if (selectedGoal != null) {
+      onChanged(selectedGoal);
+    }
   }
 }

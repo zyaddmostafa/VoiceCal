@@ -10,6 +10,7 @@ import '../../features/edit_meal/data/repo/edit_meal_repo.dart';
 import '../../features/edit_meal/presentation/cubit/edit_meal_cubit.dart';
 import '../../features/home/data/repo/home_repo.dart';
 import '../../features/home/data/services/home_api_service.dart';
+import '../../features/settings/presentation/cubit/settings_cubit.dart';
 import '../networking/dio_factory.dart';
 import '../nutrition/nutrition_calculator_service.dart';
 import '../config/hive_service.dart';
@@ -64,4 +65,6 @@ Future<void> setupGetIt() async {
   getIt.registerFactory(
     () => EditMealCubit(editMealRepo: getIt<EditMealRepo>()),
   );
+
+  getIt.registerFactory(() => SettingsCubit(authRepo: getIt<AuthRepo>()));
 }

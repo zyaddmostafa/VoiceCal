@@ -37,12 +37,6 @@ final class GoalProgressSuccess extends AnalyticsState {
   GoalProgressSuccess({required this.goalProgress});
 }
 
-final class WeightEntryAddedSuccess extends AnalyticsState {}
-
-final class WeightEntryUpdatedSuccess extends AnalyticsState {}
-
-final class WeightEntryDeletedSuccess extends AnalyticsState {}
-
 final class AnalyticsError extends AnalyticsState {
   final ApiErrorModel apiErrorModel;
 

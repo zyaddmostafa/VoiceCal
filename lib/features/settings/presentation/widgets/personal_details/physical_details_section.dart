@@ -52,6 +52,7 @@ class PhysicalDetailsSection extends StatelessWidget {
             if (height == null || height <= 0) {
               return 'Enter valid height';
             }
+
             return null;
           },
         ),
@@ -70,6 +71,7 @@ class PhysicalDetailsSection extends StatelessWidget {
             if (weight == null || weight <= 0) {
               return 'Enter valid weight';
             }
+
             return null;
           },
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show TimeOfDay;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/helpers/custom_app_bar.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
 import '../../../../core/helpers/quantity_dialog_helper.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -88,13 +89,13 @@ class _EditMealScreenState extends State<EditMealScreen> {
       },
       child: CupertinoPageScaffold(
         backgroundColor: AppColors.backgroundSecondary,
-        navigationBar: CupertinoNavigationBar(
-          middle: Text(
+        navigationBar: CustomAppBar.build(
+          context: context,
+          hasBackButton: true,
+          child: Text(
             TimeOfDay.now().format(context),
             style: AppTextStyles.font14RegularSecondary,
           ),
-          backgroundColor: AppColors.backgroundSecondary,
-          border: null,
         ),
         child: SafeArea(
           child: EditMealBlocBuilder(

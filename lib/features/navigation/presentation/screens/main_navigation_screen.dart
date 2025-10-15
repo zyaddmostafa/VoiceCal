@@ -54,8 +54,7 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
       ),
       BlocProvider(
         create: (context) =>
-            SettingsCubit(authRepo: getIt<AuthRepo>())
-              ..getUserProfile(currentUserId!),
+            getIt<SettingsCubit>()..getUserProfile(currentUserId!),
         child: const SettingsScreen(),
       ),
     ];

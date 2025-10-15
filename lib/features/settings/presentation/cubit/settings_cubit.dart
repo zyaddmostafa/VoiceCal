@@ -43,7 +43,6 @@ class SettingsCubit extends Cubit<SettingsState> {
     result.when(
       onSuccess: (_) {
         emit(SettingsProfileUpdated());
-        getUserProfile(profile.userId!);
       },
       onError: (error) {
         emit(SettingsError(apiErrorModel: error));
@@ -51,7 +50,6 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
-  /// Update specific profile fields (convenience method)
   Future<void> updateProfileFields({
     required String userId,
     String? fullName,

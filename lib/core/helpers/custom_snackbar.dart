@@ -14,7 +14,7 @@ class CustomSnackbar {
       message: message,
       icon: AppIcons.success,
       iconColor: CupertinoColors.systemGreen,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 500),
     );
   }
 
@@ -24,7 +24,7 @@ class CustomSnackbar {
       message: message,
       icon: AppIcons.error,
       iconColor: CupertinoColors.systemRed,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(milliseconds: 500),
     );
   }
 
@@ -34,7 +34,7 @@ class CustomSnackbar {
       message: message,
       icon: AppIcons.info,
       iconColor: CupertinoColors.systemBlue,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 500),
     );
   }
 
@@ -44,7 +44,7 @@ class CustomSnackbar {
       message: message,
       icon: AppIcons.warning,
       iconColor: CupertinoColors.systemOrange,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 500),
     );
   }
 

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 
 class LegendItem extends StatelessWidget {
   final Color color;
   final String label;
-  final IconData icon;
+  final String svgAsset;
 
   const LegendItem({
     super.key,
     required this.color,
     required this.label,
-    required this.icon,
+    required this.svgAsset,
   });
 
   @override
@@ -26,7 +27,12 @@ class LegendItem extends StatelessWidget {
             color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8.r),
           ),
-          child: Icon(icon, color: color, size: 14.sp),
+          child: SvgPicture.asset(
+            svgAsset,
+            width: 14.w,
+            height: 14.h,
+            colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+          ),
         ),
         horizontalSpace(8),
         Text(label, style: AppTextStyles.font12MediumGrey600),

@@ -1,16 +1,30 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/helpers/extention.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../auth/data/model/user_profile.dart';
+import '../../presentation/cubit/settings_cubit.dart';
 
 class SettingsButtonsService {
   // Handler methods
-  static void handlePersonalDetailsTap(
+  static Future<void> handlePersonalDetailsTap(
     BuildContext context,
     UserProfile profile,
-  ) {
-    context.pushNamed(Routes.personalDetailsScreen, arguments: profile);
+  ) async {
+    final result = await context.pushNamed(
+      Routes.personalDetailsScreen,
+      arguments: profile,
+    );
+
+    // If data was updated (result == true), refresh the profile
+    if (result == true) {
+      final userId = Supabase.instance.client.auth.currentUser?.id;
+      if (userId != null && context.mounted) {
+        context.read<SettingsCubit>().getUserProfile(userId);
+      }
+    }
   }
 
   static void handleAdjustGoalsTap(BuildContext context) {

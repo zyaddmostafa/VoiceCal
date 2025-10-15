@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/helpers/custom_app_bar.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
+import '../../../../core/helpers/extention.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../auth/data/model/user_profile.dart';
@@ -50,29 +52,32 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
     _weeklyGoalController = TextEditingController();
   }
 
-  void _loadProfileData() {
-    final profile = widget.profile;
-    _nameController.text = profile.fullName ?? '';
-    _emailController.text = profile.email ?? '';
-    _heightController.text = profile.height != null
-        ? profile.height.toString()
+  void _loadProfileData({UserProfile? profile}) {
+    final profileData = profile ?? widget.profile;
+    _nameController.text = profileData.fullName ?? '';
+    _emailController.text = profileData.email ?? '';
+    _heightController.text = profileData.height != null
+        ? profileData.height.toString()
         : '';
-    _weightController.text = profile.weight != null
-        ? profile.weight.toString()
+    _weightController.text = profileData.weight != null
+        ? profileData.weight.toString()
         : '';
-    _desiredWeightController.text = profile.desiredWeightInKg != null
-        ? profile.desiredWeightInKg.toString()
+    _desiredWeightController.text = profileData.desiredWeightInKg != null
+        ? profileData.desiredWeightInKg.toString()
         : '';
-    _weeklyGoalController.text = profile.weeklyGoalInKg != null
-        ? profile.weeklyGoalInKg.toString()
+    _weeklyGoalController.text = profileData.weeklyGoalInKg != null
+        ? profileData.weeklyGoalInKg.toString()
         : '';
-    _isMale = profile.isMale;
-    _birthDate = profile.bornDate != null
-        ? DateTime.tryParse(profile.bornDate!)
-        : null;
-    _activityLevel = profile.activityLevel;
-    _goal = profile.goal;
-    _rolloverCalories = profile.rolloverCalories ?? false;
+
+    setState(() {
+      _isMale = profileData.isMale;
+      _birthDate = profileData.bornDate != null
+          ? DateTime.tryParse(profileData.bornDate!)
+          : null;
+      _activityLevel = profileData.activityLevel;
+      _goal = profileData.goal;
+      _rolloverCalories = profileData.rolloverCalories ?? false;
+    });
   }
 
   @override
@@ -94,14 +99,13 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundSecondary,
-
-      navigationBar: const CupertinoNavigationBar(
-        middle: const Text(
+      navigationBar: CustomAppBar.build(
+        context: context,
+        hasBackButton: true,
+        child: const Text(
           'Personal Details',
           style: AppTextStyles.font28BoldBlack,
         ),
-        backgroundColor: AppColors.backgroundSecondary,
-        border: null,
       ),
       child: SafeArea(
         child: BlocConsumer<SettingsCubit, SettingsState>(
@@ -116,7 +120,14 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                 context,
                 'Profile updated successfully!',
               );
-              Navigator.pop(context);
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  context.pop();
+                });
+              });
+            } else if (state is SettingsProfileLoaded) {
+              // Reload the form with updated profile data
+              _loadProfileData(profile: state.profile);
             }
           },
           builder: (context, state) {

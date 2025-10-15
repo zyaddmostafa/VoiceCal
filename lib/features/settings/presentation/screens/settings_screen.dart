@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../core/helpers/custom_app_bar.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -16,10 +17,10 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundSecondary,
-      navigationBar: CupertinoNavigationBar(
-        middle: const Text('Settings', style: AppTextStyles.font28BoldBlack),
-        backgroundColor: AppColors.backgroundSecondary,
-        border: null,
+      navigationBar: CustomAppBar.build(
+        context: context,
+        hasBackButton: false,
+        child: const Text('Settings', style: AppTextStyles.font28BoldBlack),
       ),
       child: SafeArea(
         child: BlocConsumer<SettingsCubit, SettingsState>(

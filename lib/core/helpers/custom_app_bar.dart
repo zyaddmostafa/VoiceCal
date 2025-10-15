@@ -4,32 +4,29 @@ import 'app_icons.dart';
 import '../theme/app_colors.dart';
 
 class CustomAppBar {
-  static PreferredSizeWidget build({
+  static ObstructingPreferredSizeWidget build({
     required BuildContext context,
     required Widget child,
     VoidCallback? onBackPressed,
-    bool centerTitle = false,
     bool hasBackButton = true,
   }) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(44.h),
-      child: CupertinoNavigationBar(
-        backgroundColor: AppColors.backgroundSecondary,
-        border: null,
-        leading: hasBackButton
-            ? CupertinoButton(
-                padding: EdgeInsets.zero,
-                onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
-                child: Icon(
-                  AppIcons.back,
-                  color: AppColors.textPrimary,
-                  size: 28.sp,
-                ),
-              )
-            : null,
-        middle: centerTitle ? child : null,
-        trailing: !centerTitle ? child : null,
-      ),
+    return CupertinoNavigationBar(
+      backgroundColor: AppColors.backgroundSecondary,
+      border: null,
+      leading: hasBackButton
+          ? CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
+              child: Icon(
+                AppIcons.backArrow,
+                color: AppColors.textPrimary,
+                size: 16.sp,
+              ),
+            )
+          : child, // Title on the left when no back button
+      middle: hasBackButton
+          ? child
+          : null, // Title in center when has back button
     );
   }
 }

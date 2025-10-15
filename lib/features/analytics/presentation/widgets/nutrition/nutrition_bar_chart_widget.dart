@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 import '../../../data/models/grouped_nutrition_data.dart';
 
@@ -164,17 +165,13 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
             toY: total,
             width: 12.w,
             rodStackItems: [
-              BarChartRodStackItem(0, protein, const Color(0xFFFF6B6B)),
+              BarChartRodStackItem(0, protein, AppColors.macroProtein),
               BarChartRodStackItem(
                 protein,
                 protein + carbs,
-                const Color(0xFF4ECDC4),
+                AppColors.macroCarbs,
               ),
-              BarChartRodStackItem(
-                protein + carbs,
-                total,
-                const Color(0xFFFFBE0B),
-              ),
+              BarChartRodStackItem(protein + carbs, total, AppColors.macroFats),
             ],
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(4.r),

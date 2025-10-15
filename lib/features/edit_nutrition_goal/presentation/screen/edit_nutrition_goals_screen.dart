@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/helpers/custom_app_bar.dart';
 import '../../../../core/helpers/custom_snackbar.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -37,13 +38,10 @@ class _EditNutritionGoalsScreenState extends State<EditNutritionGoalsScreen> {
 
     return CupertinoPageScaffold(
       backgroundColor: AppColors.backgroundSecondary,
-      navigationBar: CupertinoNavigationBar(
-        middle: const Text(
-          'Adjust goals',
-          style: AppTextStyles.font28BoldBlack,
-        ),
-        backgroundColor: AppColors.backgroundSecondary,
-        border: null,
+      navigationBar: CustomAppBar.build(
+        context: context,
+        hasBackButton: true,
+        child: const Text('Adjust goals', style: AppTextStyles.font28BoldBlack),
       ),
       child: SafeArea(
         child: SingleChildScrollView(

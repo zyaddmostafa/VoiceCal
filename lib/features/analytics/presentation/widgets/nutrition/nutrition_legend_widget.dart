@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../../core/helpers/app_assets.dart';
+import '../../../../../core/theme/app_colors.dart';
 import 'legend_item.dart';
 
 class NutritionLegendWidget extends StatelessWidget {
@@ -10,15 +12,19 @@ class NutritionLegendWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         LegendItem(
-          color: Color(0xFFFF6B6B),
+          color: AppColors.macroProtein,
           label: 'Protein',
-          icon: Icons.fitness_center,
+          svgAsset: AppAssets.protein,
         ),
-        LegendItem(color: Color(0xFF4ECDC4), label: 'Carbs', icon: Icons.grain),
         LegendItem(
-          color: Color(0xFFFFBE0B),
+          color: AppColors.macroCarbs,
+          label: 'Carbs',
+          svgAsset: AppAssets.carbs,
+        ),
+        LegendItem(
+          color: AppColors.macroFats,
           label: 'Fats',
-          icon: Icons.water_drop,
+          svgAsset: AppAssets.fats,
         ),
       ],
     );

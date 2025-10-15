@@ -154,8 +154,8 @@ class AppRouter {
         final profile = arguments as UserProfile;
 
         return CupertinoPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => SettingsCubit(authRepo: getIt()),
+          builder: (context) => BlocProvider.value(
+            value: getIt<SettingsCubit>(),
             child: PersonalDetailsScreen(profile: profile),
           ),
         );
