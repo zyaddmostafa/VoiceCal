@@ -21,19 +21,16 @@ class CustomFilledButton extends StatelessWidget {
         color: const Color(0xFF1D1D1F),
         borderRadius: BorderRadius.circular(borderRadius.r),
       ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(borderRadius.r),
-          onTap: onTap,
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 17.sp,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 17.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
           ),
         ),

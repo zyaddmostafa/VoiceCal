@@ -27,9 +27,9 @@ class MealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: onTap,
-      borderRadius: AppDesignSystem.radiusLarge,
       child: Container(
         padding: AppDesignSystem.paddingXLarge,
         decoration: isCompleted

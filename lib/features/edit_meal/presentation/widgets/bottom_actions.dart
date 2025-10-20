@@ -34,9 +34,9 @@ class BottomActions extends StatelessWidget {
           children: [
             // Fix Results button
             Expanded(
-              child: InkWell(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 onTap: onFixResults,
-                borderRadius: BorderRadius.circular(22.r),
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 14.h),
                   decoration: BoxDecoration(
@@ -65,9 +65,9 @@ class BottomActions extends StatelessWidget {
             horizontalSpace(10),
             // Done button
             Expanded(
-              child: InkWell(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 onTap: onDone,
-                borderRadius: BorderRadius.circular(22.r),
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 14.h),
                   decoration: BoxDecoration(

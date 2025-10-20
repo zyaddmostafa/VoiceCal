@@ -7,7 +7,8 @@ class AppBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: onPressed ?? () => Navigator.of(context).pop(),
       child: Container(
         padding: const EdgeInsets.all(8),

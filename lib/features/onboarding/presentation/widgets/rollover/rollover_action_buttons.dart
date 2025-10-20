@@ -57,20 +57,17 @@ class _NoButton extends StatelessWidget {
           BorderSide(color: AppColors.textPrimary, width: 1.5),
         ),
       ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(borderRadius.r),
-          onTap: onPressed,
-          child: Center(
-            child: Text(
-              'No',
-              style: TextStyle(
-                color: AppColors.textPrimary,
-                fontSize: 17.sp,
-                fontWeight: FontWeight.w600,
-                letterSpacing: -0.2,
-              ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onPressed,
+        child: Center(
+          child: Text(
+            'No',
+            style: TextStyle(
+              color: AppColors.textPrimary,
+              fontSize: 17.sp,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -0.2,
             ),
           ),
         ),

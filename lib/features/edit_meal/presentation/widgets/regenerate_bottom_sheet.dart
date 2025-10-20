@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/spacing.dart';
@@ -100,9 +99,9 @@ class RegenerateBottomSheet {
                     Row(
                       children: [
                         Expanded(
-                          child: InkWell(
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
                             onTap: () => Navigator.of(context).pop(),
-                            borderRadius: BorderRadius.circular(22.r),
                             child: Container(
                               padding: EdgeInsets.symmetric(vertical: 14.h),
                               decoration: BoxDecoration(
@@ -125,7 +124,8 @@ class RegenerateBottomSheet {
                         horizontalSpace(12),
                         Expanded(
                           flex: 2,
-                          child: InkWell(
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
                             onTap: () {
                               final description = descriptionController.text
                                   .trim();
@@ -134,7 +134,6 @@ class RegenerateBottomSheet {
                                 onRegenerate(description);
                               }
                             },
-                            borderRadius: BorderRadius.circular(22.r),
                             child: Container(
                               padding: EdgeInsets.symmetric(vertical: 14.h),
                               decoration: BoxDecoration(

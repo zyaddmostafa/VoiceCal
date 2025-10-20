@@ -16,13 +16,9 @@ import 'social_media_auth_button.dart';
 
 class SocialMediaAuthBody extends StatelessWidget {
   final NutritionPlanModel? nutritionPlan;
-  final UserInformationsModel userInfo;
+  final UserInformationsModel? userInfo;
 
-  const SocialMediaAuthBody({
-    super.key,
-    this.nutritionPlan,
-    required this.userInfo,
-  });
+  const SocialMediaAuthBody({super.key, this.nutritionPlan, this.userInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +58,19 @@ class SocialMediaAuthBody extends StatelessWidget {
   }
 
   void _googleSigninWithUserData(BuildContext context) {
+    // Case 1: Existing user (from "I already have an account")
+    // userInfo is null, just sign in and fetch their data from DB
+    if (userInfo == null) {
+      context.read<AuthCubit>().googleSignInExistingUser();
+      return;
+    }
+
+    // Case 2: New user (from "Get Started" -> onboarding completed)
+    // userInfo is provided, create profile with their data
     final DateTime birthDate = DateTime(
-      userInfo.bornDate?.year ?? 0,
-      userInfo.bornDate?.month ?? 0,
-      userInfo.bornDate?.day ?? 0,
+      userInfo?.bornDate?.year ?? 0,
+      userInfo?.bornDate?.month ?? 0,
+      userInfo?.bornDate?.day ?? 0,
     );
     final String formattedDate = DateFormat('yyyy-MM-dd').format(birthDate);
     final userProfile = UserProfile(
@@ -73,26 +78,18 @@ class SocialMediaAuthBody extends StatelessWidget {
       dailyProteinGoal: nutritionPlan?.macros.proteinGrams.round() ?? 0,
       dailyCarbGoal: nutritionPlan?.macros.carbsGrams.round() ?? 0,
       dailyFatGoal: nutritionPlan?.macros.fatGrams.round() ?? 0,
-      height: userInfo.heightCm?.toDouble() ?? 0,
-      weight: userInfo.weightKg?.toDouble() ?? 0,
-      isMale: userInfo.isMale ?? true,
+      height: userInfo?.heightCm?.toDouble() ?? 0,
+      weight: userInfo?.weightKg?.toDouble() ?? 0,
+      isMale: userInfo?.isMale ?? true,
       bornDate: formattedDate,
-      activityLevel: userInfo.activityLevel ?? '',
-      weeklyGoalInKg: userInfo.weeklyGoalInKg ?? 0,
-      rolloverCalories: userInfo.rolloverCalories ?? false,
-      goal: userInfo.goal ?? '',
-      desiredWeightInKg: userInfo.desiredWeightKg ?? 0,
+      activityLevel: userInfo?.activityLevel ?? '',
+      weeklyGoalInKg: userInfo?.weeklyGoalInKg ?? 0,
+      rolloverCalories: userInfo?.rolloverCalories ?? false,
+      goal: userInfo?.goal ?? '',
+      desiredWeightInKg: userInfo?.desiredWeightKg ?? 0,
     );
-    if (nutritionPlan != null) {
-      log(userProfile.bornDate ?? 'no date');
-      context.read<AuthCubit>().googleSignIn(userProfile: userProfile);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please complete onboarding first'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
+
+    log('Creating new user profile: ${userProfile.bornDate ?? 'no date'}');
+    context.read<AuthCubit>().googleSignIn(userProfile: userProfile);
   }
 }

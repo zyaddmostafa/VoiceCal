@@ -75,8 +75,8 @@ class _ActivityLevelCardState extends State<ActivityLevelCard>
             ),
           ],
         ),
-        child: InkWell(
-          borderRadius: borderRadius,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: () {
             HapticFeedback.lightImpact();
             widget.onTap();

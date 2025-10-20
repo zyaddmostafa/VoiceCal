@@ -36,7 +36,7 @@ class AuthBlocListener extends StatelessWidget {
 
             UserLocalService.addUserInfo(userInfo!);
             context.pushNamedAndRemoveUntil(
-              Routes.homeScreen,
+              Routes.mainNavigation,
               predicate: (Route<dynamic> route) => false,
             );
 

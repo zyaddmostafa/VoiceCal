@@ -37,65 +37,62 @@ class SettingsItem extends StatelessWidget {
         ? const Color(0xFFFF5555)
         : titleColor ?? Colors.black;
 
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12.r),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(color: Color(0xFFE5E5E5), width: 0.5),
-            ),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        decoration: const BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: Color(0xFFE5E5E5), width: 0.5),
           ),
-          child: Row(
-            children: [
-              Icon(icon, size: 20.sp, color: effectiveIconColor),
-              horizontalSpace(12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 20.sp, color: effectiveIconColor),
+            horizontalSpace(12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                      color: effectiveTitleColor,
+                    ),
+                  ),
+                  if (subtitle != null) ...[
+                    verticalSpace(2),
                     Text(
-                      title,
+                      subtitle!,
                       style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: effectiveTitleColor,
+                        fontSize: 14.sp,
+                        color: const Color(0xFF666666),
                       ),
                     ),
-                    if (subtitle != null) ...[
-                      verticalSpace(2),
-                      Text(
-                        subtitle!,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: const Color(0xFF666666),
-                        ),
-                      ),
-                    ],
                   ],
-                ),
+                ],
               ),
-              if (trailing != null) ...[
-                Text(
-                  trailing!,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: const Color(0xFF666666),
-                  ),
-                ),
-                horizontalSpace(8),
-              ],
-              if (hasArrow)
-                Icon(
-                  Icons.chevron_right,
-                  size: 20.sp,
+            ),
+            if (trailing != null) ...[
+              Text(
+                trailing!,
+                style: TextStyle(
+                  fontSize: 14.sp,
                   color: const Color(0xFF666666),
                 ),
+              ),
+              horizontalSpace(8),
             ],
-          ),
+            if (hasArrow)
+              Icon(
+                Icons.chevron_right,
+                size: 20.sp,
+                color: const Color(0xFF666666),
+              ),
+          ],
         ),
       ),
     );

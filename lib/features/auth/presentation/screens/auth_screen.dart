@@ -44,7 +44,7 @@ class AuthScreen extends StatelessWidget {
               const Spacer(),
               SocialMediaAuthBody(
                 nutritionPlan: nutritionPlan,
-                userInfo: userInfo!,
+                userInfo: userInfo,
               ),
               const Spacer(),
               AuthBlocListener(userInfo: userInfo),

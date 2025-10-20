@@ -21,49 +21,47 @@ class EnhancedSettingsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-          decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(color: Color(0xFFF0F0F0), width: 0.5),
-            ),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+        decoration: const BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: Color(0xFFF0F0F0), width: 0.5),
           ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: AppTextStyles.labelLarge.copyWith(
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  if (subtitle != null) ...[
+                    verticalSpace(4),
                     Text(
-                      title,
-                      style: AppTextStyles.labelLarge.copyWith(
-                        color: AppColors.textPrimary,
+                      subtitle!,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textSecondary,
                       ),
                     ),
-                    if (subtitle != null) ...[
-                      verticalSpace(4),
-                      Text(
-                        subtitle!,
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ],
                   ],
-                ),
+                ],
               ),
-              if (hasArrow)
-                Icon(
-                  Icons.chevron_right,
-                  size: 20.sp,
-                  color: AppColors.textSecondary,
-                ),
-            ],
-          ),
+            ),
+            if (hasArrow)
+              Icon(
+                Icons.chevron_right,
+                size: 20.sp,
+                color: AppColors.textSecondary,
+              ),
+          ],
         ),
       ),
     );

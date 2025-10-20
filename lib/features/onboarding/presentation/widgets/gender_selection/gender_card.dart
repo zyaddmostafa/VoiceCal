@@ -70,8 +70,8 @@ class _GenderCardState extends State<GenderCard>
             width: widget.isSelected ? 2 : 1,
           ),
         ),
-        child: InkWell(
-          borderRadius: cardBorderRadius,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: () {
             HapticFeedback.lightImpact();
             widget.onTap();

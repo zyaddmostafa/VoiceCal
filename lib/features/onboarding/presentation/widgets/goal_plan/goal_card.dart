@@ -78,74 +78,71 @@ class _GoalCardState extends State<GoalCard>
             ),
           ],
         ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            borderRadius: borderRadius,
-            onTap: () {
-              HapticFeedback.lightImpact();
-              widget.onTap();
-            },
-            onTapDown: (_) => _scaleController.forward(),
-            onTapUp: (_) => _scaleController.reverse(),
-            onTapCancel: () => _scaleController.reverse(),
-            child: Padding(
-              padding: EdgeInsets.all(16.w),
-              child: Row(
-                children: [
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    width: 40.w,
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                      color: widget.isSelected
-                          ? AppColors.primaryBlack
-                          : const Color(0xFFF2F2F7),
-                      borderRadius: BorderRadius.circular(16.r),
-                    ),
-                    child: Icon(
-                      widget.icon,
-                      size: iconSize,
-                      color: widget.isSelected
-                          ? Colors.white
-                          : const Color(0xFF8E8E93),
-                    ),
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            HapticFeedback.lightImpact();
+            widget.onTap();
+          },
+          onTapDown: (_) => _scaleController.forward(),
+          onTapUp: (_) => _scaleController.reverse(),
+          onTapCancel: () => _scaleController.reverse(),
+          child: Padding(
+            padding: EdgeInsets.all(16.w),
+            child: Row(
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  width: 40.w,
+                  height: 40.h,
+                  decoration: BoxDecoration(
+                    color: widget.isSelected
+                        ? AppColors.primaryBlack
+                        : const Color(0xFFF2F2F7),
+                    borderRadius: BorderRadius.circular(16.r),
                   ),
-                  horizontalSpace(20),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.title,
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                            color: widget.isSelected
-                                ? AppColors.primaryBlack
-                                : const Color(0xFF1D1D1F),
-                          ),
-                        ),
-                        verticalSpace(6),
-                        Text(
-                          widget.description,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: const Color(0xFF86868B),
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: Icon(
+                    widget.icon,
+                    size: iconSize,
+                    color: widget.isSelected
+                        ? Colors.white
+                        : const Color(0xFF8E8E93),
                   ),
-                  if (widget.isSelected)
-                    Icon(
-                      Icons.check_circle_rounded,
-                      color: AppColors.primaryBlack,
-                      size: iconSize,
-                    ),
-                ],
-              ),
+                ),
+                horizontalSpace(20),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.title,
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                          color: widget.isSelected
+                              ? AppColors.primaryBlack
+                              : const Color(0xFF1D1D1F),
+                        ),
+                      ),
+                      verticalSpace(6),
+                      Text(
+                        widget.description,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xFF86868B),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (widget.isSelected)
+                  Icon(
+                    Icons.check_circle_rounded,
+                    color: AppColors.primaryBlack,
+                    size: iconSize,
+                  ),
+              ],
             ),
           ),
         ),

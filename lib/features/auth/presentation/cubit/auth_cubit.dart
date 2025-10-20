@@ -16,6 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepo authRepo;
   AuthCubit({required this.authRepo}) : super(AuthInitial());
 
+  // For new users coming from onboarding with userInfo
   googleSignIn({required UserProfile userProfile}) async {
     emit(AuthLoading());
 
@@ -32,6 +33,47 @@ class AuthCubit extends Cubit<AuthState> {
                 user.userMetadata?['name'] ??
                 'none',
           ),
+        );
+      },
+      onError: (error) {
+        emit(AuthError(error: error.message ?? 'Google sign-in failed'));
+      },
+    );
+  }
+
+  // For existing users (from "I already have an account")
+  googleSignInExistingUser() async {
+    emit(AuthLoading());
+
+    final result = await authRepo.googleSignIn();
+
+    await result.when(
+      onSuccess: (user) async {
+        // Fetch existing profile from DB
+        final profileResult = await authRepo.getUserProfile(user.id);
+
+        await profileResult.when(
+          onSuccess: (existingProfile) async {
+            if (existingProfile != null) {
+              // User has existing profile, load it
+              emit(AuthSuccess(userProfile: existingProfile));
+            } else {
+              // User signed in with Google but no profile in DB
+              emit(
+                AuthError(
+                  error: 'No profile found. Please complete onboarding first.',
+                ),
+              );
+            }
+          },
+          onError: (error) {
+            emit(
+              AuthError(
+                error:
+                    'Sign-in successful but failed to fetch profile: ${error.message ?? "Unknown error"}',
+              ),
+            );
+          },
         );
       },
       onError: (error) {
