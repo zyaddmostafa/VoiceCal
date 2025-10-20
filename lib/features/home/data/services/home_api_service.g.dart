@@ -37,7 +37,7 @@ class _HomeApiService implements HomeApiService {
     )
         .compose(
           _dio.options,
-          'webhook-test/voice-cal-meal',
+          'webhook/voice-cal-meal',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -70,7 +70,7 @@ class _HomeApiService implements HomeApiService {
     )
         .compose(
           _dio.options,
-          'webhook-test/get-meals',
+          'webhook/get-meals',
           queryParameters: queryParameters,
           data: _data,
         )

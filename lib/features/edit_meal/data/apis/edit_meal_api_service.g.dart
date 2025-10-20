@@ -40,7 +40,7 @@ class _EditMealApiService implements EditMealApiService {
     )
         .compose(
           _dio.options,
-          'webhook-test/edit-meal-by-id',
+          'webhook/edit-meal-by-id',
           queryParameters: queryParameters,
           data: _data,
         )

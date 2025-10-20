@@ -123,10 +123,13 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
   }
 
   FlGridData _buildGridData(double maxY) {
+    // Ensure horizontalInterval is never 0
+    final double interval = maxY > 0 ? maxY / 4 : 25.0;
+
     return FlGridData(
       show: true,
       drawVerticalLine: false,
-      horizontalInterval: maxY / 4,
+      horizontalInterval: interval,
       getDrawingHorizontalLine: (value) {
         return FlLine(color: Colors.grey[200], strokeWidth: 1);
       },
@@ -141,6 +144,9 @@ class _NutritionBarChartWidgetState extends State<NutritionBarChartWidget> {
       final total = data.protein + data.carbs + data.fats;
       if (total > maxValue) maxValue = total;
     }
+
+    // If all values are 0, return a default value to prevent division by zero
+    if (maxValue == 0) return 100;
 
     // Add 20% padding to the max value
     return (maxValue * 1.2).ceilToDouble();

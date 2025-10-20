@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -20,7 +19,7 @@ class AuthBlocListener extends StatelessWidget {
       listener: (context, state) async {
         switch (state) {
           case AuthLoading():
-            showDialog(
+            showCupertinoDialog(
               context: context,
               barrierDismissible: false,
               builder: (context) =>
@@ -53,11 +52,18 @@ class AuthBlocListener extends StatelessWidget {
           case AuthError():
             _dismissLoadingDialog(context);
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+            showCupertinoDialog(
+              context: context,
+              builder: (context) => CupertinoAlertDialog(
+                title: const Text('Authentication Error'),
                 content: Text(state.error),
-                backgroundColor: Colors.red,
-                duration: const Duration(seconds: 4),
+                actions: [
+                  CupertinoDialogAction(
+                    isDefaultAction: true,
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('OK'),
+                  ),
+                ],
               ),
             );
             break;
